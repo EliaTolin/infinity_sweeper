@@ -1,3 +1,4 @@
 class RouteConstant {
-  static const String mainRoute = '/';
+  static const String splashRoute = '/';
+  static const String homeRoute = '/home';
 }
