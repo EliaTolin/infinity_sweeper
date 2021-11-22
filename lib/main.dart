@@ -13,7 +13,7 @@ class InfinitySweeper extends StatelessWidget {
       title: "Prova",
       debugShowCheckedModeBanner: false,
       onGenerateRoute: router.generateRoute,
-      initialRoute: RouteConstant.mainRoute,
+      initialRoute: RouteConstant.splashRoute,
     );
   }
 }
