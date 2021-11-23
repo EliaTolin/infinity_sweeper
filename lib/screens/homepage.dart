@@ -7,10 +7,12 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: TopBar(size, "Infinity Sweeper"),
-      body: const Center(
-        child: Text("InfinitySweeper"),
+    return SafeArea(
+      child: Scaffold(
+        appBar: TopBar(size, "Infinity Sweeper"),
+        body: const Center(
+          child: Text("InfinitySweeper"),
+        ),
       ),
     );
   }

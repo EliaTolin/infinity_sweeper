@@ -18,6 +18,16 @@ Column buildTopBar(Size size, String title) {
                 bottomLeft: Radius.circular(StyleConstant.radiusComponent),
                 bottomRight: Radius.circular(StyleConstant.radiusComponent),
               ),
+              boxShadow: [
+                BoxShadow(
+                    offset: Offset(10, 10),
+                    color: Colors.black38,
+                    blurRadius: 20),
+                BoxShadow(
+                    offset: Offset(-10, -10),
+                    color: Colors.white.withOpacity(0.85),
+                    blurRadius: 20)
+              ],
             ),
           ),
           Positioned(
