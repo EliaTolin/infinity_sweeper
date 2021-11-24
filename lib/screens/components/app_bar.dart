@@ -18,15 +18,21 @@ Column buildTopBar(Size size, String title) {
                 bottomLeft: Radius.circular(StyleConstant.radiusComponent),
                 bottomRight: Radius.circular(StyleConstant.radiusComponent),
               ),
-              boxShadow: [
+            ),
+          ),
+          Container(
+            height: size.height,
+            decoration: const BoxDecoration(
+              color: StyleConstant.mainColor,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(StyleConstant.radiusComponent),
+                bottomRight: Radius.circular(StyleConstant.radiusComponent),
+              ),
+              boxShadow: <BoxShadow>[
                 BoxShadow(
-                    offset: Offset(10, 10),
-                    color: Colors.black38,
-                    blurRadius: 20),
-                BoxShadow(
-                    offset: Offset(-10, -10),
-                    color: Colors.white.withOpacity(0.85),
-                    blurRadius: 20)
+                  color: Color.fromRGBO(00, 00, 255, 0.2),
+                  offset: Offset(10, 10),
+                ),
               ],
             ),
           ),
