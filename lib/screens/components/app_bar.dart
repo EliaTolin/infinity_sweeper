@@ -3,9 +3,6 @@ import 'package:clay_containers/widgets/clay_container.dart';
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/constant/style_constant.dart';
 
-//TO DO
-//Delete the unused variable
-
 Column buildTopBar(Size size, String title) {
   return Column(
     children: <Widget>[
@@ -17,8 +14,6 @@ Column buildTopBar(Size size, String title) {
             parentColor: StyleConstant.mainColor,
             surfaceColor: StyleConstant.mainColor,
             height: size.height,
-            // depth: 20,
-            // spread: 20,
             curveType: CurveType.convex,
             borderRadius: StyleConstant.radiusComponent,
           ),
@@ -30,7 +25,7 @@ Column buildTopBar(Size size, String title) {
                 title,
                 style: const TextStyle(
                   fontSize: 30,
-                  //color: StyleConstant.textColor,
+                  color: StyleConstant.textAppBarColor,
                   fontWeight: FontWeight.bold,
                 ),
               ),

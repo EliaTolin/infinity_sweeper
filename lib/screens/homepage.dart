@@ -52,12 +52,18 @@ class HomePage extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: OptionCard("Difficult", () => {}),
+                    child: OptionCard(
+                      "Difficult",
+                      () => {
+                        Navigator.pushNamed(context, '/game',
+                            arguments: (route) => false)
+                      },
+                    ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: OptionCard("Settings", () => {}),
-                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.all(8),
+                  //   child: OptionCard("Settings", () => {}),
+                  // ),
                 ],
               ),
               const AutoSizeText("Develop by Tolin Elia",

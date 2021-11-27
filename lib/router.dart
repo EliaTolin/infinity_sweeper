@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/constant/route_constant.dart';
+import 'package:infinity_sweeper/screens/game_page.dart';
 import 'package:infinity_sweeper/screens/homepage.dart';
 import 'package:infinity_sweeper/splash.dart';
 
@@ -9,6 +10,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => const Splash());
     case RouteConstant.homeRoute:
       return MaterialPageRoute(builder: (context) => const HomePage());
+    case RouteConstant.gameRoute:
+      return MaterialPageRoute(builder: (context) => const GamePage());
   }
   return MaterialPageRoute(
       builder: (context) => UndefinitedScreen(name: settings.name));
