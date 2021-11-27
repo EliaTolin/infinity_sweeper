@@ -23,8 +23,16 @@ class _GamePageState extends State<GamePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Container(
-          child: getGrid(),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                child: getGrid(),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -50,12 +58,21 @@ class _GamePageState extends State<GamePage> {
     for (int i = 0; i < size; i++) {
       list.add(
         Expanded(
-          child: Text(listCell[y][i].value.toString()),
+          child: Padding(
+            padding: const EdgeInsets.all(1.0),
+            child: Container(
+              color: (listCell[y][i].isMine ? Colors.red : Colors.green),
+              child: Text(listCell[y][i].isMine
+                  ? "mina"
+                  : (listCell[y][i].value.toString())),
+            ),
+          ),
         ),
       );
     }
 
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: list,
     );
   }

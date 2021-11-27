@@ -7,6 +7,7 @@ class CellModel {
 
   CellModel(this._x, this._y) {
     _value = 0;
+    _mine = false;
   }
 
   int get x => _x;
