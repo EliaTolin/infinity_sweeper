@@ -1,5 +1,6 @@
 import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:infinity_sweeper/constant/style_constant.dart';
 import 'package:infinity_sweeper/screens/homepage.dart';
 
 class Splash extends StatefulWidget {
@@ -22,7 +23,7 @@ class _SplashPageState extends State<Splash> {
           fontWeight: FontWeight.bold,
         ),
       ),
-      backgroundColor: Colors.grey.shade400,
+      backgroundColor: StyleConstant.mainColor,
       showLoader: true,
       loadingText: const Text("Loading..."),
       navigator: const HomePage(),

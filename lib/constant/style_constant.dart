@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 class StyleConstant {
   // Color
-  static const mainColor = Colors.blue;
-  static const textColor = Colors.white;
+  static const mainColor = Color(0xFFEFF3F6);
+  static const textColor = Colors.black54;
   static const optionButtonColor = Colors.blueGrey;
+  static const appBarColor = Colors.blue;
   //Size
   static const double radiusComponent = 40;
   static const double kHeighBarRatio = 0.13;

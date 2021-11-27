@@ -1,3 +1,5 @@
+import 'package:clay_containers/constants.dart';
+import 'package:clay_containers/widgets/clay_container.dart';
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/constant/style_constant.dart';
 
@@ -10,25 +12,15 @@ Column buildTopBar(Size size, String title) {
       Stack(
         alignment: Alignment.center,
         children: <Widget>[
-          Container(
+          ClayContainer(
+            color: StyleConstant.mainColor,
+            parentColor: StyleConstant.mainColor,
+            surfaceColor: StyleConstant.mainColor,
             height: size.height,
-            decoration: const BoxDecoration(
-              color: StyleConstant.mainColor,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(StyleConstant.radiusComponent),
-                bottomRight: Radius.circular(StyleConstant.radiusComponent),
-              ),
-            ),
-          ),
-          Container(
-            height: size.height,
-            decoration: const BoxDecoration(
-              color: StyleConstant.mainColor,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(StyleConstant.radiusComponent),
-                bottomRight: Radius.circular(StyleConstant.radiusComponent),
-              ),
-            ),
+            // depth: 20,
+            // spread: 20,
+            curveType: CurveType.convex,
+            borderRadius: StyleConstant.radiusComponent,
           ),
           Positioned(
             bottom: 15,
@@ -38,7 +30,7 @@ Column buildTopBar(Size size, String title) {
                 title,
                 style: const TextStyle(
                   fontSize: 30,
-                  color: StyleConstant.textColor,
+                  //color: StyleConstant.textColor,
                   fontWeight: FontWeight.bold,
                 ),
               ),

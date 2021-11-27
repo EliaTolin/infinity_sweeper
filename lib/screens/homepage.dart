@@ -1,6 +1,9 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:infinity_sweeper/constant/style_constant.dart';
 import 'package:infinity_sweeper/screens/components/app_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:simple_shadow/simple_shadow.dart';
 
 import 'components/widget/option_card.dart';
 
@@ -12,6 +15,7 @@ class HomePage extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: TopBar(size, "Infinity Sweeper"),
+      backgroundColor: StyleConstant.mainColor,
       body: Center(
         child: Padding(
           padding: const EdgeInsets.only(
@@ -23,10 +27,16 @@ class HomePage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              SvgPicture.asset(
-                "assets/icons/bomb.svg",
-                height: 100,
-                width: 100,
+              SimpleShadow(
+                child: SvgPicture.asset(
+                  "assets/icons/icons.svg",
+                  height: 100,
+                  width: 100,
+                ),
+                opacity: 0.6, // Default: 0.5
+                color: Colors.black, // Default: Black
+                offset: const Offset(5, 5), // Default: Offset(2, 2)
+                sigma: 5, // Default: 2
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -50,6 +60,8 @@ class HomePage extends StatelessWidget {
                   ),
                 ],
               ),
+              const AutoSizeText("Develop by Tolin Elia",
+                  style: TextStyle(color: StyleConstant.textColor)),
             ],
           ),
         ),
