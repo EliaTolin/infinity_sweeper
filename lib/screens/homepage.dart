@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/screens/components/app_bar.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+import 'components/widget/option_card.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -10,37 +13,44 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: TopBar(size, "Infinity Sweeper"),
       body: Center(
-        child: Container(
-          width: 200,
-          height: 200,
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Colors.white.withOpacity(0.8),
-                offset: const Offset(-6.0, -6.0),
-                blurRadius: 16.0,
+        child: Padding(
+          padding: const EdgeInsets.only(
+            left: 8,
+            right: 8,
+            top: 20,
+            bottom: 20,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              SvgPicture.asset(
+                "assets/icons/bomb.svg",
+                height: 100,
+                width: 100,
               ),
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                offset: const Offset(6.0, 6.0),
-                blurRadius: 16.0,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: OptionCard("Easy", () => {}),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: OptionCard("Medium", () => {}),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: OptionCard("Difficult", () => {}),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: OptionCard("Settings", () => {}),
+                  ),
+                ],
               ),
             ],
-            color: const Color(0xFFEFEEEE),
-            borderRadius: BorderRadius.circular(12.0),
-          ),
-          child: const Center(
-            child: Padding(
-              padding: EdgeInsets.all(12.0),
-              child: Text(
-                "Ciao Mondo!",
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
           ),
         ),
       ),

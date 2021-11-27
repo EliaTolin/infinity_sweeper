@@ -28,12 +28,6 @@ Column buildTopBar(Size size, String title) {
                 bottomLeft: Radius.circular(StyleConstant.radiusComponent),
                 bottomRight: Radius.circular(StyleConstant.radiusComponent),
               ),
-              boxShadow: <BoxShadow>[
-                BoxShadow(
-                  color: Color.fromRGBO(00, 00, 255, 0.2),
-                  offset: Offset(10, 10),
-                ),
-              ],
             ),
           ),
           Positioned(
