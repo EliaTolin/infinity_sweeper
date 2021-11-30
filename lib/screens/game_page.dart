@@ -1,4 +1,6 @@
+import 'package:clay_containers/widgets/clay_container.dart';
 import 'package:flutter/material.dart';
+import 'package:infinity_sweeper/constant/style_constant.dart';
 import 'package:infinity_sweeper/models/cell_model.dart';
 import 'dart:math';
 
@@ -22,28 +24,30 @@ class _GamePageState extends State<GamePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                child: getGrid(),
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) => Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  child: getGrid(constraints.maxWidth),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 
   //Create grid game
-  Column getGrid() {
+  Column getGrid(final double maxWidth) {
     List<Row> rows = [];
 
     for (int i = 0; i < size; i++) {
-      rows.add(addRow(i));
+      rows.add(addRow(i, maxWidth));
     }
 
     return Column(
@@ -52,16 +56,19 @@ class _GamePageState extends State<GamePage> {
   }
 
   //Add rows to the grid
-  Row addRow(final int y) {
+  Row addRow(final int y, final double maxWidth) {
     List<Widget> list = [];
-
     for (int i = 0; i < size; i++) {
       list.add(
         Expanded(
           child: Padding(
             padding: const EdgeInsets.all(1.0),
-            child: Container(
-              color: (listCell[y][i].isMine ? Colors.red : Colors.green),
+            child: ClayContainer(
+              width: maxWidth / size,
+              height: maxWidth / size,
+              color: StyleConstant.mainColor,
+              surfaceColor: StyleConstant.mainColor,
+              parentColor: StyleConstant.mainColor,
               child: Text(listCell[y][i].isMine
                   ? "mina"
                   : (listCell[y][i].value.toString())),
