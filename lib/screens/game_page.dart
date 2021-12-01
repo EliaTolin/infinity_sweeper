@@ -4,6 +4,8 @@ import 'package:infinity_sweeper/constant/style_constant.dart';
 import 'package:infinity_sweeper/models/cell_model.dart';
 import 'dart:math';
 
+import 'components/navigation_bar.dart';
+
 class GamePage extends StatefulWidget {
   const GamePage({Key? key}) : super(key: key);
 
@@ -13,7 +15,7 @@ class GamePage extends StatefulWidget {
 
 class _GamePageState extends State<GamePage> {
   List<List<CellModel>> listCell = [];
-  final int size = 9;
+  final int size = 30;
   final int numMine = 10;
   @override
   void initState() {
@@ -24,18 +26,22 @@ class _GamePageState extends State<GamePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: const NavigationBar(),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) => Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  child: getGrid(constraints.maxWidth),
+          child: InteractiveViewer(
+            boundaryMargin: const EdgeInsets.all(100),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    child: getGrid(constraints.maxWidth),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -69,9 +75,11 @@ class _GamePageState extends State<GamePage> {
               color: StyleConstant.mainColor,
               surfaceColor: StyleConstant.mainColor,
               parentColor: StyleConstant.mainColor,
-              child: Text(listCell[y][i].isMine
-                  ? "mina"
-                  : (listCell[y][i].value.toString())),
+              child: Center(
+                child: Text(listCell[y][i].isMine
+                    ? "X"
+                    : (listCell[y][i].value.toString())),
+              ),
             ),
           ),
         ),
