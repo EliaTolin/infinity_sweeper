@@ -44,11 +44,23 @@ class HomePage extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: OptionCard("Easy", () => {}),
+                    child: OptionCard(
+                      "Easy",
+                      () => {
+                        Navigator.pushNamed(context, '/game',
+                            arguments: (route) => false)
+                      },
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: OptionCard("Medium", () => {}),
+                    child: OptionCard(
+                      "Medium",
+                      () => {
+                        Navigator.pushNamed(context, '/game',
+                            arguments: (route) => false)
+                      },
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8),

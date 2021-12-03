@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/constant/route_constant.dart';
 import 'package:infinity_sweeper/screens/game_page.dart';
-import 'package:infinity_sweeper/screens/homepage.dart';
+import 'package:infinity_sweeper/screens/home_page.dart';
 import 'package:infinity_sweeper/splash.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {

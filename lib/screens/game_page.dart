@@ -5,6 +5,7 @@ import 'package:infinity_sweeper/models/cell_model.dart';
 import 'dart:math';
 
 import 'components/navigation_bar.dart';
+import 'components/widget/minesweeper_core.dart';
 
 class GamePage extends StatefulWidget {
   const GamePage({Key? key}) : super(key: key);
@@ -28,85 +29,12 @@ class _GamePageState extends State<GamePage> {
     return Scaffold(
       bottomNavigationBar: const NavigationBar(),
       body: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) => Center(
-          child: InteractiveViewer(
-            boundaryMargin: const EdgeInsets.all(100),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    child: getGrid(constraints.maxWidth),
-                  ),
-                ),
-              ],
-            ),
-          ),
+        builder: (BuildContext context, BoxConstraints constraints) =>
+            const Center(
+          child: MineSweeperCore(),
         ),
       ),
     );
-  }
-
-  //Create grid game
-  Column getGrid(final double maxWidth) {
-    List<Row> rows = [];
-
-    for (int i = 0; i < size; i++) {
-      rows.add(addRow(i, maxWidth));
-    }
-
-    return Column(
-      children: rows,
-    );
-  }
-
-  //Add rows to the grid
-  Row addRow(final int y, final double maxWidth) {
-    List<Widget> list = [];
-    for (int i = 0; i < size; i++) {
-      list.add(
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(1.0),
-            child: ClayContainer(
-              width: maxWidth / size,
-              height: maxWidth / size,
-              color: StyleConstant.mainColor,
-              surfaceColor: StyleConstant.mainColor,
-              parentColor: StyleConstant.mainColor,
-              child: Center(
-                child: Text(listCell[y][i].isMine
-                    ? "X"
-                    : (listCell[y][i].value.toString())),
-              ),
-            ),
-          ),
-        ),
-      );
-    }
-
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: list,
-    );
-  }
-
-  void addMines(List<List<CellModel>> cellGrid, final int numMine) {
-    final int length = cellGrid[0].length;
-    final int maxLength = length * length;
-    var numRandomList = [];
-
-    for (int i = 0; i < numMine; i++) {
-      int randomNumber = 0;
-      do {
-        randomNumber = Random().nextInt(maxLength);
-      } while (numRandomList.contains(randomNumber));
-      numRandomList.add(randomNumber);
-      int x = randomNumber ~/ length;
-      int y = (randomNumber % length).toInt();
-      cellGrid[x][y].mine = true;
-    }
   }
 
   List<List<CellModel>> generateCellGrid(final int size, final int numMine) {
@@ -124,6 +52,23 @@ class _GamePageState extends State<GamePage> {
     addValueCell(cellGrid);
 
     return cellGrid;
+  }
+
+  void addMines(List<List<CellModel>> cellGrid, final int numMine) {
+    final int length = cellGrid[0].length;
+    final int maxLength = length * length;
+    var numRandomList = [];
+
+    for (int i = 0; i < numMine; i++) {
+      int randomNumber = 0;
+      do {
+        randomNumber = Random().nextInt(maxLength);
+      } while (numRandomList.contains(randomNumber));
+      numRandomList.add(randomNumber);
+      int x = randomNumber ~/ length;
+      int y = (randomNumber % length).toInt();
+      cellGrid[x][y].mine = true;
+    }
   }
 
   void addValueCell(List<List<CellModel>> cellGrid) {
