@@ -4,16 +4,18 @@ import 'package:infinity_sweeper/constant/style_constant.dart';
 import 'package:infinity_sweeper/models/cell_model.dart';
 
 class MineSweeperCore extends StatefulWidget {
-  const MineSweeperCore({Key? key}) : super(key: key);
+  final List<List<CellModel>> listCell;
+  final int sizeGrid;
+  final int numMines;
+  const MineSweeperCore(this.listCell, this.sizeGrid, this.numMines, {Key? key})
+      : super(key: key);
   @override
   _MineSweeperCore createState() => _MineSweeperCore();
 }
 
 class _MineSweeperCore extends State<MineSweeperCore> {
   //to do: parameters.
-  final int size = 5;
   final double maxWidth = 400;
-  List<List<CellModel>> listCell = [];
   @override
   Widget build(BuildContext context) {
     return InteractiveViewer(
@@ -36,7 +38,7 @@ class _MineSweeperCore extends State<MineSweeperCore> {
   Column getGrid(final double maxWidth) {
     List<Row> rows = [];
 
-    for (int i = 0; i < size; i++) {
+    for (int i = 0; i < widget.sizeGrid; i++) {
       rows.add(addRow(i, maxWidth));
     }
 
@@ -48,21 +50,21 @@ class _MineSweeperCore extends State<MineSweeperCore> {
 //Add rows to the grid
   Row addRow(final int y, final double maxWidth) {
     List<Widget> list = [];
-    for (int i = 0; i < size; i++) {
+    for (int i = 0; i < widget.sizeGrid; i++) {
       list.add(
         Expanded(
           child: Padding(
             padding: const EdgeInsets.all(1.0),
             child: ClayContainer(
-              width: maxWidth / size,
-              height: maxWidth / size,
+              width: maxWidth / widget.sizeGrid,
+              height: maxWidth / widget.sizeGrid,
               color: StyleConstant.mainColor,
               surfaceColor: StyleConstant.mainColor,
               parentColor: StyleConstant.mainColor,
               child: Center(
-                child: Text(listCell[y][i].isMine
+                child: Text(widget.listCell[y][i].isMine
                     ? "X"
-                    : (listCell[y][i].value.toString())),
+                    : (widget.listCell[y][i].value.toString())),
               ),
             ),
           ),

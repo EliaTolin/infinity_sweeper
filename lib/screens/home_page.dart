@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/constant/style_constant.dart';
 import 'package:infinity_sweeper/screens/components/app_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:infinity_sweeper/screens/page_arguments/game_arguments.dart';
 import 'package:simple_shadow/simple_shadow.dart';
 
 import 'components/widget/option_card.dart';
@@ -47,8 +48,8 @@ class HomePage extends StatelessWidget {
                     child: OptionCard(
                       "Easy",
                       () => {
-                        Navigator.pushNamed(context, '/game',
-                            arguments: (route) => false)
+                        Navigator.of(context)
+                            .pushNamed('/game', arguments: GameArguments(10, 3))
                       },
                     ),
                   ),
@@ -57,8 +58,8 @@ class HomePage extends StatelessWidget {
                     child: OptionCard(
                       "Medium",
                       () => {
-                        Navigator.pushNamed(context, '/game',
-                            arguments: (route) => false)
+                        Navigator.of(context)
+                            .pushNamed('/game', arguments: GameArguments(20, 5))
                       },
                     ),
                   ),
@@ -67,8 +68,8 @@ class HomePage extends StatelessWidget {
                     child: OptionCard(
                       "Difficult",
                       () => {
-                        Navigator.pushNamed(context, '/game',
-                            arguments: (route) => false)
+                        Navigator.of(context).pushNamed('/game',
+                            arguments: GameArguments(30, 10))
                       },
                     ),
                   ),

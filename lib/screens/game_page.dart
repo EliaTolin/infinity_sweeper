@@ -1,27 +1,23 @@
-import 'package:clay_containers/widgets/clay_container.dart';
 import 'package:flutter/material.dart';
-import 'package:infinity_sweeper/constant/style_constant.dart';
 import 'package:infinity_sweeper/models/cell_model.dart';
 import 'dart:math';
-
 import 'components/navigation_bar.dart';
 import 'components/widget/minesweeper_core.dart';
 
 class GamePage extends StatefulWidget {
-  const GamePage({Key? key}) : super(key: key);
-
+  final int sizeGrid;
+  final int numMines;
+  const GamePage(this.sizeGrid, this.numMines, {Key? key}) : super(key: key);
   @override
   _GamePageState createState() => _GamePageState();
 }
 
 class _GamePageState extends State<GamePage> {
-  List<List<CellModel>> listCell = [];
-  final int size = 30;
-  final int numMine = 10;
+  late List<List<CellModel>> listCell;
   @override
   void initState() {
     super.initState();
-    listCell = generateCellGrid(size, numMine);
+    listCell = generateCellGrid(widget.sizeGrid, widget.numMines);
   }
 
   @override
@@ -29,26 +25,26 @@ class _GamePageState extends State<GamePage> {
     return Scaffold(
       bottomNavigationBar: const NavigationBar(),
       body: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) =>
-            const Center(
-          child: MineSweeperCore(),
+        builder: (BuildContext context, BoxConstraints constraints) => Center(
+          child: MineSweeperCore(listCell, widget.sizeGrid, widget.numMines),
         ),
       ),
     );
   }
 
-  List<List<CellModel>> generateCellGrid(final int size, final int numMine) {
+  List<List<CellModel>> generateCellGrid(
+      final int sizeGrid, final int numMines) {
     List<List<CellModel>> cellGrid = [];
 
-    for (int x = 0; x < size; x++) {
+    for (int x = 0; x < sizeGrid; x++) {
       List<CellModel> row = [];
-      for (int y = 0; y < size; y++) {
+      for (int y = 0; y < sizeGrid; y++) {
         row.add(CellModel(x, y));
       }
       cellGrid.add(row);
     }
 
-    addMines(cellGrid, numMine);
+    addMines(cellGrid, numMines);
     addValueCell(cellGrid);
 
     return cellGrid;
