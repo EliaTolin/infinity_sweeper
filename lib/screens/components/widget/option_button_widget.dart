@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:infinity_sweeper/constant/style_constant.dart';
 
-class OptionCard extends StatelessWidget {
+class OptionButton extends StatelessWidget {
   final String _text;
   final Function _fun;
   final double preferedWidth;
-  const OptionCard(
+  const OptionButton(
     this._text,
     this._fun, {
     this.preferedWidth = 0,

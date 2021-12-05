@@ -2,6 +2,7 @@ import 'package:clay_containers/widgets/clay_container.dart';
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/constant/style_constant.dart';
 import 'package:infinity_sweeper/models/cell_model.dart';
+import 'package:infinity_sweeper/screens/components/widget/cell_widget.dart';
 
 class MineSweeperCore extends StatefulWidget {
   final List<List<CellModel>> listCell;
@@ -55,18 +56,8 @@ class _MineSweeperCore extends State<MineSweeperCore> {
         Expanded(
           child: Padding(
             padding: const EdgeInsets.all(1.0),
-            child: ClayContainer(
-              width: maxWidth / widget.sizeGrid,
-              height: maxWidth / widget.sizeGrid,
-              color: StyleConstant.mainColor,
-              surfaceColor: StyleConstant.mainColor,
-              parentColor: StyleConstant.mainColor,
-              child: Center(
-                child: Text(widget.listCell[y][i].isMine
-                    ? "X"
-                    : (widget.listCell[y][i].value.toString())),
-              ),
-            ),
+            child: Cell(widget.listCell[i][y], maxWidth / widget.sizeGrid,
+                maxWidth / widget.sizeGrid),
           ),
         ),
       );

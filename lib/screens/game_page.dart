@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/models/cell_model.dart';
 import 'dart:math';
 import 'components/navigation_bar.dart';
-import 'components/widget/minesweeper_core.dart';
+import 'components/widget/minesweeper_widget.dart';
 
 class GamePage extends StatefulWidget {
   final int sizeGrid;

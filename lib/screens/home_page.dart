@@ -6,7 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:infinity_sweeper/screens/page_arguments/game_arguments.dart';
 import 'package:simple_shadow/simple_shadow.dart';
 
-import 'components/widget/option_card.dart';
+import 'components/widget/option_button_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -45,7 +45,7 @@ class HomePage extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: OptionCard(
+                    child: OptionButton(
                       "Easy",
                       () => {
                         Navigator.of(context)
@@ -55,7 +55,7 @@ class HomePage extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: OptionCard(
+                    child: OptionButton(
                       "Medium",
                       () => {
                         Navigator.of(context)
@@ -65,7 +65,7 @@ class HomePage extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: OptionCard(
+                    child: OptionButton(
                       "Difficult",
                       () => {
                         Navigator.of(context).pushNamed('/game',
