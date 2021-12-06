@@ -1,5 +1,6 @@
 import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:infinity_sweeper/constant/style_constant.dart';
 import 'package:infinity_sweeper/models/cell_model.dart';
 
@@ -12,7 +13,20 @@ class Cell extends StatelessWidget {
 
   Widget getContent() {
     if (cell.isShowed) {
+      if (cell.isMine) {
+        return SvgPicture.asset(
+          "assets/icons/icons.svg",
+          height: cellWidth,
+          width: cellHeight,
+        );
+      }
       return Text(cell.value.toString());
+    }
+    if (cell.isFlaged) {
+      return Icon(
+        Icons.flag_outlined,
+        size: cellHeight,
+      );
     }
     return Container();
   }
