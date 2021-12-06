@@ -20,6 +20,9 @@ class _MineSweeperCore extends State<MineSweeperCore> {
   @override
   Widget build(BuildContext context) {
     return InteractiveViewer(
+      minScale: 0.9,
+      maxScale: 2,
+      panEnabled: true,
       boundaryMargin: const EdgeInsets.all(100),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

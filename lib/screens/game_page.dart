@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:infinity_sweeper/constant/style_constant.dart';
 import 'package:infinity_sweeper/models/cell_model.dart';
 import 'dart:math';
 import 'components/navigation_bar.dart';
@@ -22,12 +24,40 @@ class _GamePageState extends State<GamePage> {
 
   @override
   Widget build(BuildContext context) {
+    //it works with ios?
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: Colors.pink,
       bottomNavigationBar: const NavigationBar(),
-      body: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) => Center(
-          child: MineSweeperCore(listCell, widget.sizeGrid, widget.numMines),
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            height: size.height * StyleConstant.kHeighBarRatio,
+            color: Colors.blue,
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                //height: double.infinity,
+                color: Colors.green,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: LayoutBuilder(
+                    builder:
+                        (BuildContext context, BoxConstraints constraints) =>
+                            Center(
+                      child: MineSweeperCore(
+                          listCell, widget.sizeGrid, widget.numMines),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
