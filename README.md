@@ -5,15 +5,16 @@ The concept is redesign the game in new modern style.
 
 ## Getting Started
 
-TO DO:
+**TO DO:**
 
--> Create the bottom navigation bar.
-  - Tot. Mines
-  - Tot. Flag
-  - Home
+> -> Create the bottom navigation bar.
+ 	- Tot. Mines
+	 - Tot. Flag
+	 - Home
 
--> Create the game logic.
-  - Show flag.
-  - Show cell widget.
+> -> Create the game logic.
+
+	-Show flag.
+ 	-Show cell widget.
  
--> Organize the code.
+> -> Organize the code.
