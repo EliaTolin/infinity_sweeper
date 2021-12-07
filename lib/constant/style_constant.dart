@@ -8,9 +8,10 @@ class StyleConstant {
   static const textAppBarColor = Colors.black;
   static const appBarColor = Colors.blue;
   //Size
-  static const double radiusComponent = 40;
+  static const double radiusComponent = 40.0;
   static const double kHeighBarRatio = 0.13;
   static const double kSizeIcons = 50;
-  static const double kSizeIconsSmall = 40;
+  static const double kSizeIconsSmall = 40.0;
   static const double kSizeButton = 0.5;
+  static const double kPaddingComponent = 15.0;
 }

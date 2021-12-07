@@ -8,7 +8,7 @@ class CellModel {
   CellModel(this._x, this._y) {
     _value = 0;
     _mine = false;
-    _show = false;
+    _show = true;
     _flag = false;
   }
 

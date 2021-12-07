@@ -1,9 +1,10 @@
+import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:infinity_sweeper/constant/style_constant.dart';
 import 'package:infinity_sweeper/models/cell_model.dart';
+import 'package:infinity_sweeper/screens/components/navigation_bar.dart';
 import 'dart:math';
-import 'components/navigation_bar.dart';
 import 'components/widget/minesweeper_widget.dart';
 
 class GamePage extends StatefulWidget {
@@ -28,29 +29,39 @@ class _GamePageState extends State<GamePage> {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.pink,
-      bottomNavigationBar: const NavigationBar(),
+      backgroundColor: StyleConstant.mainColor,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            height: size.height * StyleConstant.kHeighBarRatio,
-            color: Colors.blue,
-          ),
+          NavigationBar(size.height),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                //height: double.infinity,
-                color: Colors.green,
+              padding: const EdgeInsets.all(StyleConstant.kPaddingComponent),
+              child: ClayContainer(
+                borderRadius: 5,
+                curveType: CurveType.none,
+                surfaceColor: StyleConstant.mainColor,
+                parentColor: StyleConstant.mainColor,
+                color: StyleConstant.mainColor,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: LayoutBuilder(
-                    builder:
-                        (BuildContext context, BoxConstraints constraints) =>
-                            Center(
-                      child: MineSweeperCore(
-                          listCell, widget.sizeGrid, widget.numMines),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      // border: Border.all(
+                      //   //color: Color(0xFFF05A22),
+                      //   style: BorderStyle.solid,
+                      //   width: 1.0,
+                      // ),
+                      //color: Colors.grey.shade300,
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    child: LayoutBuilder(
+                      builder:
+                          (BuildContext context, BoxConstraints constraints) =>
+                              Center(
+                        child: MineSweeperCore(
+                            listCell, widget.sizeGrid, widget.numMines),
+                      ),
                     ),
                   ),
                 ),

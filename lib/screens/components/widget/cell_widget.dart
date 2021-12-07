@@ -33,12 +33,34 @@ class Cell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // return Container(
+    //   width: cellWidth,
+    //   height: cellHeight,
+    //   decoration: BoxDecoration(
+    //     // border: Border.all(
+    //     //   //color: Color(0xFFF05A22),
+    //     //   style: BorderStyle.solid,
+    //     //   width: 1.0,
+    //     // ),
+    //     color: Colors.grey.shade300,
+    //     borderRadius: BorderRadius.circular(5.0),
+    //   ),
+    //   // surfacecolor: styleconstant.maincolor,
+    //   // parentcolor: styleconstant.maincolor,
+    //   child: Center(
+    //     child: getContent(),
+    //   ),
+    // );
     return ClayContainer(
       width: cellWidth,
       height: cellHeight,
-      color: StyleConstant.mainColor,
+      borderRadius: 5,
+      color: Colors.grey.shade300,
+      // surfaceColor: Colors.grey.shade300,
+      // surfaceColor: Colors.grey.shade300,
       surfaceColor: StyleConstant.mainColor,
       parentColor: StyleConstant.mainColor,
+      curveType: CurveType.concave,
       child: Center(
         child: getContent(),
       ),

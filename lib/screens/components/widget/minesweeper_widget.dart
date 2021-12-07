@@ -1,6 +1,4 @@
-import 'package:clay_containers/widgets/clay_container.dart';
 import 'package:flutter/material.dart';
-import 'package:infinity_sweeper/constant/style_constant.dart';
 import 'package:infinity_sweeper/models/cell_model.dart';
 import 'package:infinity_sweeper/screens/components/widget/cell_widget.dart';
 

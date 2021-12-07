@@ -69,7 +69,7 @@ class HomePage extends StatelessWidget {
                       "Difficult",
                       () => {
                         Navigator.of(context).pushNamed('/game',
-                            arguments: GameArguments(30, 10))
+                            arguments: GameArguments(30, 99))
                       },
                     ),
                   ),
