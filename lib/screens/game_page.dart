@@ -25,7 +25,7 @@ class _GamePageState extends State<GamePage> {
 
   @override
   Widget build(BuildContext context) {
-    //it works with ios?
+    //For android
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
