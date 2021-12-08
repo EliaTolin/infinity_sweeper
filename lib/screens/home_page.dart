@@ -1,9 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/constant/style_constant.dart';
+import 'package:infinity_sweeper/helpers/game_page_helper.dart';
+import 'package:infinity_sweeper/models/difficulty_model.dart';
 import 'package:infinity_sweeper/screens/components/app_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:infinity_sweeper/screens/page_arguments/game_arguments.dart';
 import 'package:simple_shadow/simple_shadow.dart';
 
 import 'components/widget/option_button_widget.dart';
@@ -47,36 +48,23 @@ class HomePage extends StatelessWidget {
                     padding: const EdgeInsets.all(8),
                     child: OptionButton(
                       "Easy",
-                      () => {
-                        Navigator.of(context)
-                            .pushNamed('/game', arguments: GameArguments(10, 3))
-                      },
+                      () => openGame(context, Difficulty.easy),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: OptionButton(
                       "Medium",
-                      () => {
-                        Navigator.of(context)
-                            .pushNamed('/game', arguments: GameArguments(20, 5))
-                      },
+                      () => openGame(context, Difficulty.medium),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: OptionButton(
                       "Difficult",
-                      () => {
-                        Navigator.of(context).pushNamed('/game',
-                            arguments: GameArguments(30, 99))
-                      },
+                      () => openGame(context, Difficulty.difficult),
                     ),
                   ),
-                  // Padding(
-                  //   padding: const EdgeInsets.all(8),
-                  //   child: OptionCard("Settings", () => {}),
-                  // ),
                 ],
               ),
               const AutoSizeText("Develop by Tolin Elia",

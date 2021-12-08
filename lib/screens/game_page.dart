@@ -3,24 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:infinity_sweeper/constant/style_constant.dart';
 import 'package:infinity_sweeper/models/cell_model.dart';
+import 'package:infinity_sweeper/models/cellgrid_model.dart';
+import 'package:infinity_sweeper/models/game_model.dart';
 import 'package:infinity_sweeper/screens/components/navigation_bar.dart';
-import 'dart:math';
 import 'components/widget/minesweeper_widget.dart';
+import 'package:provider/provider.dart';
 
 class GamePage extends StatefulWidget {
-  final int sizeGrid;
-  final int numMines;
-  const GamePage(this.sizeGrid, this.numMines, {Key? key}) : super(key: key);
+  const GamePage({Key? key}) : super(key: key);
   @override
   _GamePageState createState() => _GamePageState();
 }
 
 class _GamePageState extends State<GamePage> {
-  late List<List<CellModel>> listCell;
   @override
   void initState() {
     super.initState();
-    listCell = generateCellGrid(widget.sizeGrid, widget.numMines);
+    Provider.of<GameModel>(context, listen: false).generateCellGrid();
   }
 
   @override
@@ -59,8 +58,17 @@ class _GamePageState extends State<GamePage> {
                       builder:
                           (BuildContext context, BoxConstraints constraints) =>
                               Center(
-                        child: MineSweeperCore(
-                            listCell, widget.sizeGrid, widget.numMines),
+                        child: Consumer<GameModel>(
+                          builder: (context, gameModel, child) {
+                            //throw if cellGrid is null
+                            List<List<CellModel>> listCell = [];
+                            CellGrid? cellGrid =
+                                Provider.of<GameModel>(context, listen: false)
+                                    .cellGrid;
+                            return MineSweeperCore(listCell, cellGrid!.sizeGrid,
+                                cellGrid.numMines);
+                          },
+                        ),
                       ),
                     ),
                   ),
@@ -71,64 +79,5 @@ class _GamePageState extends State<GamePage> {
         ],
       ),
     );
-  }
-
-  List<List<CellModel>> generateCellGrid(
-      final int sizeGrid, final int numMines) {
-    List<List<CellModel>> cellGrid = [];
-
-    for (int x = 0; x < sizeGrid; x++) {
-      List<CellModel> row = [];
-      for (int y = 0; y < sizeGrid; y++) {
-        row.add(CellModel(x, y));
-      }
-      cellGrid.add(row);
-    }
-
-    addMines(cellGrid, numMines);
-    addValueCell(cellGrid);
-
-    return cellGrid;
-  }
-
-  void addMines(List<List<CellModel>> cellGrid, final int numMine) {
-    final int length = cellGrid[0].length;
-    final int maxLength = length * length;
-    var numRandomList = [];
-
-    for (int i = 0; i < numMine; i++) {
-      int randomNumber = 0;
-      do {
-        randomNumber = Random().nextInt(maxLength);
-      } while (numRandomList.contains(randomNumber));
-      numRandomList.add(randomNumber);
-      int x = randomNumber ~/ length;
-      int y = (randomNumber % length).toInt();
-      cellGrid[x][y].mine = true;
-    }
-  }
-
-  void addValueCell(List<List<CellModel>> cellGrid) {
-    final int length = cellGrid[0].length;
-    for (int x = 0; x < length; x++) {
-      for (int y = 0; y < length; y++) {
-        CellModel cell = cellGrid[x][y];
-        if (cell.isMine) {
-          int startX = (cell.x - 1) < 0 ? 0 : cell.x - 1;
-          int endX = (cell.x + 1) > length - 1 ? length - 1 : cell.x + 1;
-
-          int startY = (cell.y - 1) < 0 ? 0 : cell.y - 1;
-          int endY = (cell.y + 1) > length - 1 ? length - 1 : cell.y + 1;
-
-          for (int j = startX; j <= endX; j++) {
-            for (int k = startY; k <= endY; k++) {
-              if (!cellGrid[j][k].isMine) {
-                cellGrid[j][k].incValue();
-              }
-            }
-          }
-        }
-      }
-    }
   }
 }

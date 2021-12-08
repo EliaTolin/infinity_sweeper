@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/constant/route_constant.dart';
 import 'package:infinity_sweeper/screens/game_page.dart';
 import 'package:infinity_sweeper/screens/home_page.dart';
-import 'package:infinity_sweeper/screens/page_arguments/game_arguments.dart';
 import 'package:infinity_sweeper/splash.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
@@ -13,9 +12,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => const HomePage());
     case RouteConstant.gameRoute:
       {
-        final args = settings.arguments as GameArguments;
-        return MaterialPageRoute(
-            builder: (context) => GamePage(args.sizeGrid, args.numMines));
+        return MaterialPageRoute(builder: (context) => GamePage());
       }
   }
   return MaterialPageRoute(
