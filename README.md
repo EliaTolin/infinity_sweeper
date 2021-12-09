@@ -1,20 +1,10 @@
 # Infinity Sweeper
 
+![](https://getlogo.net/wp-content/uploads/2020/08/flutter-logo-vector.png)
+
 Infinity Sweeper is the new MineSweeper.
 The concept is redesign the game in new modern style.
 
-## Getting Started
+## To Do
 
-**TO DO:**
-
-> -> Create the bottom navigation bar.
- 	- Tot. Mines
-	 - Tot. Flag
-	 - Home
-
-> -> Create the game logic.
-
-	-Show flag.
- 	-Show cell widget.
- 
-> -> Organize the code.
+**See the project section KanBan if you would contribud!**
