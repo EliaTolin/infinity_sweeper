@@ -2,7 +2,6 @@ import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:infinity_sweeper/constant/style_constant.dart';
-import 'package:infinity_sweeper/models/cell_model.dart';
 import 'package:infinity_sweeper/models/cellgrid_model.dart';
 import 'package:infinity_sweeper/models/game_model.dart';
 import 'package:infinity_sweeper/screens/components/navigation_bar.dart';
@@ -19,7 +18,9 @@ class _GamePageState extends State<GamePage> {
   @override
   void initState() {
     super.initState();
-    Provider.of<GameModel>(context, listen: false).generateCellGrid();
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      Provider.of<GameModel>(context, listen: false).generateCellGrid();
+    });
   }
 
   @override
@@ -46,12 +47,6 @@ class _GamePageState extends State<GamePage> {
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
                     decoration: BoxDecoration(
-                      // border: Border.all(
-                      //   //color: Color(0xFFF05A22),
-                      //   style: BorderStyle.solid,
-                      //   width: 1.0,
-                      // ),
-                      //color: Colors.grey.shade300,
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                     child: LayoutBuilder(
@@ -61,12 +56,12 @@ class _GamePageState extends State<GamePage> {
                         child: Consumer<GameModel>(
                           builder: (context, gameModel, child) {
                             //throw if cellGrid is null
-                            List<List<CellModel>> listCell = [];
                             CellGrid? cellGrid =
                                 Provider.of<GameModel>(context, listen: false)
                                     .cellGrid;
-                            return MineSweeperCore(listCell, cellGrid!.sizeGrid,
-                                cellGrid.numMines);
+                            if (cellGrid!.grid.isEmpty) return Container();
+                            return MineSweeperCore(cellGrid.grid,
+                                cellGrid.sizeGrid, cellGrid.numMines);
                           },
                         ),
                       ),
