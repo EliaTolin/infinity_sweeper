@@ -2,7 +2,7 @@
 
 ![](https://getlogo.net/wp-content/uploads/2020/08/flutter-logo-vector.png)
 
-Infinity Sweeper is the new MineSweeper.
+Infinity Sweeper is the new MineSweeper.<br>
 The concept is redesign the game in new modern style.
 
 ## To Do
