@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:infinity_sweeper/constant/style_constant.dart';
 import 'package:infinity_sweeper/models/cellgrid_model.dart';
 import 'package:infinity_sweeper/models/game_model.dart';
-import 'package:infinity_sweeper/screens/components/navigation_bar.dart';
+import 'package:infinity_sweeper/screens/components/info_bar.dart';
 import 'components/widget/minesweeper_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -33,7 +33,7 @@ class _GamePageState extends State<GamePage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          NavigationBar(size.height),
+          InfoBar(size.height),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(StyleConstant.kPaddingComponent),

@@ -2,9 +2,9 @@ import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/constant/style_constant.dart';
 
-class NavigationBar extends StatelessWidget {
+class InfoBar extends StatelessWidget {
   final double maxHeight;
-  const NavigationBar(
+  const InfoBar(
     this.maxHeight, {
     Key? key,
   }) : super(key: key);
