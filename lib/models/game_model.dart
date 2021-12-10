@@ -66,4 +66,39 @@ class GameModel extends ChangeNotifier {
       }
     }
   }
+
+  void setFlag(int x, int y) {
+    cellGrid!.grid[x][y].flag = true;
+    notifyListeners();
+  }
+
+  void showValue(int x, int y) {
+    CellModel cell = cellGrid!.grid[x][y];
+    int size = cellGrid!.grid[0].length;
+    if (cell.x > size ||
+        cell.y > size ||
+        cell.x < 0 ||
+        cell.y < 0 ||
+        cell.isShowed) return;
+    cell.show = true;
+
+    //Count the showed cell?
+
+    if (cell.value == 0) {
+      int startX = (cell.x - 1) < 0 ? 0 : cell.x - 1;
+      int endX = (cell.x + 1) > size - 1 ? size - 1 : cell.x + 1;
+
+      int startY = (cell.y - 1) < 0 ? 0 : cell.y - 1;
+      int endY = (cell.y + 1) > size - 1 ? size - 1 : cell.y + 1;
+
+      for (int j = startX; j <= endX; j++) {
+        for (int k = startY; k <= endY; k++) {
+          if (!cellGrid!.grid[j][k].isMine &&
+              !cellGrid!.grid[j][k].isShowed &&
+              cellGrid!.grid[j][k].value == 0) showValue(j, k);
+        }
+      }
+    }
+    notifyListeners();
+  }
 }

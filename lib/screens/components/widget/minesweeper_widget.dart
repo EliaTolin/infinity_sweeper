@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/models/cell_model.dart';
-import 'package:infinity_sweeper/models/game_model.dart';
 import 'package:infinity_sweeper/screens/components/widget/cell_widget.dart';
-import 'package:provider/provider.dart';
 
 class MineSweeperCore extends StatefulWidget {
   final List<List<CellModel>> listCell;
@@ -15,14 +13,6 @@ class MineSweeperCore extends StatefulWidget {
 }
 
 class _MineSweeperCore extends State<MineSweeperCore> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   WidgetsBinding.instance?.addPostFrameCallback((_) {
-  //     Provider.of<GameModel>(context, listen: false).generateCellGrid();
-  //   });
-  // }
-
   //to do: parameters.
   final double maxWidth = 400;
   @override

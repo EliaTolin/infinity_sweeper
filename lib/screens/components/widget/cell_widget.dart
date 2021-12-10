@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:infinity_sweeper/models/cell_model.dart';
+import 'package:infinity_sweeper/models/game_model.dart';
+import 'package:provider/provider.dart';
 
 class Cell extends StatelessWidget {
   final double cellWidth;
@@ -21,9 +23,10 @@ class Cell extends StatelessWidget {
       return Text(cell.value.toString());
     }
     if (cell.isFlaged) {
-      return Icon(
-        Icons.flag_outlined,
-        size: cellHeight,
+      return SvgPicture.asset(
+        "assets/icons/flag.svg",
+        height: cellWidth,
+        width: cellHeight,
       );
     }
     return Container();
@@ -31,22 +34,31 @@ class Cell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: cellWidth,
-      height: cellHeight,
-      decoration: BoxDecoration(
-        // border: Border.all(
-        //   //color: Color(0xFFF05A22),
-        //   style: BorderStyle.solid,
-        //   width: 1.0,
-        // ),
-        color: Colors.grey.shade300,
-        borderRadius: BorderRadius.circular(5.0),
-      ),
-      // surfacecolor: styleconstant.maincolor,
-      // parentcolor: styleconstant.maincolor,
-      child: Center(
-        child: getContent(),
+    return GestureDetector(
+      onTap: () {
+        Provider.of<GameModel>(context, listen: false)
+            .showValue(cell.x, cell.y);
+      },
+      onLongPress: () {
+        Provider.of<GameModel>(context, listen: false).setFlag(cell.x, cell.y);
+      },
+      child: Container(
+        width: cellWidth,
+        height: cellHeight,
+        decoration: BoxDecoration(
+          // border: Border.all(
+          //   //color: Color(0xFFF05A22),
+          //   style: BorderStyle.solid,
+          //   width: 1.0,
+          // ),
+          color: Colors.grey.shade300,
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+        // surfacecolor: styleconstant.maincolor,
+        // parentcolor: styleconstant.maincolor,
+        child: Center(
+          child: getContent(),
+        ),
       ),
     );
     // return ClayContainer(
