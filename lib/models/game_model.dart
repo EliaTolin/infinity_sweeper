@@ -7,10 +7,14 @@ import 'package:infinity_sweeper/models/gamestate_model.dart';
 class GameModel extends ChangeNotifier {
   CellGrid? cellGrid;
   late GameState state;
+  late DateTime startGameTime;
+  late Duration durationGame;
+  late int numFlag;
 
   void initizialize(final int _sizeGrid, final int _numMines) {
     state = GameState.idle;
     cellGrid = CellGrid(_sizeGrid, _numMines);
+    numFlag = _numMines;
   }
 
   void generateCellGrid() {
@@ -70,19 +74,25 @@ class GameModel extends ChangeNotifier {
   }
 
   void setFlag(int x, int y) {
-    cellGrid!.grid[x][y].flag = true;
+    cellGrid!.grid[x][y].isFlaged ? numFlag++ : numFlag--;
+    cellGrid!.grid[x][y].flag = !cellGrid!.grid[x][y].isFlaged;
     notifyListeners();
   }
 
   void checkWin() {
     for (List<CellModel> list in cellGrid!.grid) {
       for (var element in list) {
-        if (!element.isMine && !element.isShowed) {
+        if (!element.isMine && (!element.isShowed || element.isFlaged)) {
           return;
         }
       }
     }
-    state = GameState.victory;
+    finishGame(GameState.victory);
+  }
+
+  void finishGame(GameState stateFinish) {
+    state = stateFinish;
+    durationGame = DateTime.now().difference(startGameTime);
   }
 
   void computeCell(int x, int y) {
@@ -102,10 +112,11 @@ class GameModel extends ChangeNotifier {
       }
       //set the new state of game
       state = GameState.started;
+      startGameTime = DateTime.now();
     }
     //Check if lose
     if (cell.isMine) {
-      state = GameState.lose;
+      finishGame(GameState.lose);
       return;
     }
     //Show value
