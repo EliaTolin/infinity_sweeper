@@ -1,19 +1,21 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/models/cell_model.dart';
 import 'package:infinity_sweeper/models/cellgrid_model.dart';
+import 'package:infinity_sweeper/models/gamestate_model.dart';
 
 class GameModel extends ChangeNotifier {
   CellGrid? cellGrid;
+  late GameState state;
 
   void initizialize(final int _sizeGrid, final int _numMines) {
+    state = GameState.idle;
     cellGrid = CellGrid(_sizeGrid, _numMines);
   }
 
   void generateCellGrid() {
-    //throw exception if cellGrid is null;
-
+    cellGrid!.grid.clear();
+    if (cellGrid == null) throw Exception("cellGrid == null");
     for (int x = 0; x < cellGrid!.sizeGrid; x++) {
       List<CellModel> row = [];
       for (int y = 0; y < cellGrid!.sizeGrid; y++) {
@@ -72,8 +74,41 @@ class GameModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void showValue(int x, int y) {
+  void checkWin() {
+    for (List<CellModel> list in cellGrid!.grid) {
+      for (var element in list) {
+        if (!element.isMine && !element.isShowed) {
+          return;
+        }
+      }
+    }
+    state = GameState.victory;
+  }
+
+  void computeCell(int x, int y) {
+    //Get cell
     CellModel cell = cellGrid!.grid[x][y];
+    //Prevent open bomb first time
+    if (state == GameState.idle) {
+      if (cell.isMine) {
+        bool isMine = true;
+        //if it's still a bomb, I regenerate.
+        while (isMine) {
+          generateCellGrid();
+          cell = cellGrid!.grid[x][y];
+          isMine = cell.isMine ? true : false;
+        }
+        return;
+      }
+      //set the new state of game
+      state = GameState.started;
+    }
+    //Check if lose
+    if (cell.isMine) {
+      state = GameState.lose;
+      return;
+    }
+    //Show value
     int size = cellGrid!.grid[0].length;
     if (cell.x > size ||
         cell.y > size ||
@@ -81,9 +116,6 @@ class GameModel extends ChangeNotifier {
         cell.y < 0 ||
         cell.isShowed) return;
     cell.show = true;
-
-    //Count the showed cell?
-
     if (cell.value == 0) {
       int startX = (cell.x - 1) < 0 ? 0 : cell.x - 1;
       int endX = (cell.x + 1) > size - 1 ? size - 1 : cell.x + 1;
@@ -95,10 +127,14 @@ class GameModel extends ChangeNotifier {
         for (int k = startY; k <= endY; k++) {
           if (!cellGrid!.grid[j][k].isMine &&
               !cellGrid!.grid[j][k].isShowed &&
-              cellGrid!.grid[j][k].value == 0) showValue(j, k);
+              cellGrid!.grid[j][k].value == 0) computeCell(j, k);
         }
       }
     }
+    //Count the showed cell?
+    //to do;
+    //Check if win
+    checkWin();
     notifyListeners();
   }
 }

@@ -4,5 +4,5 @@ class CellGrid {
   late int numMines;
   late int sizeGrid;
   List<List<CellModel>> grid = [];
-  CellGrid(this.numMines, this.sizeGrid);
+  CellGrid(this.sizeGrid, this.numMines);
 }

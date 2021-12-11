@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:infinity_sweeper/models/difficulty_model.dart';
+import 'package:infinity_sweeper/models/gamedifficulty_model.dart';
 import 'package:infinity_sweeper/models/game_model.dart';
 import 'package:provider/provider.dart';
 

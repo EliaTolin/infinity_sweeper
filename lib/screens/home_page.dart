@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/constant/style_constant.dart';
 import 'package:infinity_sweeper/helpers/game_page_helper.dart';
-import 'package:infinity_sweeper/models/difficulty_model.dart';
+import 'package:infinity_sweeper/models/gamedifficulty_model.dart';
 import 'package:infinity_sweeper/screens/components/app_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:simple_shadow/simple_shadow.dart';
@@ -31,7 +31,7 @@ class HomePage extends StatelessWidget {
             children: [
               SimpleShadow(
                 child: SvgPicture.asset(
-                  "assets/icons/icons.svg",
+                  "assets/icons/icon.svg",
                   height: 100,
                   width: 100,
                 ),

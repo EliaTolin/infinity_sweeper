@@ -14,8 +14,7 @@ class _SplashPageState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
     return EasySplashScreen(
-      logo: Image.network(
-          'https://cdn4.iconfinder.com/data/icons/logos-brands-5/24/flutter-512.png'),
+      logo: Image.asset('assets/icons/favicon.png'),
       title: const Text(
         "Infinity MineSweeper",
         style: TextStyle(

@@ -15,7 +15,7 @@ class Cell extends StatelessWidget {
     if (cell.isShowed) {
       if (cell.isMine) {
         return SvgPicture.asset(
-          "assets/icons/icons.svg",
+          "assets/bomb.svg",
           height: cellWidth,
           width: cellHeight,
         );
@@ -24,7 +24,7 @@ class Cell extends StatelessWidget {
     }
     if (cell.isFlaged) {
       return SvgPicture.asset(
-        "assets/icons/flag.svg",
+        "assets/flag.svg",
         height: cellWidth,
         width: cellHeight,
       );
@@ -37,7 +37,7 @@ class Cell extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Provider.of<GameModel>(context, listen: false)
-            .showValue(cell.x, cell.y);
+            .computeCell(cell.x, cell.y);
       },
       onLongPress: () {
         Provider.of<GameModel>(context, listen: false).setFlag(cell.x, cell.y);
