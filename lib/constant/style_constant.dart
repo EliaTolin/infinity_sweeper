@@ -16,6 +16,7 @@ class StyleConstant {
     Colors.orange,
     Colors.pink,
     Colors.black,
+    Colors.red,
   ];
   //Size
   static const double radiusComponent = 40.0;

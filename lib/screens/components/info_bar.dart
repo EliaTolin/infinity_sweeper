@@ -47,16 +47,23 @@ class InfoBarState extends State<InfoBar> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          AutoSizeText(
-                            numFlag.toString(),
-                            style: const TextStyle(
-                              fontSize: 30.0,
-                            ),
-                          ),
-                          const AutoSizeText(
-                            "BOMB",
-                            style: TextStyle(
-                              fontSize: 15.0,
+                          AutoSizeText.rich(
+                            TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: numFlag.toString(),
+                                  style: const TextStyle(
+                                    fontSize: 30.0,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: " BOMBS",
+                                  style: TextStyle(
+                                    fontSize: 15.0,
+                                    color: Colors.grey.shade800,
+                                  ),
+                                )
+                              ],
                             ),
                           ),
                         ],
