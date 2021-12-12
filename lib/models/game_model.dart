@@ -94,6 +94,13 @@ class GameModel extends ChangeNotifier {
 
   void finishGame(GameState stateFinish) {
     state = stateFinish;
+    if (state == GameState.lose) {
+      for (List<CellModel> list in cellGrid!.grid) {
+        for (var element in list) {
+          element.show = true;
+        }
+      }
+    }
     durationGame = DateTime.now().difference(startGameTime);
   }
 
@@ -118,11 +125,6 @@ class GameModel extends ChangeNotifier {
       state = GameState.started;
       startGameTime = DateTime.now();
     }
-    //Check if lose
-    if (cell.isMine) {
-      finishGame(GameState.lose);
-      return;
-    }
     //Show value
     int size = cellGrid!.grid[0].length;
     if (cell.x > size ||
@@ -146,6 +148,12 @@ class GameModel extends ChangeNotifier {
               cellGrid!.grid[j][k].value == 0) computeCell(j, k);
         }
       }
+    }
+    //Check if lose
+    if (cell.isMine) {
+      finishGame(GameState.lose);
+      notifyListeners();
+      return;
     }
     //Check if win
     checkWin();

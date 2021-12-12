@@ -82,9 +82,7 @@ class _MineSweeperCore extends State<MineSweeperCore> {
             ],
           ),
         );
-        break;
     }
-    return Container();
 
     // return InteractiveViewer(
     //   minScale: 1,

@@ -1,10 +1,13 @@
 import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:infinity_sweeper/constant/route_constant.dart';
 import 'package:infinity_sweeper/constant/style_constant.dart';
 import 'package:infinity_sweeper/models/cellgrid_model.dart';
 import 'package:infinity_sweeper/models/game_model.dart';
+import 'package:infinity_sweeper/models/gamestate_model.dart';
 import 'package:infinity_sweeper/screens/components/info_bar.dart';
+import 'components/custom_alert_dialog.dart';
 import 'components/widget/minesweeper_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -65,6 +68,46 @@ class _GamePageState extends State<GamePage> {
                                     .cellGrid;
                                 if (cellGrid!.grid.isEmpty) {
                                   return Container();
+                                }
+                                if (gameModel.state == GameState.victory) {
+                                  WidgetsBinding.instance?.addPostFrameCallback(
+                                    (_) {
+                                      showDialog(
+                                        barrierColor: Colors.black26,
+                                        context: context,
+                                        builder: (context) {
+                                          return const CustomAlertDialog(
+                                            title: "You win!",
+                                            description:
+                                                "Custom Popup dialog Description.",
+                                            textButton1: "Home",
+                                            textButton2: "Show grid",
+                                            route: RouteConstant.homeRoute,
+                                          );
+                                        },
+                                      );
+                                    },
+                                  );
+                                }
+                                if (gameModel.state == GameState.lose) {
+                                  WidgetsBinding.instance?.addPostFrameCallback(
+                                    (_) {
+                                      showDialog(
+                                        barrierColor: Colors.black26,
+                                        context: context,
+                                        builder: (context) {
+                                          return const CustomAlertDialog(
+                                            title: "You lose!",
+                                            description:
+                                                "When you lose, don't miss the lesson",
+                                            textButton1: "Home",
+                                            textButton2: "Show grid",
+                                            route: RouteConstant.homeRoute,
+                                          );
+                                        },
+                                      );
+                                    },
+                                  );
                                 }
                                 return MineSweeperCore(
                                     cellGrid.grid,

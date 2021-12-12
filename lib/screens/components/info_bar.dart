@@ -1,10 +1,10 @@
-import 'dart:async';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
+import 'package:infinity_sweeper/constant/route_constant.dart';
 import 'package:infinity_sweeper/constant/style_constant.dart';
 import 'package:infinity_sweeper/models/game_model.dart';
+import 'package:infinity_sweeper/screens/components/custom_alert_dialog.dart';
 import 'package:provider/provider.dart';
 
 class InfoBar extends StatefulWidget {
@@ -19,6 +19,7 @@ class InfoBar extends StatefulWidget {
 }
 
 class InfoBarState extends State<InfoBar> {
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: widget.maxHeight * StyleConstant.kHeighBarRatio,
@@ -75,7 +76,20 @@ class InfoBarState extends State<InfoBar> {
                   icon: const Icon(Icons.home),
                   iconSize: 40,
                   onPressed: () {
-                    Navigator.pop(context);
+                    showDialog(
+                      barrierColor: Colors.black26,
+                      context: context,
+                      builder: (context) {
+                        //to do, pause timer.
+                        return const CustomAlertDialog(
+                          title: "Home",
+                          description: "You want back home?",
+                          textButton1: "Home",
+                          textButton2: "Cancel",
+                          route: RouteConstant.homeRoute,
+                        );
+                      },
+                    );
                   },
                 ),
               ],

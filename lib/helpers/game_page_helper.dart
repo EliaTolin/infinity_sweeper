@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:infinity_sweeper/constant/route_constant.dart';
 import 'package:infinity_sweeper/models/gamedifficulty_model.dart';
 import 'package:infinity_sweeper/models/game_model.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +17,6 @@ void openGame(BuildContext context, Difficulty difficulty) {
       gameDifficulty = GameDifficulty.difficulty();
       break;
   }
-  Provider.of<GameModel>(context, listen: false)
-      .initizialize(gameDifficulty);
-  Navigator.of(context).pushNamed('/game');
+  Provider.of<GameModel>(context, listen: false).initizialize(gameDifficulty);
+  Navigator.of(context).pushNamed(RouteConstant.gameRoute);
 }
