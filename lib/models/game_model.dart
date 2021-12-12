@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/models/cell_model.dart';
 import 'package:infinity_sweeper/models/cellgrid_model.dart';
+import 'package:infinity_sweeper/models/gamedifficulty_model.dart';
 import 'package:infinity_sweeper/models/gamestate_model.dart';
 
 class GameModel extends ChangeNotifier {
@@ -10,11 +11,12 @@ class GameModel extends ChangeNotifier {
   late DateTime startGameTime;
   late Duration durationGame;
   late int numFlag;
-
-  void initizialize(final int _sizeGrid, final int _numMines) {
+  late Difficulty difficulty;
+  void initizialize(GameDifficulty gameDifficulty) {
     state = GameState.idle;
-    cellGrid = CellGrid(_sizeGrid, _numMines);
-    numFlag = _numMines;
+    cellGrid = CellGrid(gameDifficulty.sizeGrid, gameDifficulty.numMines);
+    numFlag = gameDifficulty.numMines;
+    difficulty = gameDifficulty.difficulty;
   }
 
   void generateCellGrid() {
@@ -100,15 +102,17 @@ class GameModel extends ChangeNotifier {
     CellModel cell = cellGrid!.grid[x][y];
     //Prevent open bomb first time
     if (state == GameState.idle) {
-      if (cell.isMine) {
+      if (cell.isMine || (cell.value != 0)) {
         bool isMine = true;
+        bool isValue = true;
         //if it's still a bomb, I regenerate.
-        while (isMine) {
+        while (isMine || isValue) {
           generateCellGrid();
           cell = cellGrid!.grid[x][y];
           isMine = cell.isMine ? true : false;
+          isValue = (cell.value != 0) ? true : false;
         }
-        return;
+        // return;
       }
       //set the new state of game
       state = GameState.started;
@@ -136,14 +140,13 @@ class GameModel extends ChangeNotifier {
 
       for (int j = startX; j <= endX; j++) {
         for (int k = startY; k <= endY; k++) {
+          if (cellGrid!.grid[j][k].value != 0) cellGrid!.grid[j][k].show = true;
           if (!cellGrid!.grid[j][k].isMine &&
               !cellGrid!.grid[j][k].isShowed &&
               cellGrid!.grid[j][k].value == 0) computeCell(j, k);
         }
       }
     }
-    //Count the showed cell?
-    //to do;
     //Check if win
     checkWin();
     notifyListeners();
