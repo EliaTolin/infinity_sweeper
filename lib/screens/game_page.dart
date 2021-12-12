@@ -46,27 +46,33 @@ class _GamePageState extends State<GamePage> {
                   color: StyleConstant.mainColor,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                      child: LayoutBuilder(
-                        builder: (BuildContext context,
-                                BoxConstraints constraints) =>
-                            Center(
-                          child: Consumer<GameModel>(
-                            builder: (context, gameModel, child) {
-                              //throw if cellGrid is null
-                              CellGrid? cellGrid =
-                                  Provider.of<GameModel>(context, listen: false)
-                                      .cellGrid;
-                              if (cellGrid!.grid.isEmpty) return Container();
-                              return MineSweeperCore(cellGrid.grid,
-                                  cellGrid.sizeGrid, cellGrid.numMines);
-                            },
+                    child: LayoutBuilder(
+                      builder:
+                          (BuildContext context, BoxConstraints constraints) {
+                        return Container(
+                          height: constraints.maxHeight,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.0),
                           ),
-                        ),
-                      ),
+                          child: Center(
+                            child: Consumer<GameModel>(
+                              builder: (context, gameModel, child) {
+                                //throw if cellGrid is null
+                                CellGrid? cellGrid = Provider.of<GameModel>(
+                                        context,
+                                        listen: false)
+                                    .cellGrid;
+                                if (cellGrid!.grid.isEmpty) {
+                                  return Container();
+                                }
+                                return MineSweeperCore(cellGrid.grid,
+                                    cellGrid.sizeGrid, cellGrid.numMines);
+                              },
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ),

@@ -13,60 +13,90 @@ class MineSweeperCore extends StatefulWidget {
 }
 
 class _MineSweeperCore extends State<MineSweeperCore> {
-  //to do: parameters.
-  final double maxWidth = 400;
+  // final double maxWidth = 400;
   @override
   Widget build(BuildContext context) {
+    List<Widget> tmp = [];
+    for (List<CellModel> list in widget.listCell) {
+      for (var element in list) {
+        var t = Padding(
+            padding: const EdgeInsets.all(1), child: Cell(element, 20, 20));
+        tmp.add(t);
+      }
+    }
     return InteractiveViewer(
       minScale: 1,
       maxScale: 4,
-      panEnabled: true,
-      boundaryMargin: const EdgeInsets.all(100),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              child: getGrid(maxWidth),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-//Create grid game
-  Column getGrid(final double maxWidth) {
-    List<Row> rows = [];
-
-    for (int i = 0; i < widget.sizeGrid; i++) {
-      rows.add(addRow(i, maxWidth));
-    }
-
-    return Column(
-      children: rows,
-    );
-  }
-
-//Add rows to the grid
-  Row addRow(final int y, final double maxWidth) {
-    List<Widget> list = [];
-    for (int i = 0; i < widget.sizeGrid; i++) {
-      list.add(
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(1.0),
-            child: Cell(widget.listCell[i][y], maxWidth / widget.sizeGrid,
-                maxWidth / widget.sizeGrid),
+      //constrained: false,
+      // boundaryMargin: const EdgeInsets.all(double.infinity),
+      child: SizedBox(
+        height: 600,
+        width: 600,
+        child: Center(
+          child: GridView.builder(
+            shrinkWrap: true,
+            padding: const EdgeInsets.all(4.0),
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: widget.sizeGrid),
+            itemCount: tmp.length,
+            addAutomaticKeepAlives: false,
+            itemBuilder: (BuildContext context, int index) {
+              return tmp[index];
+            },
           ),
         ),
-      );
-    }
-
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: list,
+      ),
     );
+
+    // return InteractiveViewer(
+    //   minScale: 1,
+    //   maxScale: 4,
+    //   panEnabled: true,
+    //   // boundaryMargin: const EdgeInsets.all(100),
+    //   constrained: false,
+    //   child: Container(
+    //     alignment: Alignment.center,
+    //     height: 600,
+    //     width: 600,
+    //     child: Center(
+    //       child: Padding(
+    //         padding: const EdgeInsets.all(8.0),
+    //         child: Container(
+    //           child: getGrid(maxWidth),
+    //         ),
+    //       ),
+    //     ),
+    //   ),
+    // );
   }
+
+// //Create grid game
+//   Column getGrid(final double maxWidth) {
+//     List<Row> rows = [];
+//     for (int i = 0; i < widget.sizeGrid; i++) {
+//       rows.add(addRow(i, maxWidth));
+//     }
+//     return Column(
+//       children: rows,
+//     );
+//   }
+
+// //Add rows to the grid
+//   Row addRow(final int y, final double maxWidth) {
+//     List<Widget> list = [];
+//     for (int i = 0; i < widget.sizeGrid; i++) {
+//       list.add(
+//         Padding(
+//           padding: const EdgeInsets.all(1.0),
+//           child: Cell(widget.listCell[i][y], 40, 40),
+//         ),
+//       );
+//     }
+
+//     return Row(
+//       mainAxisAlignment: MainAxisAlignment.center,
+//       children: list,
+//     );
+//   }
 }
