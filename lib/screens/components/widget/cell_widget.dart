@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:infinity_sweeper/constant/style_constant.dart';
 import 'package:infinity_sweeper/models/cell_model.dart';
-import 'package:infinity_sweeper/models/game_model.dart';
+import 'package:infinity_sweeper/models/provider/game_model_provider.dart';
 import 'package:provider/provider.dart';
 
 class Cell extends StatelessWidget {
@@ -46,11 +46,11 @@ class Cell extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Provider.of<GameModel>(context, listen: false)
+        Provider.of<GameModelProvider>(context, listen: false)
             .computeCell(cell.x, cell.y);
       },
       onLongPress: () {
-        Provider.of<GameModel>(context, listen: false).setFlag(cell.x, cell.y);
+        Provider.of<GameModelProvider>(context, listen: false).setFlag(cell.x, cell.y);
       },
       child: Container(
         width: cellWidth,

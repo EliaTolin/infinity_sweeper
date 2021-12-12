@@ -3,7 +3,7 @@ import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/constant/route_constant.dart';
 import 'package:infinity_sweeper/constant/style_constant.dart';
-import 'package:infinity_sweeper/models/game_model.dart';
+import 'package:infinity_sweeper/models/provider/game_model_provider.dart';
 import 'package:infinity_sweeper/screens/components/custom_alert_dialog.dart';
 import 'package:provider/provider.dart';
 
@@ -40,10 +40,10 @@ class InfoBarState extends State<InfoBar> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               // crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Consumer<GameModel>(
+                Consumer<GameModelProvider>(
                   builder: (context, gameModel, child) {
                     int numFlag =
-                        Provider.of<GameModel>(context, listen: false).numFlag;
+                        Provider.of<GameModelProvider>(context, listen: false).numFlag;
                     return Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,

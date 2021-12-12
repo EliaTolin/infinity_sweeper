@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:infinity_sweeper/models/game_model.dart';
+import 'package:infinity_sweeper/models/provider/game_model_provider.dart';
 import 'constant/route_constant.dart';
 import 'router.dart' as router;
 import 'package:provider/provider.dart';
@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 void main() => runApp(
       MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (context) => GameModel()),
+          ChangeNotifierProvider(create: (context) => GameModelProvider()),
         ],
         child: const InfinitySweeper(),
       ),

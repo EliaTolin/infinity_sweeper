@@ -5,7 +5,7 @@ import 'package:infinity_sweeper/models/cellgrid_model.dart';
 import 'package:infinity_sweeper/models/gamedifficulty_model.dart';
 import 'package:infinity_sweeper/models/gamestate_model.dart';
 
-class GameModel extends ChangeNotifier {
+class GameModelProvider extends ChangeNotifier {
   CellGrid? cellGrid;
   late GameState state;
   late DateTime startGameTime;

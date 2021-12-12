@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:infinity_sweeper/constant/route_constant.dart';
 import 'package:infinity_sweeper/constant/style_constant.dart';
 import 'package:infinity_sweeper/models/cellgrid_model.dart';
-import 'package:infinity_sweeper/models/game_model.dart';
+import 'package:infinity_sweeper/models/provider/game_model_provider.dart';
 import 'package:infinity_sweeper/models/gamestate_model.dart';
 import 'package:infinity_sweeper/screens/components/info_bar.dart';
 import 'components/custom_alert_dialog.dart';
@@ -22,7 +22,7 @@ class _GamePageState extends State<GamePage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
-      Provider.of<GameModel>(context, listen: false).generateCellGrid();
+      Provider.of<GameModelProvider>(context, listen: false).generateCellGrid();
     });
   }
 
@@ -59,10 +59,10 @@ class _GamePageState extends State<GamePage> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                           child: Center(
-                            child: Consumer<GameModel>(
+                            child: Consumer<GameModelProvider>(
                               builder: (context, gameModel, child) {
                                 //throw if cellGrid is null
-                                CellGrid? cellGrid = Provider.of<GameModel>(
+                                CellGrid? cellGrid = Provider.of<GameModelProvider>(
                                         context,
                                         listen: false)
                                     .cellGrid;
