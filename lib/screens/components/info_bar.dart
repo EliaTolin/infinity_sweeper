@@ -44,11 +44,22 @@ class InfoBarState extends State<InfoBar> {
                     int numFlag =
                         Provider.of<GameModel>(context, listen: false).numFlag;
                     return Center(
-                      child: AutoSizeText(
-                        numFlag.toString(),
-                        style: const TextStyle(
-                          fontSize: 30.0,
-                        ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          AutoSizeText(
+                            numFlag.toString(),
+                            style: const TextStyle(
+                              fontSize: 30.0,
+                            ),
+                          ),
+                          const AutoSizeText(
+                            "BOMB",
+                            style: TextStyle(
+                              fontSize: 15.0,
+                            ),
+                          ),
+                        ],
                       ),
                     );
                   },
