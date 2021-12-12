@@ -66,8 +66,11 @@ class _GamePageState extends State<GamePage> {
                                 if (cellGrid!.grid.isEmpty) {
                                   return Container();
                                 }
-                                return MineSweeperCore(cellGrid.grid,
-                                    cellGrid.sizeGrid, cellGrid.numMines);
+                                return MineSweeperCore(
+                                    cellGrid.grid,
+                                    cellGrid.sizeGrid,
+                                    cellGrid.numMines,
+                                    gameModel.difficulty);
                               },
                             ),
                           ),

@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/models/cell_model.dart';
 import 'package:infinity_sweeper/models/cellgrid_model.dart';
+import 'package:infinity_sweeper/models/gamedifficulty_model.dart';
 import 'package:infinity_sweeper/models/gamestate_model.dart';
 
 class GameModel extends ChangeNotifier {
@@ -10,11 +11,12 @@ class GameModel extends ChangeNotifier {
   late DateTime startGameTime;
   late Duration durationGame;
   late int numFlag;
-
-  void initizialize(final int _sizeGrid, final int _numMines) {
+  late Difficulty difficulty;
+  void initizialize(GameDifficulty gameDifficulty) {
     state = GameState.idle;
-    cellGrid = CellGrid(_sizeGrid, _numMines);
-    numFlag = _numMines;
+    cellGrid = CellGrid(gameDifficulty.sizeGrid, gameDifficulty.numMines);
+    numFlag = gameDifficulty.numMines;
+    difficulty = gameDifficulty.difficulty;
   }
 
   void generateCellGrid() {

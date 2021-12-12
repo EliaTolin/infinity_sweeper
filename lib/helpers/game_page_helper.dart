@@ -17,6 +17,6 @@ void openGame(BuildContext context, Difficulty difficulty) {
       break;
   }
   Provider.of<GameModel>(context, listen: false)
-      .initizialize(gameDifficulty.sizeGrid, gameDifficulty.numMines);
+      .initizialize(gameDifficulty);
   Navigator.of(context).pushNamed('/game');
 }
