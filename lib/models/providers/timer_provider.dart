@@ -1,7 +1,5 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class TimerProvider with ChangeNotifier {
   Timer? _timer;
@@ -19,32 +17,38 @@ class TimerProvider with ChangeNotifier {
   bool get startEnable => _startEnable;
   bool get stopEnable => _stopEnable;
   bool get continueEnable => _continueEnable;
+  int get getTickTimer => _timer?.tick??0;
+
+  void tickTimer() {
+    _timer = Timer.periodic(
+      const Duration(seconds: 1),
+      (timer) {
+        if (_second < 59) {
+          _second++;
+        } else {
+          _second = 0;
+          if (_minute == 59) {
+            _minute == 0;
+            _hour++;
+          } else {
+            _minute++;
+          }
+        }
+        notifyListeners();
+      },
+    );
+  }
 
   void startTimer() {
     _hour = _minute = _second = 0;
-    _startEnable = false;
+    _continueEnable= _startEnable = false;
     _stopEnable = true;
-    _continueEnable = false;
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (_second < 59) {
-        _second++;
-      } else if (_second == 59) {
-        _second = 0;
-        if (_minute == 59) {
-          _minute == 0;
-          _hour++;
-        } else {
-          _minute++;
-        }
-      }
-      notifyListeners();
-    });
+    tickTimer();
   }
 
   void stopTimer() {
     if (_startEnable == false) {
-      _startEnable = true;
-      _continueEnable = true;
+      _startEnable = _continueEnable = true;
       _stopEnable = false;
       _timer?.cancel();
       notifyListeners();
@@ -52,22 +56,8 @@ class TimerProvider with ChangeNotifier {
   }
 
   void continueTimer() {
-    _startEnable = false;
+    _startEnable = _continueEnable = false;
     _stopEnable = true;
-    _continueEnable = false;
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (_second < 59) {
-        _second++;
-      } else if (_second == 59) {
-        _second = 0;
-        if (_minute == 59) {
-          _minute == 0;
-          _hour++;
-        } else {
-          _minute++;
-        }
-      }
-      notifyListeners();
-    });
+    tickTimer();
   }
 }
