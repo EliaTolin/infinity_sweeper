@@ -43,6 +43,7 @@ class TimerProvider with ChangeNotifier {
     _hour = _minute = _second = 0;
     _continueEnable = _startEnable = false;
     _stopEnable = true;
+    if (_timer?.isActive == true) _timer?.cancel();
     tickTimer();
   }
 
@@ -56,6 +57,8 @@ class TimerProvider with ChangeNotifier {
   }
 
   void continueTimer() {
+    //check this function
+    if (_timer?.isActive == true) _timer?.cancel();
     _startEnable = _continueEnable = false;
     _stopEnable = true;
     tickTimer();

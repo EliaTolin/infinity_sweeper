@@ -6,6 +6,7 @@ import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:infinity_sweeper/models/cellgrid_model.dart';
 import 'package:infinity_sweeper/models/providers/game_model_provider.dart';
 import 'package:infinity_sweeper/models/gamestate_model.dart';
+import 'package:infinity_sweeper/models/providers/timermodel_provider.dart';
 import 'package:infinity_sweeper/screens/components/custom_alert_dialog.dart';
 import 'package:infinity_sweeper/screens/components/info_bar.dart';
 import 'package:infinity_sweeper/screens/components/widgets/minesweeper_widget.dart';
@@ -23,6 +24,7 @@ class _GamePageState extends State<GamePage> {
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       Provider.of<GameModelProvider>(context, listen: false).generateCellGrid();
+      Provider.of<TimerProvider>(context, listen: false).startTimer();
     });
   }
 
@@ -62,10 +64,7 @@ class _GamePageState extends State<GamePage> {
                             child: Consumer<GameModelProvider>(
                               builder: (context, gameModel, child) {
                                 //throw if cellGrid is null
-                                CellGrid? cellGrid =
-                                    Provider.of<GameModelProvider>(context,
-                                            listen: false)
-                                        .cellGrid;
+                                CellGrid? cellGrid = gameModel.cellGrid;
                                 if (cellGrid!.grid.isEmpty) {
                                   return Container();
                                 }
