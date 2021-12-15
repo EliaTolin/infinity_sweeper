@@ -17,7 +17,7 @@ class TimerProvider with ChangeNotifier {
   bool get startEnable => _startEnable;
   bool get stopEnable => _stopEnable;
   bool get continueEnable => _continueEnable;
-  int get getTickTimer => _timer?.tick??0;
+  int get getTickTimer => _timer?.tick ?? 0;
 
   void tickTimer() {
     _timer = Timer.periodic(
@@ -41,7 +41,7 @@ class TimerProvider with ChangeNotifier {
 
   void startTimer() {
     _hour = _minute = _second = 0;
-    _continueEnable= _startEnable = false;
+    _continueEnable = _startEnable = false;
     _stopEnable = true;
     tickTimer();
   }
@@ -59,5 +59,13 @@ class TimerProvider with ChangeNotifier {
     _startEnable = _continueEnable = false;
     _stopEnable = true;
     tickTimer();
+  }
+
+  String getString() {
+    return _hour.toString() +
+        ':' +
+        _minute.toString() +
+        ':' +
+        _second.toString();
   }
 }
