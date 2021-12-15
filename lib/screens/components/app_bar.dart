@@ -1,7 +1,7 @@
 import 'package:clay_containers/constants.dart';
 import 'package:clay_containers/widgets/clay_container.dart';
 import 'package:flutter/material.dart';
-import 'package:infinity_sweeper/constant/style_constant.dart';
+import 'package:infinity_sweeper/constants/style_constant.dart';
 
 Column buildTopBar(Size size, String title) {
   return Column(

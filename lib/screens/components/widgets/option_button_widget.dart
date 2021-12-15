@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:infinity_sweeper/constant/style_constant.dart';
+import 'package:infinity_sweeper/constants/style_constant.dart';
 
 class OptionButton extends StatelessWidget {
   final String _text;

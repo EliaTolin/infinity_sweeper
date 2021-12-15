@@ -1,7 +1,7 @@
 import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:infinity_sweeper/constant/style_constant.dart';
-import 'package:infinity_sweeper/screens/home_page.dart';
+import 'package:infinity_sweeper/constants/style_constant.dart';
+import 'package:infinity_sweeper/screens/pages/home_page.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);

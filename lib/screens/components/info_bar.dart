@@ -1,9 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
-import 'package:infinity_sweeper/constant/route_constant.dart';
-import 'package:infinity_sweeper/constant/style_constant.dart';
-import 'package:infinity_sweeper/models/provider/game_model_provider.dart';
+import 'package:infinity_sweeper/constants/route_constant.dart';
+import 'package:infinity_sweeper/constants/style_constant.dart';
+import 'package:infinity_sweeper/models/providers/game_model_provider.dart';
 import 'package:infinity_sweeper/screens/components/custom_alert_dialog.dart';
 import 'package:provider/provider.dart';
 
@@ -43,7 +43,8 @@ class InfoBarState extends State<InfoBar> {
                 Consumer<GameModelProvider>(
                   builder: (context, gameModel, child) {
                     int numFlag =
-                        Provider.of<GameModelProvider>(context, listen: false).numFlag;
+                        Provider.of<GameModelProvider>(context, listen: false)
+                            .numFlag;
                     return Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,

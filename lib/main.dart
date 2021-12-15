@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:infinity_sweeper/models/provider/game_model_provider.dart';
-import 'constant/route_constant.dart';
+import 'package:infinity_sweeper/models/providers/game_model_provider.dart';
+import 'constants/route_constant.dart';
 import 'router.dart' as router;
 import 'package:provider/provider.dart';
 

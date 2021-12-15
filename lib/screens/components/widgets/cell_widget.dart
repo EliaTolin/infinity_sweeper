@@ -1,9 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:infinity_sweeper/constant/style_constant.dart';
+import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:infinity_sweeper/models/cell_model.dart';
-import 'package:infinity_sweeper/models/provider/game_model_provider.dart';
+import 'package:infinity_sweeper/models/providers/game_model_provider.dart';
 import 'package:provider/provider.dart';
 
 class Cell extends StatelessWidget {
@@ -50,7 +50,8 @@ class Cell extends StatelessWidget {
             .computeCell(cell.x, cell.y);
       },
       onLongPress: () {
-        Provider.of<GameModelProvider>(context, listen: false).setFlag(cell.x, cell.y);
+        Provider.of<GameModelProvider>(context, listen: false)
+            .setFlag(cell.x, cell.y);
       },
       child: Container(
         width: cellWidth,

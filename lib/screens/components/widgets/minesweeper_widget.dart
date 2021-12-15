@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/models/cell_model.dart';
 import 'package:infinity_sweeper/models/gamedifficulty_model.dart';
-import 'package:infinity_sweeper/screens/components/widget/cell_widget.dart';
+import 'package:infinity_sweeper/screens/components/widgets/cell_widget.dart';
 
 class MineSweeperCore extends StatefulWidget {
   final List<List<CellModel>> listCell;

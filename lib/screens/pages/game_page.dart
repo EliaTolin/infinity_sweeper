@@ -1,14 +1,14 @@
 import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:infinity_sweeper/constant/route_constant.dart';
-import 'package:infinity_sweeper/constant/style_constant.dart';
+import 'package:infinity_sweeper/constants/route_constant.dart';
+import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:infinity_sweeper/models/cellgrid_model.dart';
-import 'package:infinity_sweeper/models/provider/game_model_provider.dart';
+import 'package:infinity_sweeper/models/providers/game_model_provider.dart';
 import 'package:infinity_sweeper/models/gamestate_model.dart';
+import 'package:infinity_sweeper/screens/components/custom_alert_dialog.dart';
 import 'package:infinity_sweeper/screens/components/info_bar.dart';
-import 'components/custom_alert_dialog.dart';
-import 'components/widget/minesweeper_widget.dart';
+import 'package:infinity_sweeper/screens/components/widgets/minesweeper_widget.dart';
 import 'package:provider/provider.dart';
 
 class GamePage extends StatefulWidget {
@@ -62,10 +62,10 @@ class _GamePageState extends State<GamePage> {
                             child: Consumer<GameModelProvider>(
                               builder: (context, gameModel, child) {
                                 //throw if cellGrid is null
-                                CellGrid? cellGrid = Provider.of<GameModelProvider>(
-                                        context,
-                                        listen: false)
-                                    .cellGrid;
+                                CellGrid? cellGrid =
+                                    Provider.of<GameModelProvider>(context,
+                                            listen: false)
+                                        .cellGrid;
                                 if (cellGrid!.grid.isEmpty) {
                                   return Container();
                                 }
