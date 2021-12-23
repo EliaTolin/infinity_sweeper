@@ -75,9 +75,28 @@ class InfoBarState extends State<InfoBar> {
                   },
                 ),
                 Consumer<TimerProvider>(
-                    builder: (context, timeProvider, child) {
-                  return Text(timeProvider.getString());
-                }),
+                  builder: (context, timeProvider, child) {
+                    return AutoSizeText.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: timeProvider.getString(),
+                            style: const TextStyle(
+                              fontSize: 30.0,
+                            ),
+                          ),
+                          TextSpan(
+                            text: " TIME",
+                            style: TextStyle(
+                              fontSize: 15.0,
+                              color: Colors.grey.shade800,
+                            ),
+                          )
+                        ],
+                      ),
+                    );
+                  },
+                ),
                 IconButton(
                   icon: const Icon(Icons.home),
                   iconSize: 40,

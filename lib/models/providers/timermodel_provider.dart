@@ -65,10 +65,18 @@ class TimerProvider with ChangeNotifier {
   }
 
   String getString() {
-    return _hour.toString() +
-        ':' +
-        _minute.toString() +
-        ':' +
-        _second.toString();
+    String time = "";
+    if (_hour != 0) {
+      time += _hour.toString() + ":";
+    }
+    if (_minute != 0) {
+      if (_hour != 0 && _minute < 10) time += "0";
+      time += _minute.toString() + ":";
+    }
+    if (_second < 10) {
+      time += "0";
+    }
+    time += _second.toString();
+    return time;
   }
 }
