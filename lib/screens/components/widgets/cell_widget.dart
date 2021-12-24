@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:infinity_sweeper/models/cell_model.dart';
-import 'package:infinity_sweeper/models/providers/game_model_provider.dart';
+import 'package:infinity_sweeper/models/providers/game_provider.dart';
 import 'package:provider/provider.dart';
 
 class Cell extends StatelessWidget {

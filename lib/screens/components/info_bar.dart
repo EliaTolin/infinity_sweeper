@@ -3,8 +3,8 @@ import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/constants/route_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
-import 'package:infinity_sweeper/models/providers/game_model_provider.dart';
-import 'package:infinity_sweeper/models/providers/timermodel_provider.dart';
+import 'package:infinity_sweeper/models/providers/game_provider.dart';
+import 'package:infinity_sweeper/models/providers/time_provider.dart';
 import 'package:infinity_sweeper/screens/components/widgets/alert_dialog/custom_alert_dialog.dart';
 import 'package:provider/provider.dart';
 
