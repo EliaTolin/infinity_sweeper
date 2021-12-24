@@ -1,6 +1,9 @@
 import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:infinity_sweeper/constants/data_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
+import 'package:infinity_sweeper/helpers/sharedpref_helper.dart';
+import 'package:infinity_sweeper/models/infogame_model.dart';
 import 'package:infinity_sweeper/screens/pages/home_page.dart';
 
 class Splash extends StatefulWidget {
