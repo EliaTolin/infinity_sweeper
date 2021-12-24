@@ -20,6 +20,12 @@ class GamePage extends StatefulWidget {
 
 class _GamePageState extends State<GamePage> {
   @override
+  void deactivate() {
+    super.deactivate();
+    Provider.of<TimerProvider>(context, listen: false).resetTimer();
+  }
+
+  @override
   void initState() {
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
@@ -69,16 +75,23 @@ class _GamePageState extends State<GamePage> {
                                   return Container();
                                 }
                                 if (gameModel.state == GameState.victory) {
+                                  Provider.of<TimerProvider>(context,
+                                          listen: false)
+                                      .stopTimer(notify: false);
                                   WidgetsBinding.instance?.addPostFrameCallback(
                                     (_) {
                                       showDialog(
                                         barrierColor: Colors.black26,
                                         context: context,
                                         builder: (context) {
-                                          return const CustomAlertDialog(
+                                          return CustomAlertDialog(
                                             title: "You win!",
                                             description:
-                                                "Custom Popup dialog Description.",
+                                                "You completated game in " +
+                                                    Provider.of<TimerProvider>(
+                                                            context,
+                                                            listen: false)
+                                                        .getString(),
                                             textButton1: "Home",
                                             textButton2: "Show grid",
                                             route: RouteConstant.homeRoute,
@@ -89,6 +102,9 @@ class _GamePageState extends State<GamePage> {
                                   );
                                 }
                                 if (gameModel.state == GameState.lose) {
+                                  Provider.of<TimerProvider>(context,
+                                          listen: false)
+                                      .stopTimer(notify: false);
                                   WidgetsBinding.instance?.addPostFrameCallback(
                                     (_) {
                                       showDialog(

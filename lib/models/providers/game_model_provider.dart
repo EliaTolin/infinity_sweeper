@@ -8,8 +8,6 @@ import 'package:infinity_sweeper/models/gamestate_model.dart';
 class GameModelProvider extends ChangeNotifier {
   CellGrid? cellGrid;
   late GameState state;
-  late DateTime startGameTime;
-  late Duration durationGame;
   late int numFlag;
   late Difficulty difficulty;
   void initizialize(GameDifficulty gameDifficulty) {
@@ -101,7 +99,6 @@ class GameModelProvider extends ChangeNotifier {
         }
       }
     }
-    durationGame = DateTime.now().difference(startGameTime);
   }
 
   void computeCell(int x, int y) {
@@ -123,7 +120,6 @@ class GameModelProvider extends ChangeNotifier {
       }
       //set the new state of game
       state = GameState.started;
-      startGameTime = DateTime.now();
     }
     //Show value
     int size = cellGrid!.grid[0].length;

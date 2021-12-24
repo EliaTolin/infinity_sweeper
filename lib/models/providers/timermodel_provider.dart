@@ -40,20 +40,24 @@ class TimerProvider with ChangeNotifier {
   }
 
   void startTimer() {
-    _hour = _minute = _second = 0;
+    resetTimer();
     _continueEnable = _startEnable = false;
     _stopEnable = true;
     if (_timer?.isActive == true) _timer?.cancel();
     tickTimer();
   }
 
-  void stopTimer() {
+  void stopTimer({bool notify = true}) {
     if (_startEnable == false) {
       _startEnable = _continueEnable = true;
       _stopEnable = false;
       _timer?.cancel();
-      notifyListeners();
+      if (notify) notifyListeners();
     }
+  }
+
+  void resetTimer() {
+    _hour = _minute = _second = 0;
   }
 
   void continueTimer() {
