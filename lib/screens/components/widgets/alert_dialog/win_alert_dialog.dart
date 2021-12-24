@@ -153,18 +153,18 @@ class _WinAlertDialogState extends State<WinAlertDialog> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            widget.record
-                ? AutoSizeText(
-                    "RECORD!",
-                    style: TextStyle(
-                      fontSize: 17.0,
-                      color: Colors.grey.shade800,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )
-                : Container(),
           ],
         ),
+        widget.record
+            ? AutoSizeText(
+                "TIME RECORD!",
+                style: TextStyle(
+                  fontSize: 17.0,
+                  color: Colors.grey.shade800,
+                  fontWeight: FontWeight.bold,
+                ),
+              )
+            : Container(),
       ],
     );
   }
