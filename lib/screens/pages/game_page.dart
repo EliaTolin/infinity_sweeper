@@ -1,9 +1,12 @@
 import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:infinity_sweeper/constants/data_constant.dart';
 import 'package:infinity_sweeper/constants/route_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
+import 'package:infinity_sweeper/helpers/sharedpref_helper.dart';
 import 'package:infinity_sweeper/models/cellgrid_model.dart';
+import 'package:infinity_sweeper/models/gamedata_model.dart';
 import 'package:infinity_sweeper/models/providers/game_provider.dart';
 import 'package:infinity_sweeper/models/gamestate_model.dart';
 import 'package:infinity_sweeper/models/providers/time_provider.dart';
@@ -20,15 +23,23 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
+  GameData gameData = GameData();
+  SharedPrefHelper sharedPref = SharedPrefHelper();
+
   @override
   void deactivate() {
     super.deactivate();
     Provider.of<TimerProvider>(context, listen: false).resetTimer();
   }
 
+  void loadData() async {
+    gameData = GameData.fromJson(await sharedPref.read(DataConstant.data));
+  }
+
   @override
   void initState() {
     super.initState();
+    loadData();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       Provider.of<GameModelProvider>(context, listen: false).generateCellGrid();
       Provider.of<TimerProvider>(context, listen: false).startTimer();
@@ -76,9 +87,21 @@ class _GamePageState extends State<GamePage> {
                                   return Container();
                                 }
                                 if (gameModel.state == GameState.victory) {
+                                  bool record = false;
+                                  int durationGame = int.parse(
+                                      Provider.of<TimerProvider>(context,
+                                              listen: false)
+                                          .getString());
                                   Provider.of<TimerProvider>(context,
                                           listen: false)
                                       .stopTimer(notify: false);
+                                  if (gameData.recordTimeInSecond >
+                                      durationGame) {
+                                    record = true;
+                                    gameData.recordTimeInSecond = durationGame;
+                                  }
+                                  gameData.addWin();
+                                  sharedPref.save(DataConstant.data, gameData);
                                   WidgetsBinding.instance?.addPostFrameCallback(
                                     (_) {
                                       showDialog(
@@ -91,10 +114,8 @@ class _GamePageState extends State<GamePage> {
                                             textButton2: "Show grid",
                                             route: RouteConstant.homeRoute,
                                             durationGame:
-                                                Provider.of<TimerProvider>(
-                                                        context,
-                                                        listen: false)
-                                                    .getString(),
+                                                durationGame.toString(),
+                                            record: record,
                                           );
                                         },
                                       );
@@ -105,6 +126,8 @@ class _GamePageState extends State<GamePage> {
                                   Provider.of<TimerProvider>(context,
                                           listen: false)
                                       .stopTimer(notify: false);
+                                  gameData.addLose();
+                                  sharedPref.save(DataConstant.data, gameData);
                                   WidgetsBinding.instance?.addPostFrameCallback(
                                     (_) {
                                       showDialog(

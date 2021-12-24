@@ -1,11 +1,11 @@
-class InfoGame {
+class GameData {
   int gameWin = 0;
   int gameLose = 0;
   int recordTimeInSecond = 0;
 
-  InfoGame();
+  GameData();
 
-  InfoGame.fromJson(Map<String, dynamic> json)
+  GameData.fromJson(Map<String, dynamic> json)
       : gameWin = json['gameWin'],
         gameLose = json['gameLose'],
         recordTimeInSecond = json['recordTimeInSecond'];

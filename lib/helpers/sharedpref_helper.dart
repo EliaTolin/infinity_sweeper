@@ -2,7 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 class SharedPrefHelper {
-  read(String key) async {
+  Future<Map<String, dynamic>> read(String key) async {
     final prefs = await SharedPreferences.getInstance();
     var data = prefs.getString(key);
     return json.decode(data.toString());
@@ -18,8 +18,9 @@ class SharedPrefHelper {
     prefs.remove(key);
   }
 
-  exist(String key) async {
+  Future<bool> exist(String key) async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.containsKey(key);
+    bool exist = prefs.containsKey(key);
+    return exist;
   }
 }
