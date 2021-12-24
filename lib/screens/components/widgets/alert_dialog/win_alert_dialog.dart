@@ -1,27 +1,46 @@
-//custom_alert_dialog.dart
-
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
-class CustomAlertDialog extends StatefulWidget {
+class WinAlertDialog extends StatefulWidget {
   final String textButton1;
   final String textButton2;
-  final String route; 
-  const CustomAlertDialog({
+  final String route;
+  final String title;
+  final String durationGame;
+  const WinAlertDialog({
     Key? key,
     required this.title,
-    required this.description,
     required this.textButton1,
     required this.textButton2,
     required this.route,
+    required this.durationGame,
   }) : super(key: key);
 
-  final String title, description;
-
   @override
-  _CustomAlertDialogState createState() => _CustomAlertDialogState();
+  _WinAlertDialogState createState() => _WinAlertDialogState();
 }
 
-class _CustomAlertDialogState extends State<CustomAlertDialog> {
+class _WinAlertDialogState extends State<WinAlertDialog> {
+  late String timeUnitGame;
+
+  @override
+  void initState() {
+    super.initState();
+    //Check unit of measure from number of units
+    final int count = ':'.allMatches(widget.durationGame).length;
+    switch (count) {
+      case 2:
+        timeUnitGame = "Hours";
+        break;
+      case 1:
+        timeUnitGame = "Minutes";
+        break;
+      case 0:
+        timeUnitGame = "Seconds";
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -34,7 +53,7 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
         mainAxisSize: MainAxisSize.min,
         children: [
           const SizedBox(height: 15),
-          Text(
+          AutoSizeText(
             widget.title,
             style: const TextStyle(
               fontSize: 18.0,
@@ -42,7 +61,7 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
             ),
           ),
           const SizedBox(height: 15),
-          Text(widget.description),
+          body(),
           const SizedBox(height: 20),
           const Divider(
             height: 1,
@@ -57,7 +76,7 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
                     .pushNamedAndRemoveUntil(widget.route, (route) => false);
               },
               child: Center(
-                child: Text(
+                child: AutoSizeText(
                   widget.textButton1,
                   style: TextStyle(
                     fontSize: 18.0,
@@ -83,19 +102,58 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
               onTap: () {
                 Navigator.of(context).pop();
               },
-              child: Center(
-                child: Text(
-                  widget.textButton2,
-                  style: const TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.normal,
-                  ),
+              child: const Center(
+                child: Icon(
+                  Icons.remove_red_eye_outlined,
+                  size: 30,
                 ),
               ),
             ),
           ),
         ],
       ),
+    );
+  }
+
+  Widget body() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        AutoSizeText(
+          "You completed game in :",
+          style: TextStyle(
+            fontSize: 15.0,
+            color: Colors.grey.shade800,
+          ),
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AutoSizeText(
+              widget.durationGame,
+              style: TextStyle(
+                fontSize: 17.0,
+                color: Colors.grey.shade800,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(
+              width: 3,
+            ),
+            AutoSizeText(
+              timeUnitGame,
+              style: TextStyle(
+                fontSize: 14.0,
+                color: Colors.grey.shade800,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

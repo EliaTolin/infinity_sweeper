@@ -6,7 +6,6 @@ import 'package:infinity_sweeper/models/gamedifficulty_model.dart';
 import 'package:infinity_sweeper/screens/components/app_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:infinity_sweeper/screens/components/widgets/option_button_widget.dart';
-import 'package:simple_shadow/simple_shadow.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -30,8 +29,8 @@ class HomePage extends StatelessWidget {
             children: [
               SvgPicture.asset(
                 "assets/icons/icon.svg",
-                height: 100,
-                width: 100,
+                height: 200,
+                width: 200,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,

@@ -5,7 +5,7 @@ import 'package:infinity_sweeper/constants/route_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:infinity_sweeper/models/providers/game_model_provider.dart';
 import 'package:infinity_sweeper/models/providers/timermodel_provider.dart';
-import 'package:infinity_sweeper/screens/components/custom_alert_dialog.dart';
+import 'package:infinity_sweeper/screens/components/widgets/alert_dialog/custom_alert_dialog.dart';
 import 'package:provider/provider.dart';
 
 class InfoBar extends StatefulWidget {

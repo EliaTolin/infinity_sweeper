@@ -7,7 +7,8 @@ import 'package:infinity_sweeper/models/cellgrid_model.dart';
 import 'package:infinity_sweeper/models/providers/game_model_provider.dart';
 import 'package:infinity_sweeper/models/gamestate_model.dart';
 import 'package:infinity_sweeper/models/providers/timermodel_provider.dart';
-import 'package:infinity_sweeper/screens/components/custom_alert_dialog.dart';
+import 'package:infinity_sweeper/screens/components/widgets/alert_dialog/custom_alert_dialog.dart';
+import 'package:infinity_sweeper/screens/components/widgets/alert_dialog/win_alert_dialog.dart';
 import 'package:infinity_sweeper/screens/components/info_bar.dart';
 import 'package:infinity_sweeper/screens/components/widgets/minesweeper_widget.dart';
 import 'package:provider/provider.dart';
@@ -84,17 +85,16 @@ class _GamePageState extends State<GamePage> {
                                         barrierColor: Colors.black26,
                                         context: context,
                                         builder: (context) {
-                                          return CustomAlertDialog(
+                                          return WinAlertDialog(
                                             title: "You win!",
-                                            description:
-                                                "You completated game in " +
-                                                    Provider.of<TimerProvider>(
-                                                            context,
-                                                            listen: false)
-                                                        .getString(),
                                             textButton1: "Home",
                                             textButton2: "Show grid",
                                             route: RouteConstant.homeRoute,
+                                            durationGame:
+                                                Provider.of<TimerProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .getString(),
                                           );
                                         },
                                       );
