@@ -8,7 +8,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:infinity_sweeper/screens/components/widgets/option_button_widget.dart';
 import 'package:simple_shadow/simple_shadow.dart';
 
-
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -29,16 +28,10 @@ class HomePage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              SimpleShadow(
-                child: SvgPicture.asset(
-                  "assets/icons/icon.svg",
-                  height: 100,
-                  width: 100,
-                ),
-                opacity: 0.6, // Default: 0.5
-                color: Colors.black, // Default: Black
-                offset: const Offset(5, 5), // Default: Offset(2, 2)
-                sigma: 5, // Default: 2
+              SvgPicture.asset(
+                "assets/icons/icon.svg",
+                height: 100,
+                width: 100,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
