@@ -79,79 +79,82 @@ class _GamePageState extends State<GamePage> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                           child: Center(
-                            child: Consumer<GameModelProvider>(
-                              builder: (context, gameModel, child) {
-                                //throw if cellGrid is null
-                                CellGrid? cellGrid = gameModel.cellGrid;
-                                if (cellGrid!.grid.isEmpty) {
-                                  return Container();
-                                }
-                                if (gameModel.state == GameState.victory) {
-                                  bool record = false;
-                                  int durationGame = int.parse(
-                                      Provider.of<TimerProvider>(context,
-                                              listen: false)
-                                          .getString());
-                                  Provider.of<TimerProvider>(context,
-                                          listen: false)
-                                      .stopTimer(notify: false);
-                                  if (gameData.recordTimeInSecond >
-                                      durationGame) {
-                                    record = true;
-                                    gameData.recordTimeInSecond = durationGame;
-                                  }
-                                  gameData.addWin();
-                                  sharedPref.save(DataConstant.data, gameData);
-                                  WidgetsBinding.instance?.addPostFrameCallback(
-                                    (_) {
-                                      showDialog(
-                                        barrierColor: Colors.black26,
-                                        context: context,
-                                        builder: (context) {
-                                          return WinAlertDialog(
-                                            title: "You win!",
-                                            textButton1: "Home",
-                                            textButton2: "Show grid",
-                                            route: RouteConstant.homeRoute,
-                                            durationGame:
-                                                durationGame.toString(),
-                                            record: record,
+                            child: Consumer<TimerProvider>(
+                              builder: (context, timerProvider, child) {
+                                return Consumer<GameModelProvider>(
+                                  builder: (context, gameModel, child) {
+                                    //throw if cellGrid is null
+                                    CellGrid? cellGrid = gameModel.cellGrid;
+                                    if (cellGrid!.grid.isEmpty) {
+                                      return Container();
+                                    }
+                                    if (gameModel.state == GameState.victory) {
+                                      bool record = false;
+                                      int durationGame =
+                                          int.parse(timerProvider.getString());
+                                      timerProvider.stopTimer(notify: false);
+                                      if (gameData.recordTimeInSecond >
+                                          durationGame) {
+                                        record = true;
+                                        gameData.recordTimeInSecond =
+                                            durationGame;
+                                      }
+                                      gameData.addWin();
+                                      sharedPref.save(
+                                          DataConstant.data, gameData);
+                                      WidgetsBinding.instance
+                                          ?.addPostFrameCallback(
+                                        (_) {
+                                          showDialog(
+                                            barrierColor: Colors.black26,
+                                            context: context,
+                                            builder: (context) {
+                                              return WinAlertDialog(
+                                                title: "You win!",
+                                                textButton1: "Home",
+                                                textButton2: "Show grid",
+                                                route: RouteConstant.homeRoute,
+                                                durationGame:
+                                                    durationGame.toString(),
+                                                record: record,
+                                              );
+                                            },
                                           );
                                         },
                                       );
-                                    },
-                                  );
-                                }
-                                if (gameModel.state == GameState.lose) {
-                                  Provider.of<TimerProvider>(context,
-                                          listen: false)
-                                      .stopTimer(notify: false);
-                                  gameData.addLose();
-                                  sharedPref.save(DataConstant.data, gameData);
-                                  WidgetsBinding.instance?.addPostFrameCallback(
-                                    (_) {
-                                      showDialog(
-                                        barrierColor: Colors.black26,
-                                        context: context,
-                                        builder: (context) {
-                                          return const CustomAlertDialog(
-                                            title: "You lose!",
-                                            description:
-                                                "When you lose, don't miss the lesson",
-                                            textButton1: "Home",
-                                            textButton2: "Show grid",
-                                            route: RouteConstant.homeRoute,
+                                    }
+                                    if (gameModel.state == GameState.lose) {
+                                      timerProvider.stopTimer(notify: false);
+                                      gameData.addLose();
+                                      sharedPref.save(
+                                          DataConstant.data, gameData);
+                                      WidgetsBinding.instance
+                                          ?.addPostFrameCallback(
+                                        (_) {
+                                          showDialog(
+                                            barrierColor: Colors.black26,
+                                            context: context,
+                                            builder: (context) {
+                                              return const CustomAlertDialog(
+                                                title: "You lose!",
+                                                description:
+                                                    "When you lose, don't miss the lesson",
+                                                textButton1: "Home",
+                                                textButton2: "Show grid",
+                                                route: RouteConstant.homeRoute,
+                                              );
+                                            },
                                           );
                                         },
                                       );
-                                    },
-                                  );
-                                }
-                                return MineSweeperCore(
-                                    cellGrid.grid,
-                                    cellGrid.sizeGrid,
-                                    cellGrid.numMines,
-                                    gameModel.difficulty);
+                                    }
+                                    return MineSweeperCore(
+                                        cellGrid.grid,
+                                        cellGrid.sizeGrid,
+                                        cellGrid.numMines,
+                                        gameModel.difficulty);
+                                  },
+                                );
                               },
                             ),
                           ),

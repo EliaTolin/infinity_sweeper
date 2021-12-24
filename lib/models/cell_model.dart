@@ -5,6 +5,7 @@ class CellModel {
   late bool _mine;
   late bool _flag;
   late bool _show;
+  
   CellModel(this._x, this._y) {
     _value = 0;
     _mine = false;
