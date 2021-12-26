@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:infinity_sweeper/screens/components/app_bar.dart';
+import 'package:infinity_sweeper/screens/components/piechart.dart';
 
 class StatsPage extends StatefulWidget {
   const StatsPage({Key? key}) : super(key: key);
@@ -26,9 +27,16 @@ class _StatsPageState extends State<StatsPage> {
             top: 20,
             bottom: 20,
           ),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: const Icon(Icons.home, size: 30),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const PieChartSample2(),
+              const SizedBox(height: 20),
+              IconButton(
+                onPressed: () => Navigator.pop(context),
+                icon: const Icon(Icons.home, size: 30),
+              ),
+            ],
           ),
         ),
       ),
