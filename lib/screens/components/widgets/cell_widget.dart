@@ -41,37 +41,12 @@ class Cell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return GestureDetector(
-    //   onTap: () {
-    //     Provider.of<GameModelProvider>(context, listen: false)
-    //         .computeCell(cell.x, cell.y);
-    //   },
-    //   onLongPress: () {
-    //     Provider.of<GameModelProvider>(context, listen: false)
-    //         .setFlag(cell.x, cell.y);
-    //   },
-    //   child: Container(
-    //     width: cellWidth,
-    //     height: cellHeight,
-    //     decoration: BoxDecoration(
-    //       color: cell.isShowed ? Colors.grey.shade300 : Colors.grey.shade400,
-    //       borderRadius: BorderRadius.circular(5.0),
-    //     ),
-    //     child: Padding(
-    //       padding: const EdgeInsets.all(3.0),
-    //       child: Center(
-    //         child: getContent(),
-    //       ),
-    //     ),
-    //   ),
-    // );
-
     return HoldTimeoutDetector(
       onTimeout: () => Provider.of<GameModelProvider>(context, listen: false)
           .setFlag(cell.x, cell.y),
       onTimerInitiated: () {},
       onCancel: () {},
-      holdTimeout: const Duration(milliseconds: 300),
+      holdTimeout: const Duration(milliseconds: 100),
       enableHapticFeedback: false,
       child: InkWell(
         onTap: () => Provider.of<GameModelProvider>(context, listen: false)
