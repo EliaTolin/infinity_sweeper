@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:infinity_sweeper/constants/route_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:infinity_sweeper/helpers/homepage_helper.dart';
 import 'package:infinity_sweeper/models/gamedifficulty_model.dart';
@@ -29,8 +30,8 @@ class HomePage extends StatelessWidget {
             children: [
               SvgPicture.asset(
                 "assets/icons/icon.svg",
-                height: 200,
-                width: 200,
+                height: 150,
+                width: 150,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -55,6 +56,15 @@ class HomePage extends StatelessWidget {
                     child: OptionButton(
                       "Difficult",
                       () => openGame(context, Difficulty.difficult),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: OptionButton(
+                      "Statistics",
+                      () => Navigator.of(context)
+                          .pushNamed(RouteConstant.statsRoute),
                     ),
                   ),
                 ],
