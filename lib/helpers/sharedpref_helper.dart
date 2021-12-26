@@ -18,6 +18,11 @@ class SharedPrefHelper {
     prefs.remove(key);
   }
 
+  Future<bool> clear() async {
+    final prefs = await SharedPreferences.getInstance();
+    return await prefs.clear();
+  }
+
   Future<bool> exist(String key) async {
     final prefs = await SharedPreferences.getInstance();
     bool exist = prefs.containsKey(key);

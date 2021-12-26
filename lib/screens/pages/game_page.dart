@@ -2,16 +2,14 @@ import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:infinity_sweeper/constants/data_constant.dart';
-import 'package:infinity_sweeper/constants/route_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
+import 'package:infinity_sweeper/helpers/gamepage_helper.dart';
 import 'package:infinity_sweeper/helpers/sharedpref_helper.dart';
 import 'package:infinity_sweeper/models/cellgrid_model.dart';
 import 'package:infinity_sweeper/models/gamedata_model.dart';
 import 'package:infinity_sweeper/models/providers/game_provider.dart';
 import 'package:infinity_sweeper/models/gamestate_model.dart';
 import 'package:infinity_sweeper/models/providers/time_provider.dart';
-import 'package:infinity_sweeper/screens/components/widgets/alert_dialog/custom_alert_dialog.dart';
-import 'package:infinity_sweeper/screens/components/widgets/alert_dialog/win_alert_dialog.dart';
 import 'package:infinity_sweeper/screens/components/info_bar.dart';
 import 'package:infinity_sweeper/screens/components/widgets/minesweeper_widget.dart';
 import 'package:provider/provider.dart';
@@ -33,7 +31,11 @@ class _GamePageState extends State<GamePage> {
   }
 
   void loadData() async {
-    gameData = GameData.fromJson(await sharedPref.read(DataConstant.data));
+    if (!await sharedPref.exist(DataConstant.data)) {
+      sharedPref.save(DataConstant.data, GameData());
+    }
+    var data = await sharedPref.read(DataConstant.data);
+    gameData = GameData.fromJson(data);
   }
 
   @override
@@ -79,82 +81,33 @@ class _GamePageState extends State<GamePage> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                           child: Center(
-                            child: Consumer<TimerProvider>(
-                              builder: (context, timerProvider, child) {
-                                return Consumer<GameModelProvider>(
-                                  builder: (context, gameModel, child) {
-                                    //throw if cellGrid is null
-                                    CellGrid? cellGrid = gameModel.cellGrid;
-                                    if (cellGrid!.grid.isEmpty) {
-                                      return Container();
-                                    }
-                                    if (gameModel.state == GameState.victory) {
-                                      bool record = false;
-                                      int durationGame =
-                                          int.parse(timerProvider.getString());
-                                      timerProvider.stopTimer(notify: false);
-                                      if (gameData.recordTimeInSecond >
-                                          durationGame) {
-                                        record = true;
-                                        gameData.recordTimeInSecond =
-                                            durationGame;
-                                      }
-                                      gameData.addWin();
-                                      sharedPref.save(
-                                          DataConstant.data, gameData);
-                                      WidgetsBinding.instance
-                                          ?.addPostFrameCallback(
-                                        (_) {
-                                          showDialog(
-                                            barrierColor: Colors.black26,
-                                            context: context,
-                                            builder: (context) {
-                                              return WinAlertDialog(
-                                                title: "You win!",
-                                                textButton1: "Home",
-                                                textButton2: "Show grid",
-                                                route: RouteConstant.homeRoute,
-                                                durationGame:
-                                                    durationGame.toString(),
-                                                record: record,
-                                              );
-                                            },
-                                          );
-                                        },
-                                      );
-                                    }
-                                    if (gameModel.state == GameState.lose) {
-                                      timerProvider.stopTimer(notify: false);
-                                      gameData.addLose();
-                                      sharedPref.save(
-                                          DataConstant.data, gameData);
-                                      WidgetsBinding.instance
-                                          ?.addPostFrameCallback(
-                                        (_) {
-                                          showDialog(
-                                            barrierColor: Colors.black26,
-                                            context: context,
-                                            builder: (context) {
-                                              return const CustomAlertDialog(
-                                                title: "You lose!",
-                                                description:
-                                                    "When you lose, don't miss the lesson",
-                                                textButton1: "Home",
-                                                textButton2: "Show grid",
-                                                route: RouteConstant.homeRoute,
-                                              );
-                                            },
-                                          );
-                                        },
-                                      );
-                                    }
-                                    return MineSweeperCore(
-                                        cellGrid.grid,
-                                        cellGrid.sizeGrid,
-                                        cellGrid.numMines,
-                                        gameModel.difficulty);
-                                  },
-                                );
+                            child: Consumer<GameModelProvider>(
+                              builder: (context, gameModel, child) {
+                                //throw if cellGrid is null
+                                CellGrid? cellGrid = gameModel.cellGrid;
+                                if (cellGrid!.grid.isEmpty) {
+                                  return Container();
+                                }
+
+                                if (gameModel.state == GameState.victory) {
+                                  WidgetsBinding.instance?.addPostFrameCallback(
+                                    (_) {
+                                      computeWinGame(context, gameData);
+                                    },
+                                  );
+                                }
+                                if (gameModel.state == GameState.lose) {
+                                  WidgetsBinding.instance?.addPostFrameCallback(
+                                    (_) {
+                                      computeLoseGame(context, gameData);
+                                    },
+                                  );
+                                }
+                                return MineSweeperCore(
+                                    cellGrid.grid,
+                                    cellGrid.sizeGrid,
+                                    cellGrid.numMines,
+                                    gameModel.difficulty);
                               },
                             ),
                           ),
