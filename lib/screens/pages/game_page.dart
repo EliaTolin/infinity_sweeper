@@ -1,8 +1,8 @@
 import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:infinity_sweeper/constants/data_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
+import 'package:infinity_sweeper/helpers/gamedata_helper.dart';
 import 'package:infinity_sweeper/helpers/gamepage_helper.dart';
 import 'package:infinity_sweeper/helpers/sharedpref_helper.dart';
 import 'package:infinity_sweeper/models/cellgrid_model.dart';
@@ -30,18 +30,15 @@ class _GamePageState extends State<GamePage> {
     Provider.of<TimerProvider>(context, listen: false).resetTimer();
   }
 
-  void loadData() async {
-    if (!await sharedPref.exist(DataConstant.data)) {
-      sharedPref.save(DataConstant.data, GameData());
-    }
-    var data = await sharedPref.read(DataConstant.data);
-    gameData = GameData.fromJson(data);
+  void initizialize() async {
+    gameData = await loadData();
+    setState(() {});
   }
 
   @override
   void initState() {
     super.initState();
-    loadData();
+    initizialize();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       Provider.of<GameModelProvider>(context, listen: false).generateCellGrid();
       Provider.of<TimerProvider>(context, listen: false).startTimer();

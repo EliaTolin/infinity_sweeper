@@ -30,7 +30,7 @@ class _StatsPageState extends State<StatsPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const PieChartSample2(),
+              const PieChartStats(),
               const SizedBox(height: 20),
               IconButton(
                 onPressed: () => Navigator.pop(context),

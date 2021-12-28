@@ -1,5 +1,8 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:infinity_sweeper/constants/style_constant.dart';
+import 'package:infinity_sweeper/helpers/gamedata_helper.dart';
+import 'package:infinity_sweeper/models/gamedata_model.dart';
 
 extension ColorExtension on Color {
   /// Convert the color to a darken color based on the [percent]
@@ -11,15 +14,29 @@ extension ColorExtension on Color {
   }
 }
 
-class PieChartSample2 extends StatefulWidget {
-  const PieChartSample2({Key? key}) : super(key: key);
+class PieChartStats extends StatefulWidget {
+  const PieChartStats({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => PieChart2State();
 }
 
 class PieChart2State extends State {
+  static const winIndex = 0;
+  static const loseIndex = 1;
   int touchedIndex = -1;
+  GameData gameData = GameData();
+
+  void initizialize() async {
+    gameData = await loadData();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initizialize();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,37 +82,21 @@ class PieChart2State extends State {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Widget>[
+              children: <Widget>[
                 Indicator(
-                  color: Color(0xff0293ee),
-                  text: 'First',
-                  isSquare: true,
+                  color: StyleConstant.colorNumber[winIndex],
+                  text: 'Win',
+                  isSquare: false,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 4,
                 ),
                 Indicator(
-                  color: Color(0xfff8b250),
-                  text: 'Second',
-                  isSquare: true,
+                  color: StyleConstant.colorNumber[loseIndex],
+                  text: 'Lose',
+                  isSquare: false,
                 ),
-                SizedBox(
-                  height: 4,
-                ),
-                Indicator(
-                  color: Color(0xff845bef),
-                  text: 'Third',
-                  isSquare: true,
-                ),
-                SizedBox(
-                  height: 4,
-                ),
-                Indicator(
-                  color: Color(0xff13d38e),
-                  text: 'Fourth',
-                  isSquare: true,
-                ),
-                SizedBox(
+                const SizedBox(
                   height: 18,
                 ),
               ],
@@ -110,54 +111,48 @@ class PieChart2State extends State {
   }
 
   List<PieChartSectionData> showingSections() {
-    return List.generate(4, (i) {
+    int numWin = gameData.gameWin;
+    int numLose = gameData.gameLose;
+    late String percLose;
+    late String percWin;
+    int totalGames = numWin + numLose;
+    if (totalGames != 0) {
+      double tmpWin = (totalGames / numWin) * 100;
+      percWin = tmpWin.toStringAsFixed(2) + " %";
+
+      double tmpLose = (totalGames / numLose) * 100;
+      percLose = tmpLose.toStringAsFixed(2) + " %";
+    } else {
+      percLose = percWin = "0%";
+    }
+
+    return List.generate(2, (i) {
       final isTouched = i == touchedIndex;
       final fontSize = isTouched ? 25.0 : 16.0;
       final radius = isTouched ? 60.0 : 50.0;
       switch (i) {
-        case 0:
+        case winIndex:
           return PieChartSectionData(
-            color: const Color(0xff0293ee),
-            value: 40,
-            title: '40%',
-            radius: radius,
-            titleStyle: TextStyle(
+              color: StyleConstant.colorNumber[winIndex],
+              value: numWin.toDouble(),
+              title: percWin,
+              radius: radius,
+              titleStyle: TextStyle(
                 fontSize: fontSize,
                 fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff)),
-          );
-        case 1:
+                color: StyleConstant.textColor,
+              ));
+        case loseIndex:
           return PieChartSectionData(
-            color: const Color(0xfff8b250),
-            value: 30,
-            title: '30%',
+            color: StyleConstant.colorNumber[loseIndex],
+            value: numLose.toDouble(),
+            title: percLose,
             radius: radius,
             titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff)),
-          );
-        case 2:
-          return PieChartSectionData(
-            color: const Color(0xff845bef),
-            value: 15,
-            title: '15%',
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff)),
-          );
-        case 3:
-          return PieChartSectionData(
-            color: const Color(0xff13d38e),
-            value: 15,
-            title: '15%',
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff)),
+              fontSize: fontSize,
+              fontWeight: FontWeight.bold,
+              color: StyleConstant.textColor,
+            ),
           );
         default:
           throw Error();
