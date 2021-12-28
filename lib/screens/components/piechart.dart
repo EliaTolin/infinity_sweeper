@@ -4,16 +4,6 @@ import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:infinity_sweeper/helpers/gamedata_helper.dart';
 import 'package:infinity_sweeper/models/gamedata_model.dart';
 
-extension ColorExtension on Color {
-  /// Convert the color to a darken color based on the [percent]
-  Color darken([int percent = 40]) {
-    assert(1 <= percent && percent <= 100);
-    final value = 1 - percent / 100;
-    return Color.fromARGB(alpha, (red * value).round(), (green * value).round(),
-        (blue * value).round());
-  }
-}
-
 class PieChartStats extends StatefulWidget {
   const PieChartStats({Key? key}) : super(key: key);
 
@@ -42,70 +32,66 @@ class PieChart2State extends State {
   Widget build(BuildContext context) {
     return AspectRatio(
       aspectRatio: 1.3,
-      child: Card(
-        color: Colors.white,
-        child: Row(
-          children: <Widget>[
-            const SizedBox(
-              height: 18,
-            ),
-            Expanded(
-              child: AspectRatio(
-                aspectRatio: 1,
-                child: PieChart(
-                  PieChartData(
-                      pieTouchData: PieTouchData(
-                          enabled: true,
-                          touchCallback:
-                              (FlTouchEvent event, pieTouchResponse) {
-                            setState(() {
-                              if (!event.isInterestedForInteractions ||
-                                  pieTouchResponse == null ||
-                                  pieTouchResponse.touchedSection == null) {
-                                touchedIndex = -1;
-                                return;
-                              }
-                              touchedIndex = pieTouchResponse
-                                  .touchedSection!.touchedSectionIndex;
-                            });
-                          }),
-                      borderData: FlBorderData(
-                        show: false,
-                      ),
-                      sectionsSpace: 0,
-                      centerSpaceRadius: 40,
-                      sections: showingSections()),
-                ),
+      child: Row(
+        children: <Widget>[
+          const SizedBox(
+            height: 18,
+          ),
+          Expanded(
+            child: AspectRatio(
+              aspectRatio: 1,
+              child: PieChart(
+                PieChartData(
+                    pieTouchData: PieTouchData(
+                        enabled: true,
+                        touchCallback: (FlTouchEvent event, pieTouchResponse) {
+                          setState(() {
+                            if (!event.isInterestedForInteractions ||
+                                pieTouchResponse == null ||
+                                pieTouchResponse.touchedSection == null) {
+                              touchedIndex = -1;
+                              return;
+                            }
+                            touchedIndex = pieTouchResponse
+                                .touchedSection!.touchedSectionIndex;
+                          });
+                        }),
+                    borderData: FlBorderData(
+                      show: false,
+                    ),
+                    sectionsSpace: 0,
+                    centerSpaceRadius: 40,
+                    sections: showingSections()),
               ),
             ),
-            Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Indicator(
-                  color: StyleConstant.colorNumber[winIndex],
-                  text: 'Win',
-                  isSquare: false,
-                ),
-                const SizedBox(
-                  height: 4,
-                ),
-                Indicator(
-                  color: StyleConstant.colorNumber[loseIndex],
-                  text: 'Lose',
-                  isSquare: false,
-                ),
-                const SizedBox(
-                  height: 18,
-                ),
-              ],
-            ),
-            const SizedBox(
-              width: 28,
-            ),
-          ],
-        ),
+          ),
+          Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Indicator(
+                color: StyleConstant.colorNumber[winIndex],
+                text: 'Win',
+                isSquare: false,
+              ),
+              const SizedBox(
+                height: 4,
+              ),
+              Indicator(
+                color: StyleConstant.colorNumber[loseIndex],
+                text: 'Lose',
+                isSquare: false,
+              ),
+              const SizedBox(
+                height: 18,
+              ),
+            ],
+          ),
+          const SizedBox(
+            width: 28,
+          ),
+        ],
       ),
     );
   }

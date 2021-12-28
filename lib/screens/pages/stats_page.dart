@@ -1,3 +1,4 @@
+import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
@@ -30,7 +31,14 @@ class _StatsPageState extends State<StatsPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const PieChartStats(),
+              ClayContainer(
+                borderRadius: 5,
+                curveType: CurveType.none,
+                surfaceColor: StyleConstant.mainColor,
+                parentColor: StyleConstant.mainColor,
+                color: StyleConstant.mainColor,
+                child: const PieChartStats(),
+              ),
               const SizedBox(height: 20),
               IconButton(
                 onPressed: () => Navigator.pop(context),
