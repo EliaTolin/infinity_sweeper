@@ -1,7 +1,13 @@
+import 'package:infinity_sweeper/constants/data_constant.dart';
+
 class GameData {
   int gameWin = 0;
   int gameLose = 0;
-  int recordTimeInSecond = 0;
+  Map<String, dynamic> recordTimeInSecond = {
+    DataConstant.recordEasy: 0,
+    DataConstant.recordMedium: 0,
+    DataConstant.recordDifficult: 0
+  };
 
   GameData();
 

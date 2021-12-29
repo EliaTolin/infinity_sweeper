@@ -6,17 +6,17 @@ class GameDifficulty {
   late Difficulty difficulty;
 
   GameDifficulty.easy() {
-    numMines = 10;
+    numMines = 1;
     sizeGrid = 9;
     difficulty = Difficulty.easy;
   }
   GameDifficulty.medium() {
-    numMines = 40;
+    numMines = 1;
     sizeGrid = 16;
     difficulty = Difficulty.medium;
   }
   GameDifficulty.difficulty() {
-    numMines = 243;
+    numMines = 1;
     sizeGrid = 30;
     difficulty = Difficulty.difficult;
   }

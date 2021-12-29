@@ -2,6 +2,7 @@ import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/constants/data_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
+import 'package:infinity_sweeper/helpers/gamedata_helper.dart';
 import 'package:infinity_sweeper/helpers/sharedpref_helper.dart';
 import 'package:infinity_sweeper/models/gamedata_model.dart';
 import 'package:infinity_sweeper/screens/pages/home_page.dart';
@@ -16,9 +17,7 @@ class Splash extends StatefulWidget {
 class _SplashPageState extends State<Splash> {
   SharedPrefHelper sharePref = SharedPrefHelper();
   void initizialize() async {
-    if (!await sharePref.exist(DataConstant.data)) {
-      sharePref.save(DataConstant.data, GameData());
-    }
+    initializeData();
   }
 
   @override

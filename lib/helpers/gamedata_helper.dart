@@ -10,3 +10,12 @@ Future<GameData> loadData({SharedPrefHelper? sharedPref}) async {
   var data = await sharedPref.read(DataConstant.data);
   return GameData.fromJson(data);
 }
+
+void initializeData({SharedPrefHelper? sharedPref}) async {
+  sharedPref = sharedPref ?? SharedPrefHelper();
+  if (!await sharedPref.exist(DataConstant.data)) {
+    sharedPref.save(DataConstant.data, GameData());
+  }
+
+  sharedPref.clear();
+}

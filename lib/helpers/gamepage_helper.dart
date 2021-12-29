@@ -1,23 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/constants/data_constant.dart';
 import 'package:infinity_sweeper/constants/route_constant.dart';
+import 'package:infinity_sweeper/helpers/difficulty_helper.dart';
 import 'package:infinity_sweeper/helpers/sharedpref_helper.dart';
 import 'package:infinity_sweeper/models/gamedata_model.dart';
+import 'package:infinity_sweeper/models/gamedifficulty_model.dart';
 import 'package:infinity_sweeper/models/providers/time_provider.dart';
 import 'package:infinity_sweeper/screens/components/widgets/alert_dialog/custom_alert_dialog.dart';
 import 'package:infinity_sweeper/screens/components/widgets/alert_dialog/win_alert_dialog.dart';
 import 'package:provider/provider.dart';
 
-void computeWinGame(BuildContext context, GameData gameData) {
+void computeWinGame(
+    BuildContext context, GameData gameData, Difficulty gameDifficulty) {
   SharedPrefHelper sharedPref = SharedPrefHelper();
   bool record = false;
   Provider.of<TimerProvider>(context, listen: false).stopTimer(notify: false);
+  String gameDataDifficulty = getDifficultyDataString(gameDifficulty);
   int durationGame =
       Provider.of<TimerProvider>(context, listen: false).getTimeInSecond();
-  if (gameData.recordTimeInSecond > durationGame ||
-      gameData.recordTimeInSecond == 0) {
+  if (gameData.recordTimeInSecond[gameDataDifficulty]! > durationGame ||
+      gameData.recordTimeInSecond[gameDataDifficulty] == 0) {
     record = true;
-    gameData.recordTimeInSecond = durationGame;
+    gameData.recordTimeInSecond[gameDataDifficulty] = durationGame;
   }
   gameData.addWin();
   sharedPref.save(DataConstant.data, gameData);

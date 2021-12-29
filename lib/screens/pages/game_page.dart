@@ -89,7 +89,8 @@ class _GamePageState extends State<GamePage> {
                                 if (gameModel.state == GameState.victory) {
                                   WidgetsBinding.instance?.addPostFrameCallback(
                                     (_) {
-                                      computeWinGame(context, gameData);
+                                      computeWinGame(context, gameData,
+                                          gameModel.difficulty);
                                     },
                                   );
                                 }

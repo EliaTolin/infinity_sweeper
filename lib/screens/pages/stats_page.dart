@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:infinity_sweeper/constants/data_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:infinity_sweeper/helpers/gamedata_helper.dart';
 import 'package:infinity_sweeper/models/gamedata_model.dart';
@@ -67,32 +68,16 @@ class _StatsPageState extends State<StatsPage> {
                   padding: const EdgeInsets.all(15.0),
                   child: Column(
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: const [
-                          AutoSizeText(
-                            "Your record is: ",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: StyleConstant.textColor,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          AutoSizeText(
-                            formatHHMMSS(gameData.recordTimeInSecond),
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ],
-                      )
+                      getRecordElement("easy",
+                          gameData.recordTimeInSecond[DataConstant.recordEasy]),
+                      getRecordElement(
+                          "medium",
+                          gameData
+                              .recordTimeInSecond[DataConstant.recordMedium]),
+                      getRecordElement(
+                          "difficult",
+                          gameData.recordTimeInSecond[
+                              DataConstant.recordDifficult]),
                     ],
                   ),
                 ),
@@ -106,6 +91,39 @@ class _StatsPageState extends State<StatsPage> {
           ),
         ),
       ),
+    );
+  }
+
+  Column getRecordElement(String difficulty, int? second) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            AutoSizeText(
+              "Your record for " + difficulty + " is :",
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                color: StyleConstant.textColor,
+              ),
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            AutoSizeText(
+              formatHHMMSS(second!),
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: Colors.black,
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 

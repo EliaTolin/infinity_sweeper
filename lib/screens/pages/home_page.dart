@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/constants/route_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
-import 'package:infinity_sweeper/helpers/homepage_helper.dart';
+import 'package:infinity_sweeper/helpers/difficulty_helper.dart';
 import 'package:infinity_sweeper/models/gamedifficulty_model.dart';
 import 'package:infinity_sweeper/screens/components/app_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -41,21 +41,21 @@ class HomePage extends StatelessWidget {
                     padding: const EdgeInsets.all(8),
                     child: OptionButton(
                       "Easy",
-                      () => openGame(context, Difficulty.easy),
+                      () => openDifficultyGame(context, Difficulty.easy),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: OptionButton(
                       "Medium",
-                      () => openGame(context, Difficulty.medium),
+                      () => openDifficultyGame(context, Difficulty.medium),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: OptionButton(
                       "Difficult",
-                      () => openGame(context, Difficulty.difficult),
+                      () => openDifficultyGame(context, Difficulty.difficult),
                     ),
                   ),
                   const SizedBox(height: 15),
