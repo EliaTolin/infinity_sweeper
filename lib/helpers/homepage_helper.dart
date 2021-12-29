@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:infinity_sweeper/constants/data_constant.dart';
 import 'package:infinity_sweeper/constants/route_constant.dart';
 import 'package:infinity_sweeper/models/gamedifficulty_model.dart';
 import 'package:infinity_sweeper/models/providers/game_provider.dart';
 import 'package:provider/provider.dart';
 
-void openDifficultyGame(BuildContext context, Difficulty difficulty) {
+void openGame(BuildContext context, Difficulty difficulty) {
   GameDifficulty gameDifficulty;
   switch (difficulty) {
     case Difficulty.easy:
@@ -21,15 +20,4 @@ void openDifficultyGame(BuildContext context, Difficulty difficulty) {
   Provider.of<GameModelProvider>(context, listen: false)
       .initizialize(gameDifficulty);
   Navigator.of(context).pushNamed(RouteConstant.gameRoute);
-}
-
-String getDifficultyDataString(Difficulty difficulty) {
-  switch (difficulty) {
-    case Difficulty.easy:
-      return DataConstant.recordEasy;
-    case Difficulty.medium:
-      return DataConstant.recordMedium;
-    case Difficulty.difficult:
-      return DataConstant.recordDifficult;
-  }
 }

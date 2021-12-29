@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:infinity_sweeper/constants/data_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
-import 'package:infinity_sweeper/helpers/gamedata_helper.dart';
 import 'package:infinity_sweeper/models/gamedata_model.dart';
+import 'package:infinity_sweeper/models/providers/gamedata_provider.dart';
 import 'package:infinity_sweeper/screens/components/app_bar_back.dart';
 import 'package:infinity_sweeper/screens/components/stats_pie_chart.dart';
+import 'package:provider/provider.dart';
 
 class StatsPage extends StatefulWidget {
   const StatsPage({Key? key}) : super(key: key);
@@ -18,16 +19,12 @@ class StatsPage extends StatefulWidget {
 
 class _StatsPageState extends State<StatsPage> {
   GameData gameData = GameData();
-
-  void initizialize() async {
-    gameData = await loadData();
-    setState(() {});
-  }
-
   @override
   void initState() {
     super.initState();
-    initizialize();
+    gameData =
+        Provider.of<GameDataProvider>(context, listen: false).getGameData();
+    setState(() {});
   }
 
   @override

@@ -1,11 +1,10 @@
 import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:infinity_sweeper/constants/data_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
-import 'package:infinity_sweeper/helpers/gamedata_helper.dart';
-import 'package:infinity_sweeper/helpers/sharedpref_helper.dart';
-import 'package:infinity_sweeper/models/gamedata_model.dart';
 import 'package:infinity_sweeper/screens/pages/home_page.dart';
+import 'package:provider/provider.dart';
+
+import 'models/providers/gamedata_provider.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
@@ -15,14 +14,9 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashPageState extends State<Splash> {
-  SharedPrefHelper sharePref = SharedPrefHelper();
-  void initizialize() async {
-    initializeData();
-  }
-
   @override
   Widget build(BuildContext context) {
-    initizialize();
+    Provider.of<GameDataProvider>(context, listen: false).initializeData();
     return EasySplashScreen(
       logo: Image.asset('assets/icons/icon_trasparent.png'),
       title: const Text(

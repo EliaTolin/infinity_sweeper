@@ -2,11 +2,8 @@ import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
-import 'package:infinity_sweeper/helpers/gamedata_helper.dart';
 import 'package:infinity_sweeper/helpers/gamepage_helper.dart';
-import 'package:infinity_sweeper/helpers/sharedpref_helper.dart';
 import 'package:infinity_sweeper/models/cellgrid_model.dart';
-import 'package:infinity_sweeper/models/gamedata_model.dart';
 import 'package:infinity_sweeper/models/providers/game_provider.dart';
 import 'package:infinity_sweeper/models/gamestate_model.dart';
 import 'package:infinity_sweeper/models/providers/time_provider.dart';
@@ -21,24 +18,15 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
-  GameData gameData = GameData();
-  SharedPrefHelper sharedPref = SharedPrefHelper();
-
   @override
   void deactivate() {
     super.deactivate();
     Provider.of<TimerProvider>(context, listen: false).resetTimer();
   }
 
-  void initizialize() async {
-    gameData = await loadData();
-    setState(() {});
-  }
-
   @override
   void initState() {
     super.initState();
-    initizialize();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       Provider.of<GameModelProvider>(context, listen: false).generateCellGrid();
       Provider.of<TimerProvider>(context, listen: false).startTimer();
@@ -89,15 +77,15 @@ class _GamePageState extends State<GamePage> {
                                 if (gameModel.state == GameState.victory) {
                                   WidgetsBinding.instance?.addPostFrameCallback(
                                     (_) {
-                                      computeWinGame(context, gameData,
-                                          gameModel.difficulty);
+                                      computeWinGame(
+                                          context, gameModel.difficulty);
                                     },
                                   );
                                 }
                                 if (gameModel.state == GameState.lose) {
                                   WidgetsBinding.instance?.addPostFrameCallback(
                                     (_) {
-                                      computeLoseGame(context, gameData);
+                                      computeLoseGame(context);
                                     },
                                   );
                                 }

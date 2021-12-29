@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/models/providers/game_provider.dart';
+import 'package:infinity_sweeper/models/providers/gamedata_provider.dart';
 import 'package:infinity_sweeper/models/providers/time_provider.dart';
 import 'constants/route_constant.dart';
 import 'router.dart' as router;
@@ -10,6 +11,7 @@ void main() => runApp(
         providers: [
           ChangeNotifierProvider(create: (context) => GameModelProvider()),
           ChangeNotifierProvider(create: (context) => TimerProvider()),
+          ChangeNotifierProvider(create: (context) => GameDataProvider()),
         ],
         child: const InfinitySweeper(),
       ),
