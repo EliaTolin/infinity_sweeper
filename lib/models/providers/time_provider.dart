@@ -6,6 +6,7 @@ class TimerProvider with ChangeNotifier {
   int _hour = 0;
   int _second = 0;
   int _minute = 0;
+  int _timerInSecond = 0;
   bool _startEnable = true;
   bool _stopEnable = false;
   bool _continueEnable = false;
@@ -13,7 +14,7 @@ class TimerProvider with ChangeNotifier {
   int get hour => _hour;
   int get minute => _minute;
   int get second => _second;
-
+  int get timerInSecond => _timerInSecond;
   bool get startEnable => _startEnable;
   bool get stopEnable => _stopEnable;
   bool get continueEnable => _continueEnable;
@@ -23,6 +24,7 @@ class TimerProvider with ChangeNotifier {
     _timer = Timer.periodic(
       const Duration(seconds: 1),
       (timer) {
+        _timerInSecond++;
         if (_second < 59) {
           _second++;
         } else {
@@ -57,7 +59,7 @@ class TimerProvider with ChangeNotifier {
   }
 
   void resetTimer() {
-    _hour = _minute = _second = 0;
+    _hour = _minute = _second = _timerInSecond = 0;
   }
 
   void continueTimer() {
@@ -82,5 +84,9 @@ class TimerProvider with ChangeNotifier {
     }
     time += _second.toString();
     return time;
+  }
+
+  int getTimeInSecond() {
+    return _timerInSecond;
   }
 }

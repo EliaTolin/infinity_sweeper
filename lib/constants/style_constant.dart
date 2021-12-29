@@ -18,6 +18,22 @@ class StyleConstant {
     Colors.black,
     Colors.red,
   ];
+  static const List<Color> listColors = [
+    Colors.blue,
+    Colors.green,
+    Colors.red,
+    Color.fromRGBO(13, 255, 118, 100),
+    Color.fromRGBO(255, 172, 25, 100),
+    Color.fromARGB(255, 172, 25, 100),
+    Color.fromRGBO(255, 43, 25, 100),
+    Color.fromRGBO(13, 128, 255, 100),
+    Color.fromARGB(100, 255, 172, 25),
+    Colors.blue,
+    Colors.red,
+    Colors.amber,
+    Colors.grey,
+    Colors.cyan,
+  ];
   //Size
   static const double radiusComponent = 40.0;
   static const double kHeighBarRatio = 0.13;

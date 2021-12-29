@@ -1,14 +1,12 @@
 import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:infinity_sweeper/constants/route_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
+import 'package:infinity_sweeper/helpers/gamepage_helper.dart';
 import 'package:infinity_sweeper/models/cellgrid_model.dart';
 import 'package:infinity_sweeper/models/providers/game_provider.dart';
 import 'package:infinity_sweeper/models/gamestate_model.dart';
 import 'package:infinity_sweeper/models/providers/time_provider.dart';
-import 'package:infinity_sweeper/screens/components/widgets/alert_dialog/custom_alert_dialog.dart';
-import 'package:infinity_sweeper/screens/components/widgets/alert_dialog/win_alert_dialog.dart';
 import 'package:infinity_sweeper/screens/components/info_bar.dart';
 import 'package:infinity_sweeper/screens/components/widgets/minesweeper_widget.dart';
 import 'package:provider/provider.dart';
@@ -75,52 +73,19 @@ class _GamePageState extends State<GamePage> {
                                 if (cellGrid!.grid.isEmpty) {
                                   return Container();
                                 }
+
                                 if (gameModel.state == GameState.victory) {
-                                  Provider.of<TimerProvider>(context,
-                                          listen: false)
-                                      .stopTimer(notify: false);
                                   WidgetsBinding.instance?.addPostFrameCallback(
                                     (_) {
-                                      showDialog(
-                                        barrierColor: Colors.black26,
-                                        context: context,
-                                        builder: (context) {
-                                          return WinAlertDialog(
-                                            title: "You win!",
-                                            textButton1: "Home",
-                                            textButton2: "Show grid",
-                                            route: RouteConstant.homeRoute,
-                                            durationGame:
-                                                Provider.of<TimerProvider>(
-                                                        context,
-                                                        listen: false)
-                                                    .getString(),
-                                          );
-                                        },
-                                      );
+                                      computeWinGame(
+                                          context, gameModel.difficulty);
                                     },
                                   );
                                 }
                                 if (gameModel.state == GameState.lose) {
-                                  Provider.of<TimerProvider>(context,
-                                          listen: false)
-                                      .stopTimer(notify: false);
                                   WidgetsBinding.instance?.addPostFrameCallback(
                                     (_) {
-                                      showDialog(
-                                        barrierColor: Colors.black26,
-                                        context: context,
-                                        builder: (context) {
-                                          return const CustomAlertDialog(
-                                            title: "You lose!",
-                                            description:
-                                                "When you lose, don't miss the lesson",
-                                            textButton1: "Home",
-                                            textButton2: "Show grid",
-                                            route: RouteConstant.homeRoute,
-                                          );
-                                        },
-                                      );
+                                      computeLoseGame(context);
                                     },
                                   );
                                 }

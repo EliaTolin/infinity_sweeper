@@ -1,7 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:infinity_sweeper/constants/route_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
-import 'package:infinity_sweeper/helpers/game_page_helper.dart';
+import 'package:infinity_sweeper/helpers/homepage_helper.dart';
 import 'package:infinity_sweeper/models/gamedifficulty_model.dart';
 import 'package:infinity_sweeper/screens/components/app_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -13,6 +14,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: TopBar(size, "Infinity Sweeper"),
       backgroundColor: StyleConstant.mainColor,
@@ -29,8 +31,8 @@ class HomePage extends StatelessWidget {
             children: [
               SvgPicture.asset(
                 "assets/icons/icon.svg",
-                height: 200,
-                width: 200,
+                height: 150,
+                width: 150,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -55,6 +57,15 @@ class HomePage extends StatelessWidget {
                     child: OptionButton(
                       "Difficult",
                       () => openGame(context, Difficulty.difficult),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: OptionButton(
+                      "Statistics",
+                      () => Navigator.of(context)
+                          .pushNamed(RouteConstant.statsRoute),
                     ),
                   ),
                 ],

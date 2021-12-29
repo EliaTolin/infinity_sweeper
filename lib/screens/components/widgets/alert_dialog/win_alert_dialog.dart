@@ -7,6 +7,7 @@ class WinAlertDialog extends StatefulWidget {
   final String route;
   final String title;
   final String durationGame;
+  final bool record;
   const WinAlertDialog({
     Key? key,
     required this.title,
@@ -14,6 +15,7 @@ class WinAlertDialog extends StatefulWidget {
     required this.textButton2,
     required this.route,
     required this.durationGame,
+    this.record = false,
   }) : super(key: key);
 
   @override
@@ -153,6 +155,16 @@ class _WinAlertDialogState extends State<WinAlertDialog> {
             ),
           ],
         ),
+        widget.record
+            ? AutoSizeText(
+                "TIME RECORD!",
+                style: TextStyle(
+                  fontSize: 17.0,
+                  color: Colors.grey.shade800,
+                  fontWeight: FontWeight.bold,
+                ),
+              )
+            : Container(),
       ],
     );
   }

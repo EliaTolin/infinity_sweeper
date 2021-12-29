@@ -6,7 +6,7 @@ class GameDifficulty {
   late Difficulty difficulty;
 
   GameDifficulty.easy() {
-    numMines = 1;
+    numMines = 10;
     sizeGrid = 9;
     difficulty = Difficulty.easy;
   }
