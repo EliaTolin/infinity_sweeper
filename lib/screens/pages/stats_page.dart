@@ -6,7 +6,7 @@ import 'package:infinity_sweeper/constants/data_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:infinity_sweeper/helpers/gamedata_helper.dart';
 import 'package:infinity_sweeper/models/gamedata_model.dart';
-import 'package:infinity_sweeper/screens/components/app_bar.dart';
+import 'package:infinity_sweeper/screens/components/app_bar_back.dart';
 import 'package:infinity_sweeper/screens/components/stats_pie_chart.dart';
 
 class StatsPage extends StatefulWidget {
@@ -36,7 +36,7 @@ class _StatsPageState extends State<StatsPage> {
 
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: TopBar(size, "Game statistics"),
+      appBar: TopBarBack(size, "Game statistics", context),
       backgroundColor: StyleConstant.mainColor,
       body: Center(
         child: Padding(
@@ -58,35 +58,52 @@ class _StatsPageState extends State<StatsPage> {
                 child: PieChartStats(gameData),
               ),
               const SizedBox(height: 20),
-              ClayContainer(
-                borderRadius: 5,
-                curveType: CurveType.none,
-                surfaceColor: StyleConstant.mainColor,
-                parentColor: StyleConstant.mainColor,
-                color: StyleConstant.mainColor,
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Column(
-                    children: [
-                      getRecordElement("easy",
-                          gameData.recordTimeInSecond[DataConstant.recordEasy]),
-                      getRecordElement(
-                          "medium",
-                          gameData
-                              .recordTimeInSecond[DataConstant.recordMedium]),
-                      getRecordElement(
-                          "difficult",
-                          gameData.recordTimeInSecond[
-                              DataConstant.recordDifficult]),
-                    ],
+              Column(
+                children: [
+                  ClayContainer(
+                    borderRadius: 5,
+                    curveType: CurveType.none,
+                    surfaceColor: StyleConstant.mainColor,
+                    parentColor: StyleConstant.mainColor,
+                    color: StyleConstant.mainColor,
+                    child: getRecordElement(
+                        "easy",
+                        gameData.recordTimeInSecond[DataConstant.recordEasy],
+                        StyleConstant.listColors[0]),
                   ),
-                ),
+                  const SizedBox(height: 10),
+                  ClayContainer(
+                    borderRadius: 5,
+                    curveType: CurveType.none,
+                    surfaceColor: StyleConstant.mainColor,
+                    parentColor: StyleConstant.mainColor,
+                    color: StyleConstant.mainColor,
+                    child: getRecordElement(
+                        "medium",
+                        gameData.recordTimeInSecond[DataConstant.recordMedium],
+                        StyleConstant.listColors[1]),
+                  ),
+                  const SizedBox(height: 10),
+                  ClayContainer(
+                    borderRadius: 5,
+                    curveType: CurveType.none,
+                    surfaceColor: StyleConstant.mainColor,
+                    parentColor: StyleConstant.mainColor,
+                    color: StyleConstant.mainColor,
+                    child: getRecordElement(
+                        "difficult",
+                        gameData
+                            .recordTimeInSecond[DataConstant.recordDifficult],
+                        StyleConstant.listColors[2]),
+                  ),
+                  const SizedBox(height: 10),
+                ],
               ),
-              const SizedBox(height: 20),
-              IconButton(
-                onPressed: () => Navigator.pop(context),
-                icon: const Icon(Icons.home, size: 30),
-              ),
+              // const SizedBox(height: 20),
+              // IconButton(
+              //   onPressed: () => Navigator.pop(context),
+              //   icon: const Icon(Icons.home, size: 50),
+              // ),
             ],
           ),
         ),
@@ -94,36 +111,39 @@ class _StatsPageState extends State<StatsPage> {
     );
   }
 
-  Column getRecordElement(String difficulty, int? second) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            AutoSizeText(
-              "Your record for " + difficulty + " is :",
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-                color: StyleConstant.textColor,
+  Padding getRecordElement(String difficulty, int? second, Color color) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              AutoSizeText(
+                "Your record for " + difficulty + " is :",
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  color: StyleConstant.textColor,
+                ),
               ),
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            AutoSizeText(
-              formatHHMMSS(second!),
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-                color: Colors.black,
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              AutoSizeText(
+                formatHHMMSS(second!),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: color,
+                ),
               ),
-            ),
-          ],
-        ),
-      ],
+            ],
+          ),
+        ],
+      ),
     );
   }
 
