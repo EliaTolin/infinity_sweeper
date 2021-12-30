@@ -1,8 +1,9 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
-import 'package:infinity_sweeper/models/gamedata_model.dart';
-import 'package:infinity_sweeper/screens/components/indicator_widget.dart';
+import 'package:infinity_sweeper/models/game/gamedata_model.dart';
+
+import 'indicator_widget.dart';
 
 class PieChartStats extends StatefulWidget {
   final GameData gameData;

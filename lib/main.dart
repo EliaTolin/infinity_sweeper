@@ -3,7 +3,7 @@ import 'package:infinity_sweeper/models/providers/game_provider.dart';
 import 'package:infinity_sweeper/models/providers/gamedata_provider.dart';
 import 'package:infinity_sweeper/models/providers/time_provider.dart';
 import 'constants/route_constant.dart';
-import 'router.dart' as router;
+import 'config/routes/router.dart' as router;
 import 'package:provider/provider.dart';
 
 void main() => runApp(
@@ -23,7 +23,7 @@ class InfinitySweeper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      title: "Prova",
+      title: "Infinity MineSweeper",
       debugShowCheckedModeBanner: false,
       onGenerateRoute: router.generateRoute,
       initialRoute: RouteConstant.splashRoute,

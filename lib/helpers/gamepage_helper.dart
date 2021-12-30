@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/constants/route_constant.dart';
-import 'package:infinity_sweeper/models/gamedifficulty_model.dart';
+import 'package:infinity_sweeper/models/game/gamedifficulty_model.dart';
 import 'package:infinity_sweeper/models/providers/gamedata_provider.dart';
 import 'package:infinity_sweeper/models/providers/time_provider.dart';
-import 'package:infinity_sweeper/screens/components/widgets/alert_dialog/custom_alert_dialog.dart';
-import 'package:infinity_sweeper/screens/components/widgets/alert_dialog/win_alert_dialog.dart';
+import 'package:infinity_sweeper/widgets/alert_dialog/custom_alert_dialog.dart';
+import 'package:infinity_sweeper/widgets/alert_dialog/win_alert_dialog.dart';
 import 'package:provider/provider.dart';
 
 void computeWinGame(BuildContext context, Difficulty gameDifficulty) {

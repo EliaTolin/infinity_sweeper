@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/constants/route_constant.dart';
-import 'package:infinity_sweeper/screens/pages/game_page.dart';
-import 'package:infinity_sweeper/screens/pages/home_page.dart';
-import 'package:infinity_sweeper/screens/pages/stats_page.dart';
-import 'package:infinity_sweeper/splash.dart';
+import 'package:infinity_sweeper/pages/game_page.dart';
+import 'package:infinity_sweeper/pages/home_page.dart';
+import 'package:infinity_sweeper/pages/stats_page.dart';
+import 'package:infinity_sweeper/pages/splashscreen_page.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
     case RouteConstant.splashRoute:
-      return MaterialPageRoute(builder: (context) => const Splash());
+      return MaterialPageRoute(builder: (context) => const SplashScreen());
     case RouteConstant.homeRoute:
       return MaterialPageRoute(builder: (context) => const HomePage());
     case RouteConstant.gameRoute:

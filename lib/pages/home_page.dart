@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/constants/route_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:infinity_sweeper/helpers/homepage_helper.dart';
-import 'package:infinity_sweeper/models/gamedifficulty_model.dart';
-import 'package:infinity_sweeper/screens/components/app_bar.dart';
+import 'package:infinity_sweeper/models/game/gamedifficulty_model.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:infinity_sweeper/screens/components/widgets/option_button_widget.dart';
+import 'package:infinity_sweeper/widgets/page_components/button/option_button_widget.dart';
+import 'package:infinity_sweeper/widgets/page_components/topbar_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);

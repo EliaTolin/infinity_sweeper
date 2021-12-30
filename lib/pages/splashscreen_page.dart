@@ -1,19 +1,19 @@
 import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
-import 'package:infinity_sweeper/screens/pages/home_page.dart';
+import 'package:infinity_sweeper/pages/home_page.dart';
 import 'package:provider/provider.dart';
 
-import 'models/providers/gamedata_provider.dart';
+import '../models/providers/gamedata_provider.dart';
 
-class Splash extends StatefulWidget {
-  const Splash({Key? key}) : super(key: key);
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
-  _SplashPageState createState() => _SplashPageState();
+  _SplashScreenPageState createState() => _SplashScreenPageState();
 }
 
-class _SplashPageState extends State<Splash> {
+class _SplashScreenPageState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     Provider.of<GameDataProvider>(context, listen: false).initializeData();

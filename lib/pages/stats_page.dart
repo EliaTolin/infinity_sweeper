@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:infinity_sweeper/constants/data_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
-import 'package:infinity_sweeper/models/gamedata_model.dart';
+import 'package:infinity_sweeper/models/game/gamedata_model.dart';
 import 'package:infinity_sweeper/models/providers/gamedata_provider.dart';
-import 'package:infinity_sweeper/screens/components/app_bar_back.dart';
-import 'package:infinity_sweeper/screens/components/stats_pie_chart.dart';
+import 'package:infinity_sweeper/widgets/page_components/graph/stats_pie_chart.dart';
+import 'package:infinity_sweeper/widgets/page_components/topbar_back_widget.dart';
 import 'package:provider/provider.dart';
 
 class StatsPage extends StatefulWidget {
@@ -96,11 +96,6 @@ class _StatsPageState extends State<StatsPage> {
                   const SizedBox(height: 10),
                 ],
               ),
-              // const SizedBox(height: 20),
-              // IconButton(
-              //   onPressed: () => Navigator.pop(context),
-              //   icon: const Icon(Icons.home, size: 50),
-              // ),
             ],
           ),
         ),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:infinity_sweeper/models/cell_model.dart';
-import 'package:infinity_sweeper/models/gamedifficulty_model.dart';
-import 'package:infinity_sweeper/screens/components/widgets/cell_widget.dart';
+import 'package:infinity_sweeper/models/cell/cell_model.dart';
+import 'package:infinity_sweeper/models/game/gamedifficulty_model.dart';
+
+import 'cell_widget.dart';
 
 class MineSweeperCore extends StatefulWidget {
   final List<List<CellModel>> listCell;
@@ -83,27 +84,6 @@ class _MineSweeperCore extends State<MineSweeperCore> {
           ),
         );
     }
-
-    // return InteractiveViewer(
-    //   minScale: 1,
-    //   maxScale: 4,
-    //   panEnabled: true,
-    //   // boundaryMargin: const EdgeInsets.all(100),
-    //   constrained: false,
-    //   child: Container(
-    //     alignment: Alignment.center,
-    //     height: 600,
-    //     width: 600,
-    //     child: Center(
-    //       child: Padding(
-    //         padding: const EdgeInsets.all(8.0),
-    //         child: Container(
-    //           child: getGrid(maxWidth),
-    //         ),
-    //       ),
-    //     ),
-    //   ),
-    // );
   }
 
 //Create grid game

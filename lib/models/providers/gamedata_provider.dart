@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/constants/data_constant.dart';
 import 'package:infinity_sweeper/helpers/sharedpref_helper.dart';
-import 'package:infinity_sweeper/models/gamedata_model.dart';
-import 'package:infinity_sweeper/models/gamedifficulty_model.dart';
+import 'package:infinity_sweeper/models/game/gamedata_model.dart';
+import 'package:infinity_sweeper/models/game/gamedifficulty_model.dart';
 
 class GameDataProvider extends ChangeNotifier {
   late GameData _gameData;

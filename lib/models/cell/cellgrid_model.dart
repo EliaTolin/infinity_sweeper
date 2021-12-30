@@ -1,4 +1,4 @@
-import 'package:infinity_sweeper/models/cell_model.dart';
+import 'cell_model.dart';
 
 class CellGrid {
   late int numMines;

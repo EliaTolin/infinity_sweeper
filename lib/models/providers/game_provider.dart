@@ -1,9 +1,9 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:infinity_sweeper/models/cell_model.dart';
-import 'package:infinity_sweeper/models/cellgrid_model.dart';
-import 'package:infinity_sweeper/models/gamedifficulty_model.dart';
-import 'package:infinity_sweeper/models/gamestate_model.dart';
+import 'package:infinity_sweeper/models/cell/cell_model.dart';
+import 'package:infinity_sweeper/models/cell/cellgrid_model.dart';
+import 'package:infinity_sweeper/models/game/gamedifficulty_model.dart';
+import 'package:infinity_sweeper/models/game/gamestate_model.dart';
 
 class GameModelProvider extends ChangeNotifier {
   CellGrid? cellGrid;

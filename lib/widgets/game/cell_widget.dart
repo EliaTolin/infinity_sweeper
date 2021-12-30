@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:holding_gesture/holding_gesture.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
-import 'package:infinity_sweeper/models/cell_model.dart';
+import 'package:infinity_sweeper/models/cell/cell_model.dart';
 import 'package:infinity_sweeper/models/providers/game_provider.dart';
 import 'package:provider/provider.dart';
 
