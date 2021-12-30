@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:infinity_sweeper/constants/data_constant.dart';
 
 class GameData {
@@ -14,9 +16,11 @@ class GameData {
   GameData.fromJson(Map<String, dynamic> json) {
     gameWin = json['gameWin'];
     gameLose = json['gameLose'];
-    try {
+    //hack, because recordTimeInSecond was int propriety
+    if (json['recordTimeInSecond'] is! int)
+    {
       recordTimeInSecond = json['recordTimeInSecond'];
-    } on Exception catch (_, e) {}
+    }
   }
 
   Map<String, dynamic> toJson() => {
