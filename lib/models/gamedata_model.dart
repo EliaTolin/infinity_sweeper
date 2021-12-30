@@ -11,10 +11,13 @@ class GameData {
 
   GameData();
 
-  GameData.fromJson(Map<String, dynamic> json)
-      : gameWin = json['gameWin'],
-        gameLose = json['gameLose'],
-        recordTimeInSecond = json['recordTimeInSecond'];
+  GameData.fromJson(Map<String, dynamic> json) {
+    gameWin = json['gameWin'];
+    gameLose = json['gameLose'];
+    try {
+      recordTimeInSecond = json['recordTimeInSecond'];
+    } on Exception catch (_, e) {}
+  }
 
   Map<String, dynamic> toJson() => {
         'gameWin': gameWin,
