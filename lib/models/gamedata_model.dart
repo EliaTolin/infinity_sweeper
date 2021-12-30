@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:infinity_sweeper/constants/data_constant.dart';
 
 class GameData {
@@ -17,8 +15,7 @@ class GameData {
     gameWin = json['gameWin'];
     gameLose = json['gameLose'];
     //hack, because recordTimeInSecond was int propriety
-    if (json['recordTimeInSecond'] is! int)
-    {
+    if (json['recordTimeInSecond'] is! int) {
       recordTimeInSecond = json['recordTimeInSecond'];
     }
   }
