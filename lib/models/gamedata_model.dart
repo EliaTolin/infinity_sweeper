@@ -14,8 +14,7 @@ class GameData {
   GameData.fromJson(Map<String, dynamic> json) {
     gameWin = json['gameWin'];
     gameLose = json['gameLose'];
-    //hack, because recordTimeInSecond was int propriety
-    if (json['recordTimeInSecond'] is! int) {
+    if (json['recordTimeInSecond'] is Map<String, dynamic>) {
       recordTimeInSecond = json['recordTimeInSecond'];
     }
   }
