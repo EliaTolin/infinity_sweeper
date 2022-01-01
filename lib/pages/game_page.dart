@@ -1,6 +1,8 @@
 import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:infinity_sweeper/constants/ad_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:infinity_sweeper/helpers/gamepage_helper.dart';
 import 'package:infinity_sweeper/models/cell/cellgrid_model.dart';
@@ -18,19 +20,53 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
+  bool isBottomBannerAdLoaded = false;
+
+  late BannerAd _bottomBanner;
   @override
   void deactivate() {
     super.deactivate();
     Provider.of<TimerProvider>(context, listen: false).resetTimer();
   }
 
+  void createBannerAd() {
+    _bottomBanner = BannerAd(
+      adUnitId: AdConstant.bannerAdUnitId,
+      size: AdSize.banner,
+      request: const AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (_) {
+          setState(() {
+            isBottomBannerAdLoaded = true;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          ad.dispose();
+        },
+      ),
+    );
+    _bottomBanner.load();
+  }
+
+  void adDispose() {
+    _bottomBanner.dispose();
+    isBottomBannerAdLoaded = false;
+  }
+
   @override
   void initState() {
     super.initState();
+    createBannerAd();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       Provider.of<GameModelProvider>(context, listen: false).generateCellGrid();
       Provider.of<TimerProvider>(context, listen: false).startTimer();
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    adDispose();
   }
 
   @override
@@ -40,6 +76,15 @@ class _GamePageState extends State<GamePage> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: StyleConstant.mainColor,
+      bottomNavigationBar: isBottomBannerAdLoaded
+          ? Container(
+              height: _bottomBanner.size.height.toDouble(),
+              width: _bottomBanner.size.width.toDouble(),
+              child: AdWidget(
+                ad: _bottomBanner,
+              ),
+            )
+          : Container(height: _bottomBanner.size.height.toDouble()),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
