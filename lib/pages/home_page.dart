@@ -1,15 +1,44 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:infinity_sweeper/constants/route_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:infinity_sweeper/helpers/homepage_helper.dart';
+import 'package:infinity_sweeper/models/ads/ad_banner_helper.dart';
 import 'package:infinity_sweeper/models/game/gamedifficulty_model.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:infinity_sweeper/widgets/page_components/button/option_button_widget.dart';
 import 'package:infinity_sweeper/widgets/page_components/topbar_widget.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  
+  AdBannerHelper adBannerHelper = AdBannerHelper();
+  bool loadedBanner = false;
+
+  void finishLoad(bool value) {
+    setState(() {
+      loadedBanner = value;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    adBannerHelper.createBannerAd(finishLoad);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    adBannerHelper.adDispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +47,14 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: TopBar(size, "Infinity Sweeper"),
       backgroundColor: StyleConstant.mainColor,
+      bottomNavigationBar: loadedBanner
+          ? Container(
+              height: adBannerHelper.getSizeBanner().height.toDouble(),
+              width: adBannerHelper.getSizeBanner().width.toDouble(),
+              child: AdWidget(
+                ad: adBannerHelper.getBanner(),
+              ))
+          : Container(height: 50),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.only(

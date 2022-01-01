@@ -1,12 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:infinity_sweeper/constants/ad_constant.dart';
 
-class AdBannerProvider extends ChangeNotifier {
-  bool isBottomBannerAdLoaded = false;
-
+class AdBannerHelper {
   late BannerAd _banner;
-
   void createBannerAd(Function fun) {
     _banner = BannerAd(
       adUnitId: AdConstant.bannerAdUnitId,
@@ -14,7 +10,7 @@ class AdBannerProvider extends ChangeNotifier {
       request: const AdRequest(),
       listener: BannerAdListener(
         onAdLoaded: (_) {
-          fun();
+          fun(true);
         },
         onAdFailedToLoad: (ad, error) {
           ad.dispose();
@@ -26,7 +22,6 @@ class AdBannerProvider extends ChangeNotifier {
 
   void adDispose() {
     _banner.dispose();
-    isBottomBannerAdLoaded = false;
   }
 
   AdSize getSizeBanner() {
