@@ -29,7 +29,6 @@ class _GamePageState extends State<GamePage> {
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       Provider.of<GameModelProvider>(context, listen: false).generateCellGrid();
-      Provider.of<TimerProvider>(context, listen: false).startTimer();
     });
   }
 
@@ -72,6 +71,11 @@ class _GamePageState extends State<GamePage> {
                                 CellGrid? cellGrid = gameModel.cellGrid;
                                 if (cellGrid!.grid.isEmpty) {
                                   return Container();
+                                }
+                                if (gameModel.state == GameState.started) {
+                                  Provider.of<TimerProvider>(context,
+                                          listen: false)
+                                      .startTimer();
                                 }
                                 if (gameModel.state == GameState.victory) {
                                   WidgetsBinding.instance?.addPostFrameCallback(
