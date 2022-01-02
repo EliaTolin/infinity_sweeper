@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:holding_gesture/holding_gesture.dart';
+import 'package:gesture_x_detector/gesture_x_detector.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:infinity_sweeper/models/cell/cell_model.dart';
 import 'package:infinity_sweeper/models/providers/game_provider.dart';
@@ -41,28 +41,27 @@ class Cell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return HoldTimeoutDetector(
-      onTimeout: () => Provider.of<GameModelProvider>(context, listen: false)
-          .setFlag(cell.x, cell.y),
-      onTimerInitiated: () {},
-      onCancel: () {},
-      holdTimeout: const Duration(milliseconds: 100),
-      enableHapticFeedback: false,
-      child: InkWell(
-        onTap: () => Provider.of<GameModelProvider>(context, listen: false)
-            .computeCell(cell.x, cell.y),
-        child: Container(
-          width: cellWidth,
-          height: cellHeight,
-          decoration: BoxDecoration(
-            color: cell.isShowed ? Colors.grey.shade300 : Colors.grey.shade400,
-            borderRadius: BorderRadius.circular(5.0),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(3.0),
-            child: Center(
-              child: getContent(),
-            ),
+    return XGestureDetector(
+      longPressTimeConsider: 300,
+      onTap: (_) {
+        Provider.of<GameModelProvider>(context, listen: false)
+            .computeCell(cell.x, cell.y);
+      },
+      onLongPress: (_) {
+        Provider.of<GameModelProvider>(context, listen: false)
+            .setFlag(cell.x, cell.y);
+      },
+      child: Container(
+        width: cellWidth,
+        height: cellHeight,
+        decoration: BoxDecoration(
+          color: cell.isShowed ? Colors.grey.shade300 : Colors.grey.shade400,
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(3.0),
+          child: Center(
+            child: getContent(),
           ),
         ),
       ),
