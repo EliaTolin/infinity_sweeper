@@ -1,8 +1,12 @@
 import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:infinity_sweeper/constants/ad_constant.dart';
+import 'package:infinity_sweeper/constants/data_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:infinity_sweeper/helpers/gamepage_helper.dart';
+import 'package:infinity_sweeper/helpers/sharedpref_helper.dart';
+import 'package:infinity_sweeper/models/ads/ad_interstitial_helper.dart';
 import 'package:infinity_sweeper/models/cell/cellgrid_model.dart';
 import 'package:infinity_sweeper/models/game/gamestate_model.dart';
 import 'package:infinity_sweeper/models/providers/game_provider.dart';
@@ -18,6 +22,8 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
+  AdInterstitialHelper adInterstitialHelper = AdInterstitialHelper();
+
   @override
   void deactivate() {
     super.deactivate();
@@ -25,8 +31,15 @@ class _GamePageState extends State<GamePage> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    adInterstitialHelper.adDispose();
+  }
+
+  @override
   void initState() {
     super.initState();
+    adInterstitialHelper.createInterstialAd();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       Provider.of<GameModelProvider>(context, listen: false).generateCellGrid();
       Provider.of<TimerProvider>(context, listen: false).startTimer();
@@ -75,6 +88,7 @@ class _GamePageState extends State<GamePage> {
                                 }
 
                                 if (gameModel.state == GameState.victory) {
+                                  interstitialAd();
                                   WidgetsBinding.instance?.addPostFrameCallback(
                                     (_) {
                                       computeWinGame(
@@ -83,6 +97,7 @@ class _GamePageState extends State<GamePage> {
                                   );
                                 }
                                 if (gameModel.state == GameState.lose) {
+                                  interstitialAd();
                                   WidgetsBinding.instance?.addPostFrameCallback(
                                     (_) {
                                       computeLoseGame(context);
@@ -108,5 +123,20 @@ class _GamePageState extends State<GamePage> {
         ),
       ),
     );
+  }
+
+  void interstitialAd() async {
+    SharedPrefHelper sharedPrefHelper = SharedPrefHelper();
+    int timeAds = 0;
+    if (await sharedPrefHelper.exist(DataConstant.counterAdsTime)) {
+      var data = await sharedPrefHelper.read(DataConstant.counterAdsTime);
+      timeAds = data[DataConstant.counterAdsTime];
+    }
+    timeAds++;
+    if (timeAds >= AdConstant.frequencyShowInterstialAd) {
+      timeAds = 0;
+      adInterstitialHelper.showInterstialAds();
+    }
+    sharedPrefHelper.save(DataConstant.counterAdsTime, timeAds);
   }
 }
