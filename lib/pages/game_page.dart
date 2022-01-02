@@ -10,6 +10,7 @@ import 'package:infinity_sweeper/models/ads/ad_interstitial_helper.dart';
 import 'package:infinity_sweeper/models/cell/cellgrid_model.dart';
 import 'package:infinity_sweeper/models/game/gamestate_model.dart';
 import 'package:infinity_sweeper/models/providers/game_provider.dart';
+import 'package:infinity_sweeper/models/providers/purchase_provider.dart';
 import 'package:infinity_sweeper/models/providers/time_provider.dart';
 import 'package:infinity_sweeper/widgets/game/minesweeper_widget.dart';
 import 'package:infinity_sweeper/widgets/page_components/infobar_widget.dart';
@@ -126,6 +127,9 @@ class _GamePageState extends State<GamePage> {
   }
 
   void interstitialAd() async {
+    if (Provider.of<PurchaseProvider>(context, listen: false).proVersion) {
+      return;
+    }
     SharedPrefHelper sharedPrefHelper = SharedPrefHelper();
     int timeAds = 0;
     if (await sharedPrefHelper.exist(DataConstant.counterAdsTime)) {

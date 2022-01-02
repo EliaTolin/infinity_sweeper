@@ -7,8 +7,10 @@ import 'package:infinity_sweeper/helpers/homepage_helper.dart';
 import 'package:infinity_sweeper/models/ads/ad_banner_helper.dart';
 import 'package:infinity_sweeper/models/game/gamedifficulty_model.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:infinity_sweeper/models/providers/purchase_provider.dart';
 import 'package:infinity_sweeper/widgets/page_components/button/option_button_widget.dart';
 import 'package:infinity_sweeper/widgets/page_components/topbar_widget.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -18,7 +20,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  
   AdBannerHelper adBannerHelper = AdBannerHelper();
   bool loadedBanner = false;
 
@@ -47,14 +48,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: TopBar(size, "Infinity Sweeper"),
       backgroundColor: StyleConstant.mainColor,
-      bottomNavigationBar: loadedBanner
-          ? Container(
-              height: adBannerHelper.getSizeBanner().height.toDouble(),
-              width: adBannerHelper.getSizeBanner().width.toDouble(),
-              child: AdWidget(
-                ad: adBannerHelper.getBanner(),
-              ))
-          : Container(height: 50),
+      bottomNavigationBar: bottomBanner(),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.only(
@@ -114,5 +108,27 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  Widget? bottomBanner() {
+    bool proVersion =
+        Provider.of<PurchaseProvider>(context, listen: false).proVersion;
+    if (proVersion) {
+      return null;
+    }
+    if (loadedBanner) {
+      // ignore: sized_box_for_whitespace
+      return Container(
+        height: adBannerHelper.getSizeBanner().height.toDouble(),
+        width: adBannerHelper.getSizeBanner().width.toDouble(),
+        child: AdWidget(
+          ad: adBannerHelper.getBanner(),
+        ),
+      );
+    } else {
+      return Container(
+        height: 50,
+      );
+    }
   }
 }
