@@ -133,8 +133,7 @@ class _GamePageState extends State<GamePage> {
     SharedPrefHelper sharedPrefHelper = SharedPrefHelper();
     int timeAds = 0;
     if (await sharedPrefHelper.exist(DataConstant.counterAdsTime)) {
-      var data = await sharedPrefHelper.read(DataConstant.counterAdsTime);
-      timeAds = data[DataConstant.counterAdsTime];
+      timeAds = await sharedPrefHelper.read(DataConstant.counterAdsTime);
     }
     timeAds++;
     if (timeAds >= AdConstant.frequencyShowInterstialAd) {
