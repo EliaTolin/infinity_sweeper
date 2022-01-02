@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:infinity_sweeper/constants/data_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:infinity_sweeper/models/game/gamedata_model.dart';
-import 'package:infinity_sweeper/models/providers/gamedata_provider.dart';
+import 'package:infinity_sweeper/providers/gamedata_provider.dart';
 import 'package:infinity_sweeper/widgets/page_components/graph/stats_pie_chart.dart';
 import 'package:infinity_sweeper/widgets/page_components/topbar_back_widget.dart';
 import 'package:provider/provider.dart';

@@ -5,8 +5,8 @@ import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:infinity_sweeper/helpers/gamepage_helper.dart';
 import 'package:infinity_sweeper/models/cell/cellgrid_model.dart';
 import 'package:infinity_sweeper/models/game/gamestate_model.dart';
-import 'package:infinity_sweeper/models/providers/game_provider.dart';
-import 'package:infinity_sweeper/models/providers/time_provider.dart';
+import 'package:infinity_sweeper/providers/game_provider.dart';
+import 'package:infinity_sweeper/providers/time_provider.dart';
 import 'package:infinity_sweeper/widgets/game/minesweeper_widget.dart';
 import 'package:infinity_sweeper/widgets/page_components/infobar_widget.dart';
 import 'package:provider/provider.dart';
@@ -73,7 +73,6 @@ class _GamePageState extends State<GamePage> {
                                 if (cellGrid!.grid.isEmpty) {
                                   return Container();
                                 }
-
                                 if (gameModel.state == GameState.victory) {
                                   WidgetsBinding.instance?.addPostFrameCallback(
                                     (_) {

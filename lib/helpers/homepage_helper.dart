@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/constants/route_constant.dart';
 import 'package:infinity_sweeper/models/game/gamedifficulty_model.dart';
-import 'package:infinity_sweeper/models/providers/game_provider.dart';
+import 'package:infinity_sweeper/providers/game_provider.dart';
 import 'package:provider/provider.dart';
 
 void openGame(BuildContext context, Difficulty difficulty) {

@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gesture_x_detector/gesture_x_detector.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:infinity_sweeper/models/cell/cell_model.dart';
-import 'package:infinity_sweeper/models/providers/game_provider.dart';
+import 'package:infinity_sweeper/providers/game_provider.dart';
 import 'package:provider/provider.dart';
 
 class Cell extends StatelessWidget {
