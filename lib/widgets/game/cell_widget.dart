@@ -31,7 +31,7 @@ class Cell extends StatelessWidget {
         ),
       );
     }
-    if (cell.isFlaged) {
+    if (cell.isFlagged) {
       return SvgPicture.asset(
         "assets/flag.svg",
       );
