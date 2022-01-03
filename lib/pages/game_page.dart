@@ -18,6 +18,7 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
+  bool firstTap = true;
   @override
   void deactivate() {
     super.deactivate();
@@ -72,10 +73,12 @@ class _GamePageState extends State<GamePage> {
                                 if (cellGrid!.grid.isEmpty) {
                                   return Container();
                                 }
-                                if (gameModel.state == GameState.started) {
+                                if (gameModel.state == GameState.started &&
+                                    firstTap) {
                                   Provider.of<TimerProvider>(context,
                                           listen: false)
                                       .startTimer();
+                                  firstTap = false;
                                 }
                                 if (gameModel.state == GameState.victory) {
                                   WidgetsBinding.instance?.addPostFrameCallback(
