@@ -49,61 +49,72 @@ class _HomePageState extends State<HomePage> {
       appBar: TopBar(size, "Infinity Sweeper"),
       backgroundColor: StyleConstant.mainColor,
       bottomNavigationBar: bottomBanner(),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.only(
-            left: 8,
-            right: 8,
-            top: 20,
-            bottom: 20,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              SvgPicture.asset(
-                "assets/icons/icon.svg",
-                height: 150,
-                width: 150,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: OptionButton(
-                      "Easy",
-                      () => openGame(context, Difficulty.easy),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.only(
+              left: 8,
+              right: 8,
+              top: 20,
+              bottom: 20,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                SvgPicture.asset(
+                  "assets/icons/icon.svg",
+                  height: 150,
+                  width: 150,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: OptionButton(
+                        "Easy",
+                        () => openGame(context, Difficulty.easy),
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: OptionButton(
-                      "Medium",
-                      () => openGame(context, Difficulty.medium),
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: OptionButton(
+                        "Medium",
+                        () => openGame(context, Difficulty.medium),
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: OptionButton(
-                      "Difficult",
-                      () => openGame(context, Difficulty.difficult),
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: OptionButton(
+                        "Difficult",
+                        () => openGame(context, Difficulty.difficult),
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 15),
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: OptionButton(
-                      "Statistics",
-                      () => Navigator.of(context)
-                          .pushNamed(RouteConstant.statsRoute),
+                    const SizedBox(height: 15),
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: OptionButton(
+                        "Statistics",
+                        () => Navigator.of(context)
+                            .pushNamed(RouteConstant.statsRoute),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              const AutoSizeText("Develop by Tolin Elia",
-                  style: TextStyle(color: StyleConstant.textColor)),
-            ],
+                    const SizedBox(height: 15),
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: OptionButton(
+                        "Purchase",
+                        () => Navigator.of(context)
+                            .pushNamed(RouteConstant.purchaseRoute),
+                      ),
+                    ),
+                  ],
+                ),
+                const AutoSizeText("Develop by Tolin Elia",
+                    style: TextStyle(color: StyleConstant.textColor)),
+              ],
+            ),
           ),
         ),
       ),
@@ -111,8 +122,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget? bottomBanner() {
-    bool proVersion =
-        Provider.of<PurchaseProvider>(context, listen: false).proVersion;
+    bool proVersion = Provider.of<PurchaseProvider>(context, listen: false)
+        .purchase
+        .proVersion;
     if (proVersion) {
       return null;
     }
