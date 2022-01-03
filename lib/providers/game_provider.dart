@@ -4,6 +4,7 @@ import 'package:infinity_sweeper/models/cell/cell_model.dart';
 import 'package:infinity_sweeper/models/cell/cellgrid_model.dart';
 import 'package:infinity_sweeper/models/game/gamedifficulty_model.dart';
 import 'package:infinity_sweeper/models/game/gamestate_model.dart';
+import 'package:infinity_sweeper/models/game/solver_model.dart';
 
 class GameModelProvider extends ChangeNotifier {
   CellGrid? cellGrid;
@@ -27,26 +28,49 @@ class GameModelProvider extends ChangeNotifier {
       }
       cellGrid!.grid.add(row);
     }
-    _addMines();
-    _addValueCell();
     notifyListeners();
   }
 
-  void _addMines() {
-    final int length = cellGrid!.grid[0].length;
-    final int maxLength = length * length;
-    var numRandomList = [];
+  void generateMap(CellModel clickedCell) {
+    SPwCSPSolver solver = SPwCSPSolver.getSolver();
+    bool isSolvable = false;
+    final int rowLenght = cellGrid!.grid.length;
+    final int colLenght = cellGrid!.grid[0].length;
+    while (!isSolvable) {
+      int placedMineNum = 0;
+      int randRow, randCol;
+      cellGrid!.initizialize();
+      // initialize the map except for first clicked button
+      clickedCell.enabled = false;
+      // randomly place mines
+      while (placedMineNum < cellGrid!.numMines) {
+        randRow = (Random().nextInt(rowLenght));
+        randCol = (Random().nextInt(colLenght));
+        if (!(randRow >= clickedCell.x - 1 &&
+                randRow <= clickedCell.x + 1 &&
+                randCol >= clickedCell.y - 1 &&
+                randCol <= clickedCell.y + 1) &&
+            !(cellGrid!.getCell(randRow, randCol).isMine)) {
+          //make sure not to place mines around or at the clicked square which causes guessing
+          cellGrid!.grid[randRow][randCol].mine = true;
+          placedMineNum++;
+        }
+      }
+      // check whether is solvable without guessing
+      isSolvable = solver.isSolvable(
+          cellGrid!, clickedCell.x * rowLenght + clickedCell.y);
 
-    for (int i = 0; i < cellGrid!.numMines; i++) {
-      int randomNumber = 0;
-      do {
-        randomNumber = Random().nextInt(maxLength);
-      } while (numRandomList.contains(randomNumber));
-      numRandomList.add(randomNumber);
-      int x = randomNumber ~/ length;
-      int y = (randomNumber % length).toInt();
-      cellGrid!.grid[x][y].mine = true;
+      // clear solver's operation
+      for (int row = 0; row < rowLenght; row++) {
+        for (int col = 0; col < colLenght; col++) {
+          if (!(row == clickedCell.x && col == clickedCell.y)) {
+            cellGrid!.grid[row][col].enabled = (true);
+            cellGrid!.grid[row][col].flag = (false);
+          }
+        }
+      }
     }
+    _addValueCell();
   }
 
   void _addValueCell() {
@@ -74,15 +98,15 @@ class GameModelProvider extends ChangeNotifier {
   }
 
   void setFlag(int x, int y) {
-    cellGrid!.grid[x][y].isFlaged ? numFlag++ : numFlag--;
-    cellGrid!.grid[x][y].flag = !cellGrid!.grid[x][y].isFlaged;
+    cellGrid!.grid[x][y].isFlagged ? numFlag++ : numFlag--;
+    cellGrid!.grid[x][y].flag = !cellGrid!.grid[x][y].isFlagged;
     notifyListeners();
   }
 
   void checkWin() {
     for (List<CellModel> list in cellGrid!.grid) {
       for (var element in list) {
-        if (!element.isMine && (!element.isShowed || element.isFlaged)) {
+        if (!element.isMine && (!element.isShowed || element.isFlagged)) {
           return;
         }
       }
@@ -106,18 +130,7 @@ class GameModelProvider extends ChangeNotifier {
     CellModel cell = cellGrid!.grid[x][y];
     //Prevent open bomb first time
     if (state == GameState.idle) {
-      if (cell.isMine || (cell.value != 0)) {
-        bool isMine = true;
-        bool isValue = true;
-        //if it's still a bomb, I regenerate.
-        while (isMine || isValue) {
-          generateCellGrid();
-          cell = cellGrid!.grid[x][y];
-          isMine = cell.isMine ? true : false;
-          isValue = (cell.value != 0) ? true : false;
-        }
-        // return;
-      }
+      generateMap(cellGrid!.getCell(x, y));
       //set the new state of game
       state = GameState.started;
     }
