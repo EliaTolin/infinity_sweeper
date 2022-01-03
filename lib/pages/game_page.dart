@@ -127,7 +127,7 @@ class _GamePageState extends State<GamePage> {
   }
 
   void interstitialAd() async {
-    if (Provider.of<PurchaseProvider>(context, listen: false).proVersion) {
+    if (Provider.of<PurchaseProvider>(context, listen: false).purchase.proVersion) {
       return;
     }
     SharedPrefHelper sharedPrefHelper = SharedPrefHelper();
