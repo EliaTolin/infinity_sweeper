@@ -1,5 +1,4 @@
 import 'dart:collection';
-
 import 'package:infinity_sweeper/models/cell/cell_model.dart';
 import 'package:infinity_sweeper/models/cell/cellgrid_model.dart';
 
@@ -10,43 +9,42 @@ class SPwCSPSolver {
     return SPwCSPSolver();
   }
 
-  bool isSolvable(CellGrid mineBoard, int clickedSquareIndex) {
-    int gridRow = mineBoard.sizeGrid;
-    int gridColumn = mineBoard.sizeGrid;
-    int mineNumber = mineBoard.numMines;
+  bool isSolvable(MinesGrid minesGrid, int clickedSquareIndex) {
+    int gridRow = minesGrid.numRows;
+    int gridColumn = minesGrid.numColumns;
+    int mineNumber = minesGrid.numMines;
     bool mapUpdated = false;
     int totalFlagCount = 0;
-    int totalProbedSqauresCount = 1; // include the first clicked one
+    int totalProbedCellsCount = 1; // include the first clicked one
 
-    // HashSet<int> frontierSquares = HashSet<int>(2 * (gridRow + gridColumn));
-    HashSet<int> frontierSquares = HashSet<int>();
+    HashSet<int> frontierCells = HashSet<int>();
     // set of squares which can provide information to probe other squares
-    frontierSquares.add(clickedSquareIndex);
+    frontierCells.add(clickedSquareIndex);
     while (!(mineNumber == totalFlagCount ||
-        gridColumn * gridRow - totalProbedSqauresCount == mineNumber)) {
+        gridColumn * gridRow - totalProbedCellsCount == mineNumber)) {
       mapUpdated = false;
-      List<int> keyList = frontierSquares.toList();
+      List<int> keyList = frontierCells.toList();
       for (int key in keyList) {
         int row = key ~/ gridColumn;
         int col = key % gridColumn;
-        CellModel square = mineBoard.getCell(row, col);
+        CellModel square = minesGrid.getCell(row, col);
         int unprobedCount =
-            mineBoard.countNeighor(square, CellGrid.countNeighborUnprobed);
+            minesGrid.countNeighor(square, MinesGrid.countNeighborUnprobed);
         int mineCount =
-            mineBoard.countNeighor(square, CellGrid.countNeighborMine);
+            minesGrid.countNeighor(square, MinesGrid.countNeighborMine);
         int flagCount =
-            mineBoard.countNeighor(square, CellGrid.countNeighborFlag);
+            minesGrid.countNeighor(square, MinesGrid.countNeighborFlag);
         if (mineCount == unprobedCount + flagCount || mineCount == flagCount) {
-          frontierSquares.remove(key);
-          for (CellModel neighbor in mineBoard.getNeighbors(square)) {
+          frontierCells.remove(key);
+          for (CellModel neighbor in minesGrid.getNeighbors(square)) {
             if (neighbor.isEnabled) {
               neighbor.enabled = false;
               if (mineCount != flagCount) {
                 neighbor.flag = true;
                 totalFlagCount++;
               } else {
-                frontierSquares.add(neighbor.x * gridColumn + neighbor.y);
-                totalProbedSqauresCount++;
+                frontierCells.add(neighbor.x * gridColumn + neighbor.y);
+                totalProbedCellsCount++;
               }
             }
           }
@@ -66,21 +64,21 @@ class SPwCSPSolver {
       for (int key in keyList) {
         int row = key ~/ gridColumn;
         int col = key % gridColumn;
-        CellModel square = mineBoard.getCell(row, col);
+        CellModel cell = minesGrid.getCell(row, col);
         int mineCount =
-            mineBoard.countNeighor(square, CellGrid.countNeighborMine);
+            minesGrid.countNeighor(cell, MinesGrid.countNeighborMine);
         int flagCount =
-            mineBoard.countNeighor(square, CellGrid.countNeighborFlag);
-        Constraints squareConstraints =
+            minesGrid.countNeighor(cell, MinesGrid.countNeighborFlag);
+        Constraints cellConstraints =
             Constraints(number: (mineCount - flagCount));
-        for (CellModel neighbor in mineBoard.getNeighbors(square)) {
+        for (CellModel neighbor in minesGrid.getNeighbors(cell)) {
           if (neighbor.isEnabled) {
             int index = neighbor.x * gridColumn + neighbor.y;
-            squareConstraints.add(index);
+            cellConstraints.add(index);
           }
         }
-        if (squareConstraints.isNotEmpty) {
-          constraintsSet.add(squareConstraints);
+        if (cellConstraints.isNotEmpty) {
+          constraintsSet.add(cellConstraints);
         }
       }
       // decompose constraints according to their overlaps and differences
@@ -100,9 +98,9 @@ class SPwCSPSolver {
                   }
                 }
                 // decompose the constraint
-                int diffMineNumber = (constraints2.getMineNumber() -
-                    constraints1.getMineNumber());
-                diffConstraints.setMineNumber(diffMineNumber);
+                int diffMineNumber = (constraints2.getMinesNumber() -
+                    constraints1.getMinesNumber());
+                diffConstraints.setMinesNumber(diffMineNumber);
                 constraintsSetUpdated = constraintsSet.add(diffConstraints);
                 constraintsSet.remove(constraints2);
               }
@@ -113,18 +111,18 @@ class SPwCSPSolver {
 
       // solve variables if All-Free-Neighbor or All-Mine-Neighbor
       for (Constraints constraints in constraintsSet) {
-        int mines = constraints.getMineNumber();
+        int mines = constraints.getMinesNumber();
         if (mines == 0 || mines == constraints.size()) {
           for (int squareIndex in constraints) {
             int row = squareIndex ~/ gridColumn;
             int col = squareIndex % gridColumn;
-            CellModel square = mineBoard.getCell(row, col);
+            CellModel square = minesGrid.getCell(row, col);
             if (square.isEnabled) {
               square.enabled = (false);
               if (mines == 0) {
                 // if AFN
-                frontierSquares.add(squareIndex);
-                totalProbedSqauresCount++;
+                frontierCells.add(squareIndex);
+                totalProbedCellsCount++;
               } else {
                 // if AMN
                 square.flag = (true);
@@ -166,64 +164,66 @@ extension on List {
 }
 
 class Constraints implements Set<dynamic> {
-  int mineNumber = 0;
-  List<int> squaresIndices = [];
+  int minesNumber = 0;
+  List<int> cellsIndices = [];
 
   Constraints({int number = 0}) {
-    mineNumber = number;
+    minesNumber = number;
   }
 
-  int getMineNumber() {
-    return mineNumber;
+  int getMinesNumber() {
+    return minesNumber;
   }
 
-  void setMineNumber(int number) {
-    mineNumber = number;
+  void setMinesNumber(int number) {
+    minesNumber = number;
   }
 
-  int getHashCode() {
-    int hash = 7;
-    hash = 47 * hash +
-        (squaresIndices != null ? squaresIndices.hashCode : 0).hashCode;
-    hash = 47 * hash + mineNumber.hashCode;
-    return hash;
-  }
+  // int getHashCode() {
+  //   int hash = 7;
+  //   print(cellsIndices.hashCode);
+  //   print(cellsIndices.hashCode.hashCode);
+
+  //   hash = 47 * hash + (cellsIndices.hashCode).hashCode;
+  //   hash = 47 * hash + minesNumber.hashCode;
+  //   return hash;
+  // }
 
   bool equals(Object obj) {
     if (runtimeType != obj.runtimeType) {
       return false;
     }
     final Constraints other = obj as Constraints;
-    if (mineNumber != other.mineNumber) {
+    if (minesNumber != other.minesNumber) {
       return false;
     }
-    if (!squaresIndices.equals(other.squaresIndices)) {
+    if (!cellsIndices.equals(other.cellsIndices)) {
       return false;
     }
     return true;
   }
 
   int size() {
-    return squaresIndices.length;
+    return cellsIndices.length;
   }
 
   @override
   bool contains(dynamic o) {
-    return squaresIndices.contains(o);
+    return cellsIndices.contains(o);
   }
 
   List toArray() {
-    return squaresIndices.toList();
+    return cellsIndices.toList();
   }
 
   @override
   bool remove(dynamic o) {
-    return squaresIndices.remove(o);
+    return cellsIndices.remove(o);
   }
 
   @override
   void clear() {
-    squaresIndices.clear();
+    cellsIndices.clear();
   }
 
   @override
@@ -251,7 +251,7 @@ class Constraints implements Set<dynamic> {
 
   @override
   elementAt(int index) {
-    squaresIndices.elementAt(index);
+    cellsIndices.elementAt(index);
   }
 
   @override
@@ -265,7 +265,7 @@ class Constraints implements Set<dynamic> {
   }
 
   @override
-  get first => squaresIndices.first;
+  get first => cellsIndices.first;
 
   @override
   firstWhere(bool Function(dynamic element) test, {Function()? orElse}) {
@@ -292,7 +292,7 @@ class Constraints implements Set<dynamic> {
   }
 
   @override
-  bool get isNotEmpty => squaresIndices.isNotEmpty;
+  bool get isNotEmpty => cellsIndices.isNotEmpty;
 
   @override
   String join([String separator = ""]) {
@@ -300,7 +300,7 @@ class Constraints implements Set<dynamic> {
   }
 
   @override
-  get last => squaresIndices.last;
+  get last => cellsIndices.last;
 
   @override
   lastWhere(bool Function(dynamic element) test, {Function()? orElse}) {
@@ -308,7 +308,7 @@ class Constraints implements Set<dynamic> {
   }
 
   @override
-  int get length => squaresIndices.length;
+  int get length => cellsIndices.length;
 
   @override
   lookup(Object? object) {
@@ -392,13 +392,13 @@ class Constraints implements Set<dynamic> {
 
   @override
   bool add(value) {
-    squaresIndices.add(value);
+    cellsIndices.add(value);
     return true;
   }
 
   @override
-  bool get isEmpty => squaresIndices.isEmpty;
+  bool get isEmpty => cellsIndices.isEmpty;
 
   @override
-  Iterator get iterator => squaresIndices.iterator;
+  Iterator get iterator => cellsIndices.iterator;
 }

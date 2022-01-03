@@ -4,29 +4,30 @@ import 'package:infinity_sweeper/models/cell/cell_model.dart';
 import 'package:infinity_sweeper/models/cell/cellgrid_model.dart';
 import 'package:infinity_sweeper/models/game/gamedifficulty_model.dart';
 import 'package:infinity_sweeper/models/game/gamestate_model.dart';
-import 'package:infinity_sweeper/models/game/solver_model.dart';
+import 'package:infinity_sweeper/utils/spwcspSolver.dart';
 
 class GameModelProvider extends ChangeNotifier {
-  CellGrid? cellGrid;
+  MinesGrid? cellGrid;
   late GameState state;
   late int numFlag;
   late Difficulty difficulty;
   void initizialize(GameDifficulty gameDifficulty) {
     state = GameState.idle;
-    cellGrid = CellGrid(gameDifficulty.sizeGrid, gameDifficulty.numMines);
+    cellGrid = MinesGrid(
+        gameDifficulty.numRow, gameDifficulty.numCol, gameDifficulty.numMines);
     numFlag = gameDifficulty.numMines;
     difficulty = gameDifficulty.difficulty;
   }
 
   void generateCellGrid() {
-    cellGrid!.grid.clear();
+    cellGrid!.gridCells.clear();
     if (cellGrid == null) throw Exception("cellGrid == null");
-    for (int x = 0; x < cellGrid!.sizeGrid; x++) {
+    for (int x = 0; x < cellGrid!.numRows; x++) {
       List<CellModel> row = [];
-      for (int y = 0; y < cellGrid!.sizeGrid; y++) {
+      for (int y = 0; y < cellGrid!.numColumns; y++) {
         row.add(CellModel(x, y));
       }
-      cellGrid!.grid.add(row);
+      cellGrid!.gridCells.add(row);
     }
     notifyListeners();
   }
@@ -34,8 +35,8 @@ class GameModelProvider extends ChangeNotifier {
   void generateMap(CellModel clickedCell) {
     SPwCSPSolver solver = SPwCSPSolver.getSolver();
     bool isSolvable = false;
-    final int rowLenght = cellGrid!.grid.length;
-    final int colLenght = cellGrid!.grid[0].length;
+    final int numRows = cellGrid!.numRows;
+    final int numColomns = cellGrid!.numColumns;
     while (!isSolvable) {
       int placedMineNum = 0;
       int randRow, randCol;
@@ -44,28 +45,28 @@ class GameModelProvider extends ChangeNotifier {
       clickedCell.enabled = false;
       // randomly place mines
       while (placedMineNum < cellGrid!.numMines) {
-        randRow = (Random().nextInt(rowLenght));
-        randCol = (Random().nextInt(colLenght));
+        randRow = (Random().nextInt(numRows));
+        randCol = (Random().nextInt(numColomns));
         if (!(randRow >= clickedCell.x - 1 &&
                 randRow <= clickedCell.x + 1 &&
                 randCol >= clickedCell.y - 1 &&
                 randCol <= clickedCell.y + 1) &&
             !(cellGrid!.getCell(randRow, randCol).isMine)) {
           //make sure not to place mines around or at the clicked square which causes guessing
-          cellGrid!.grid[randRow][randCol].mine = true;
+          cellGrid!.gridCells[randRow][randCol].mine = true;
           placedMineNum++;
         }
       }
       // check whether is solvable without guessing
-      isSolvable = solver.isSolvable(
-          cellGrid!, clickedCell.x * rowLenght + clickedCell.y);
+      isSolvable =
+          solver.isSolvable(cellGrid!, clickedCell.x * numRows + clickedCell.y);
 
       // clear solver's operation
-      for (int row = 0; row < rowLenght; row++) {
-        for (int col = 0; col < colLenght; col++) {
+      for (int row = 0; row < numRows; row++) {
+        for (int col = 0; col < numColomns; col++) {
           if (!(row == clickedCell.x && col == clickedCell.y)) {
-            cellGrid!.grid[row][col].enabled = (true);
-            cellGrid!.grid[row][col].flag = (false);
+            cellGrid!.gridCells[row][col].enabled = (true);
+            cellGrid!.gridCells[row][col].flag = (false);
           }
         }
       }
@@ -74,21 +75,24 @@ class GameModelProvider extends ChangeNotifier {
   }
 
   void _addValueCell() {
-    final int length = cellGrid!.grid[0].length;
-    for (int x = 0; x < length; x++) {
-      for (int y = 0; y < length; y++) {
-        CellModel cell = cellGrid!.grid[x][y];
+    for (int x = 0; x < cellGrid!.numRows; x++) {
+      for (int y = 0; y < cellGrid!.numColumns; y++) {
+        CellModel cell = cellGrid!.gridCells[x][y];
         if (cell.isMine) {
           int startX = (cell.x - 1) < 0 ? 0 : cell.x - 1;
-          int endX = (cell.x + 1) > length - 1 ? length - 1 : cell.x + 1;
+          int endX = (cell.x + 1) > cellGrid!.numRows - 1
+              ? cellGrid!.numRows - 1
+              : cell.x + 1;
 
           int startY = (cell.y - 1) < 0 ? 0 : cell.y - 1;
-          int endY = (cell.y + 1) > length - 1 ? length - 1 : cell.y + 1;
+          int endY = (cell.y + 1) > cellGrid!.numColumns - 1
+              ? cellGrid!.numColumns - 1
+              : cell.y + 1;
 
           for (int j = startX; j <= endX; j++) {
             for (int k = startY; k <= endY; k++) {
-              if (!cellGrid!.grid[j][k].isMine) {
-                cellGrid!.grid[j][k].incValue();
+              if (!cellGrid!.gridCells[j][k].isMine) {
+                cellGrid!.gridCells[j][k].incValue();
               }
             }
           }
@@ -98,13 +102,13 @@ class GameModelProvider extends ChangeNotifier {
   }
 
   void setFlag(int x, int y) {
-    cellGrid!.grid[x][y].isFlagged ? numFlag++ : numFlag--;
-    cellGrid!.grid[x][y].flag = !cellGrid!.grid[x][y].isFlagged;
+    cellGrid!.gridCells[x][y].isFlagged ? numFlag++ : numFlag--;
+    cellGrid!.gridCells[x][y].flag = !cellGrid!.gridCells[x][y].isFlagged;
     notifyListeners();
   }
 
   void checkWin() {
-    for (List<CellModel> list in cellGrid!.grid) {
+    for (List<CellModel> list in cellGrid!.gridCells) {
       for (var element in list) {
         if (!element.isMine && (!element.isShowed || element.isFlagged)) {
           return;
@@ -117,7 +121,7 @@ class GameModelProvider extends ChangeNotifier {
   void finishGame(GameState stateFinish) {
     state = stateFinish;
     if (state == GameState.lose) {
-      for (List<CellModel> list in cellGrid!.grid) {
+      for (List<CellModel> list in cellGrid!.gridCells) {
         for (var element in list) {
           element.show = true;
         }
@@ -127,7 +131,7 @@ class GameModelProvider extends ChangeNotifier {
 
   void computeCell(int x, int y) {
     //Get cell
-    CellModel cell = cellGrid!.grid[x][y];
+    CellModel cell = cellGrid!.gridCells[x][y];
     //Prevent open bomb first time
     if (state == GameState.idle) {
       generateMap(cellGrid!.getCell(x, y));
@@ -135,26 +139,29 @@ class GameModelProvider extends ChangeNotifier {
       state = GameState.started;
     }
     //Show value
-    int size = cellGrid!.grid[0].length;
-    if (cell.x > size ||
-        cell.y > size ||
+    if (cell.x > cellGrid!.numRows ||
+        cell.y > cellGrid!.numColumns ||
         cell.x < 0 ||
         cell.y < 0 ||
         cell.isShowed) return;
     cell.show = true;
     if (cell.value == 0) {
       int startX = (cell.x - 1) < 0 ? 0 : cell.x - 1;
-      int endX = (cell.x + 1) > size - 1 ? size - 1 : cell.x + 1;
+      int endX = (cell.x + 1) > cellGrid!.numRows - 1
+          ? cellGrid!.numRows - 1
+          : cell.x + 1;
 
       int startY = (cell.y - 1) < 0 ? 0 : cell.y - 1;
-      int endY = (cell.y + 1) > size - 1 ? size - 1 : cell.y + 1;
+      int endY = (cell.y + 1) > cellGrid!.numColumns - 1
+          ? cellGrid!.numColumns - 1
+          : cell.y + 1;
 
       for (int j = startX; j <= endX; j++) {
         for (int k = startY; k <= endY; k++) {
-          if (cellGrid!.grid[j][k].value != 0) cellGrid!.grid[j][k].show = true;
-          if (!cellGrid!.grid[j][k].isMine &&
-              !cellGrid!.grid[j][k].isShowed &&
-              cellGrid!.grid[j][k].value == 0) computeCell(j, k);
+          if (cellGrid!.gridCells[j][k].value != 0) cellGrid!.gridCells[j][k].show = true;
+          if (!cellGrid!.gridCells[j][k].isMine &&
+              !cellGrid!.gridCells[j][k].isShowed &&
+              cellGrid!.gridCells[j][k].value == 0) computeCell(j, k);
         }
       }
     }

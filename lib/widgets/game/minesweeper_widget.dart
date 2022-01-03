@@ -6,11 +6,12 @@ import 'cell_widget.dart';
 
 class MineSweeperCore extends StatefulWidget {
   final List<List<CellModel>> listCell;
-  final int sizeGrid;
+  final int rowLenght;
+  final int colLenght;
   final int numMines;
   final Difficulty difficulty;
-  const MineSweeperCore(
-      this.listCell, this.sizeGrid, this.numMines, this.difficulty,
+  const MineSweeperCore(this.listCell, this.rowLenght, this.colLenght,
+      this.numMines, this.difficulty,
       {Key? key})
       : super(key: key);
   @override
@@ -47,7 +48,7 @@ class _MineSweeperCore extends State<MineSweeperCore> {
                 padding: const EdgeInsets.all(4.0),
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: widget.sizeGrid),
+                    crossAxisCount: widget.colLenght),
                 itemCount: tmp.length,
                 addAutomaticKeepAlives: false,
                 itemBuilder: (BuildContext context, int index) {
@@ -89,7 +90,7 @@ class _MineSweeperCore extends State<MineSweeperCore> {
 //Create grid game
   Column getGrid(final double maxWidth) {
     List<Row> rows = [];
-    for (int i = 0; i < widget.sizeGrid; i++) {
+    for (int i = 0; i < widget.colLenght; i++) {
       rows.add(addRow(i, maxWidth));
     }
     return Column(
@@ -100,7 +101,7 @@ class _MineSweeperCore extends State<MineSweeperCore> {
 //Add rows to the grid
   Row addRow(final int y, final double maxWidth) {
     List<Widget> list = [];
-    for (int i = 0; i < widget.sizeGrid; i++) {
+    for (int i = 0; i < widget.rowLenght; i++) {
       list.add(
         Padding(
           padding: const EdgeInsets.all(1.0),

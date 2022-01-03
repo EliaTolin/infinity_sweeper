@@ -1,28 +1,32 @@
 import 'cell_model.dart';
 
-class CellGrid {
+class MinesGrid {
+  //For solver
   static int countNeighborMine = 0;
   static int countNeighborFlag = 1;
   static int countNeighborUnprobed = 2;
   late int numMines;
-  late int sizeGrid;
-  List<List<CellModel>> grid = [];
-  CellGrid(this.sizeGrid, this.numMines);
+  //number of columns
+  late int numColumns;
+  //number of rows
+  late int numRows;
+  //The cells grid is rappresent by List of List of CellModel
+  List<List<CellModel>> gridCells = [];
 
-  CellModel getCell(int row, int col) {
-    return grid[row][col];
-  }
+  MinesGrid(this.numRows, this.numColumns, this.numMines);
+
+  CellModel getCell(int row, int col) => gridCells[row][col];
 
   List<CellModel> getNeighbors(CellModel square) {
     List<CellModel> neighborSquares = [];
     int row, col;
     for (int i = -1; i < 2; i++) {
       row = square.x + i;
-      if (row >= 0 && row < sizeGrid) {
+      if (row >= 0 && row < numRows) {
         for (int j = -1; j < 2; j++) {
           col = square.y + j;
-          if (col >= 0 && col < sizeGrid && !(i == 0 && j == 0)) {
-            neighborSquares.add(grid[row][col]);
+          if (col >= 0 && col < numColumns && !(i == 0 && j == 0)) {
+            neighborSquares.add(gridCells[row][col]);
           }
         }
       }
@@ -43,7 +47,7 @@ class CellGrid {
   }
 
   void initizialize() {
-    for (List<CellModel> list in grid) {
+    for (List<CellModel> list in gridCells) {
       for (var element in list) {
         element.show = false;
         element.mine = false;

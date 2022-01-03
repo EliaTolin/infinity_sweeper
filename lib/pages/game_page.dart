@@ -68,8 +68,8 @@ class _GamePageState extends State<GamePage> {
                             child: Consumer<GameModelProvider>(
                               builder: (context, gameModel, child) {
                                 //throw if cellGrid is null
-                                CellGrid? cellGrid = gameModel.cellGrid;
-                                if (cellGrid!.grid.isEmpty) {
+                                MinesGrid? cellGrid = gameModel.cellGrid;
+                                if (cellGrid!.gridCells.isEmpty) {
                                   return Container();
                                 }
                                 if (gameModel.state == GameState.started) {
@@ -93,8 +93,9 @@ class _GamePageState extends State<GamePage> {
                                   );
                                 }
                                 return MineSweeperCore(
-                                    cellGrid.grid,
-                                    cellGrid.sizeGrid,
+                                    cellGrid.gridCells,
+                                    cellGrid.numRows,
+                                    cellGrid.numColumns,
                                     cellGrid.numMines,
                                     gameModel.difficulty);
                               },
