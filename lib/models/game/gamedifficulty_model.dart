@@ -7,7 +7,7 @@ class GameDifficulty {
   late Difficulty difficulty;
 
   GameDifficulty.easy() {
-    numMines = 2;
+    numMines = 10;
     numRow = numCol = 9;
     difficulty = Difficulty.easy;
   }
