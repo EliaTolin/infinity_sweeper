@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.infinity_sweeper">
+    <user-permission android:name="com.android.vending.BILLING"/>
+    <user-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="infinity_sweeper"
         android:icon="@mipmap/ic_launcher">

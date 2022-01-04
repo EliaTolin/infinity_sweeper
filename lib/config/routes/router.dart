@@ -17,7 +17,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case RouteConstant.statsRoute:
       return MaterialPageRoute(builder: (context) => const StatsPage());
     case RouteConstant.purchaseRoute:
-      return MaterialPageRoute(builder: (context) => const PurchasePage());
+      return MaterialPageRoute(builder: (context) => PurchasePage());
   }
   return MaterialPageRoute(
       builder: (context) => UndefinitedScreen(name: settings.name));

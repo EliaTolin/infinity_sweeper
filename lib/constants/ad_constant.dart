@@ -1,7 +1,6 @@
 import 'dart:io';
 
 class AdConstant {
-  
   static int get frequencyShowInterstialAd => 5;
 
   static String get bannerAdUnitId {
