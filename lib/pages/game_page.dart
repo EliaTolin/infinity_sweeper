@@ -95,7 +95,7 @@ class _GamePageState extends State<GamePage> {
                                     },
                                   );
                                 }
-                                return MineSweeperCore(
+                                return MineSweeperWidget(
                                     cellGrid.gridCells,
                                     cellGrid.numRows,
                                     cellGrid.numColumns,

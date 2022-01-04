@@ -7,11 +7,11 @@ import 'package:infinity_sweeper/models/cell/cell_model.dart';
 import 'package:infinity_sweeper/providers/game_provider.dart';
 import 'package:provider/provider.dart';
 
-class Cell extends StatelessWidget {
+class CellWidget extends StatelessWidget {
   final double cellWidth;
   final double cellHeight;
   final CellModel cell;
-  const Cell(this.cell, this.cellWidth, this.cellHeight, {Key? key})
+  const CellWidget(this.cell, this.cellWidth, this.cellHeight, {Key? key})
       : super(key: key);
 
   Widget getContent() {
