@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:infinity_sweeper/api/purchase_api.dart';
 import 'package:infinity_sweeper/models/providers/game_provider.dart';
 import 'package:infinity_sweeper/models/providers/gamedata_provider.dart';
 import 'package:infinity_sweeper/models/providers/purchase_provider.dart';
@@ -8,9 +9,10 @@ import 'constants/route_constant.dart';
 import 'config/routes/router.dart' as router;
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();
+  await PurchaseApi.init();
   runApp(
     MultiProvider(
       providers: [

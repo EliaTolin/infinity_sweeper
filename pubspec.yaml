@@ -47,6 +47,7 @@ dependencies:
   google_mobile_ads: ^1.0.1
   in_app_purchase: ^2.0.1
   intl: ^0.17.0
+  purchases_flutter: ^3.8.0
   
 flutter_icons:
   ios: true

@@ -52,6 +52,14 @@ PODS:
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
   - PromisesObjC (2.0.0)
+  - Purchases (3.13.1):
+    - PurchasesCoreSwift (= 3.13.1)
+  - purchases_flutter (3.8.0):
+    - Flutter
+    - PurchasesHybridCommon (= 1.11.1)
+  - PurchasesCoreSwift (3.13.1)
+  - PurchasesHybridCommon (1.11.1):
+    - Purchases (= 3.13.1)
   - shared_preferences_ios (0.0.1):
     - Flutter
 
@@ -59,6 +67,7 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - google_mobile_ads (from `.symlinks/plugins/google_mobile_ads/ios`)
   - in_app_purchase_storekit (from `.symlinks/plugins/in_app_purchase_storekit/ios`)
+  - purchases_flutter (from `.symlinks/plugins/purchases_flutter/ios`)
   - shared_preferences_ios (from `.symlinks/plugins/shared_preferences_ios/ios`)
 
 SPEC REPOS:
@@ -69,6 +78,9 @@ SPEC REPOS:
     - GoogleUtilities
     - nanopb
     - PromisesObjC
+    - Purchases
+    - PurchasesCoreSwift
+    - PurchasesHybridCommon
 
 EXTERNAL SOURCES:
   Flutter:
@@ -77,6 +89,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/google_mobile_ads/ios"
   in_app_purchase_storekit:
     :path: ".symlinks/plugins/in_app_purchase_storekit/ios"
+  purchases_flutter:
+    :path: ".symlinks/plugins/purchases_flutter/ios"
   shared_preferences_ios:
     :path: ".symlinks/plugins/shared_preferences_ios/ios"
 
@@ -90,6 +104,10 @@ SPEC CHECKSUMS:
   in_app_purchase_storekit: 6dec89fe3b9698847ed4aaf65fde6c17491620ad
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
+  Purchases: 2693d6444609de044ab25fcda9561bef038f24da
+  purchases_flutter: 214d452aaf860496aeee822487eafcdd962fab33
+  PurchasesCoreSwift: ca55f9ef671f89abed133775dd9e53f55007828d
+  PurchasesHybridCommon: a0313de4f31fbaf137518b2686ccdca4c91dd2b4
   shared_preferences_ios: aef470a42dc4675a1cdd50e3158b42e3d1232b32
 
 PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
