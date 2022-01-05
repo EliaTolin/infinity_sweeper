@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gesture_x_detector/gesture_x_detector.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
@@ -45,11 +46,11 @@ class CellWidget extends StatelessWidget {
       longPressTimeConsider: 300,
       onTap: (_) {
         Provider.of<GameModelProvider>(context, listen: false)
-            .computeCell(cell.x, cell.y);
+            .computeCell(cell);
       },
       onLongPress: (_) {
-        Provider.of<GameModelProvider>(context, listen: false)
-            .setFlag(cell.x, cell.y);
+        HapticFeedback.mediumImpact();
+        Provider.of<GameModelProvider>(context, listen: false).setFlag(cell);
       },
       child: Container(
         width: cellWidth,

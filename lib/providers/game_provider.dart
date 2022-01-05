@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:infinity_sweeper/models/cell/cell_model.dart';
 import 'package:infinity_sweeper/models/cell/cellgrid_model.dart';
 import 'package:infinity_sweeper/models/game/gamedifficulty_model.dart';
@@ -11,6 +11,9 @@ class GameModelProvider extends ChangeNotifier {
   late GameState state;
   late int numFlag;
   late Difficulty difficulty;
+  List<int> minesPosition = [];
+  List<int> flagPosition = [];
+
   void initizialize(GameDifficulty gameDifficulty) {
     state = GameState.idle;
     cellGrid = MinesGrid(
@@ -25,7 +28,7 @@ class GameModelProvider extends ChangeNotifier {
     for (int x = 0; x < cellGrid!.numRows; x++) {
       List<CellModel> row = [];
       for (int y = 0; y < cellGrid!.numColumns; y++) {
-        row.add(CellModel(x, y));
+        row.add(CellModel(x, y, x * cellGrid!.numColumns + y));
       }
       cellGrid!.gridCells.add(row);
     }
@@ -57,9 +60,9 @@ class GameModelProvider extends ChangeNotifier {
           placedMineNum++;
         }
       }
+
       // check whether is solvable without guessing
-      isSolvable =
-          solver.isSolvable(cellGrid!, clickedCell.x * numRows + clickedCell.y);
+      isSolvable = solver.isSolvable(cellGrid!, clickedCell.index);
 
       // clear solver's operation
       for (int row = 0; row < numRows; row++) {
@@ -72,6 +75,21 @@ class GameModelProvider extends ChangeNotifier {
       }
     }
     _addValueCell();
+    _savePositionMines();
+  }
+
+  void _savePositionMines() {
+    minesPosition.clear();
+    flagPosition.clear();
+    List<int> tmpMines = [];
+    for (List<CellModel> list in cellGrid!.gridCells) {
+      for (var element in list) {
+        if (element.isMine) {
+          tmpMines.add(element.index);
+        }
+      }
+    }
+    minesPosition = tmpMines;
   }
 
   void _addValueCell() {
@@ -101,24 +119,39 @@ class GameModelProvider extends ChangeNotifier {
     }
   }
 
-  void setFlag(int x, int y) {
-    cellGrid!.gridCells[x][y].isFlagged ? numFlag++ : numFlag--;
-    cellGrid!.gridCells[x][y].flag = !cellGrid!.gridCells[x][y].isFlagged;
+  void setFlag(CellModel cell) {
+    int x = cell.x;
+    int y = cell.y;
+    if (cell.isFlagged) {
+      flagPosition.remove(cell.index);
+      numFlag++;
+      cellGrid!.gridCells[x][y].flag = false;
+    } else {
+      flagPosition.add(cell.index);
+      numFlag--;
+      cellGrid!.gridCells[x][y].flag = true;
+      checkWin();
+    }
     notifyListeners();
   }
 
   void checkWin() {
-    for (List<CellModel> list in cellGrid!.gridCells) {
-      for (var element in list) {
-        //non si ha vinto finche ci sono bombe non flaggate
-        //Salvo la posizione delle bombe e delle bandiere e controllo
-        //che non ci siano caselle coperte
-        if (!element.isMine && (!element.isShowed || element.isFlagged)) {
-          return;
+    List sortedFlag = flagPosition..sort();
+    if (listEquals(sortedFlag, minesPosition)) {
+      bool areAllShowed = true;
+      for (List<CellModel> list in cellGrid!.gridCells) {
+        for (var element in list) {
+          if (!minesPosition.contains(element.index) && !element.isFlagged) {
+            if (!element.isShowed) {
+              areAllShowed = false;
+            }
+          }
         }
       }
+      if (areAllShowed) {
+        finishGame(GameState.victory);
+      }
     }
-    finishGame(GameState.victory);
   }
 
   void finishGame(GameState stateFinish) {
@@ -132,15 +165,7 @@ class GameModelProvider extends ChangeNotifier {
     }
   }
 
-  void computeCell(int x, int y) {
-    //Get cell
-    CellModel cell = cellGrid!.gridCells[x][y];
-    //Prevent open bomb first time
-    if (state == GameState.idle) {
-      generateMap(cellGrid!.getCell(x, y));
-      //set the new state of game
-      state = GameState.started;
-    }
+  void _openEmptyCell(CellModel cell) {
     //Show value
     if (cell.x > cellGrid!.numRows ||
         cell.y > cellGrid!.numColumns ||
@@ -161,13 +186,25 @@ class GameModelProvider extends ChangeNotifier {
 
       for (int j = startX; j <= endX; j++) {
         for (int k = startY; k <= endY; k++) {
-          if (cellGrid!.gridCells[j][k].value != 0)
+          if (cellGrid!.gridCells[j][k].value != 0) {
             cellGrid!.gridCells[j][k].show = true;
+          }
           if (!cellGrid!.gridCells[j][k].isMine &&
               !cellGrid!.gridCells[j][k].isShowed &&
-              cellGrid!.gridCells[j][k].value == 0) computeCell(j, k);
+              cellGrid!.gridCells[j][k].value == 0) {
+            _openEmptyCell(cellGrid!.getCell(j, k));
+          }
         }
       }
+    }
+  }
+
+  void computeCell(CellModel cell) {
+    //Prevent open bomb first time
+    if (state == GameState.idle) {
+      generateMap(cell);
+      //set the new state of game
+      state = GameState.started;
     }
     //Check if lose
     if (cell.isMine) {
@@ -175,6 +212,8 @@ class GameModelProvider extends ChangeNotifier {
       notifyListeners();
       return;
     }
+    //openEmptyCell
+    _openEmptyCell(cell);
     //Check if win
     checkWin();
     notifyListeners();

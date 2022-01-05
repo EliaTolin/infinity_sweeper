@@ -22,6 +22,7 @@ class _GamePageState extends State<GamePage> {
   @override
   void deactivate() {
     super.deactivate();
+    Provider.of<TimerProvider>(context, listen: false).stopTimer(notify: false);
     Provider.of<TimerProvider>(context, listen: false).resetTimer();
   }
 
