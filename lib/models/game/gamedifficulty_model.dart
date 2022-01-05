@@ -15,6 +15,7 @@ class GameDifficulty {
     sizeGrid = 16;
     difficulty = Difficulty.medium;
   }
+
   GameDifficulty.difficulty() {
     numMines = 243;
     sizeGrid = 30;

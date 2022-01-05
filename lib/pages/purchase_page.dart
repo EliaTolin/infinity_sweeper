@@ -3,7 +3,10 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/api/purchase_api.dart';
+import 'package:infinity_sweeper/models/ads/entitlement.dart';
+import 'package:infinity_sweeper/models/providers/purchase_provider.dart';
 import 'package:infinity_sweeper/widgets/paywall_widget.dart';
+import 'package:provider/provider.dart';
 import 'package:purchases_flutter/object_wrappers.dart';
 
 class PurchasePage extends StatefulWidget {
@@ -26,6 +29,8 @@ class _PurchasePageState extends State<PurchasePage> {
 
   @override
   Widget build(BuildContext context) {
+    Entitlement entitlement =
+        Provider.of<PurchaseProvider>(context, listen: false).entitlement;
     return Scaffold(
       appBar: AppBar(
         title: const Text('In App Purchase 1.0.8'),
@@ -34,20 +39,28 @@ class _PurchasePageState extends State<PurchasePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            isReady
-                ? (isFound
-                    ? PayWallWidget(
-                        packages: packages,
-                        title: "Ugrade your plan",
-                        description:
-                            "Under to a new plan to enjoy more benefits",
-                        onClickedPages: (package) async {
-                          await PurchaseApi.purchasePackage(package);
-                          Navigator.pop(context);
-                        },
-                      )
-                    : const Text("not found"))
-                : const Text("loading"),
+            entitlement == Entitlement.REMOVE_ADS
+                ? const Text(
+                    "Already buy",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  )
+                : isReady
+                    ? (isFound
+                        ? PayWallWidget(
+                            packages: packages,
+                            title: "Ugrade your plan",
+                            description:
+                                "Under to a new plan to enjoy more benefits",
+                            onClickedPages: (package) async {
+                              final ifSuccess =
+                                  await PurchaseApi.purchasePackage(package);
+                              ifSuccess
+                                  ? print("SUCCESSSS")
+                                  : print("NOT GOOOOOOD");
+                            },
+                          )
+                        : const Text("not found"))
+                    : const Text("loading"),
           ],
         ),
       ),
@@ -68,7 +81,7 @@ class _PurchasePageState extends State<PurchasePage> {
       });
     } else {
       final offer = offerings.first;
-      print('Offer: $offer');
+      print('DEBUG DEBUG OFFER: $offer');
       packages = offerings
           .map((offer) => offer.availablePackages)
           .expand((pair) => pair)

@@ -17,17 +17,28 @@ class PurchaseApi {
   static Future init() async {
     await Purchases.setDebugLogsEnabled(true);
     await Purchases.setup(_getApiKey);
-    //TODO: rimuovere appUserID
-    await Purchases.logIn("appUserID");
   }
 
-  static Future<List<Offering>> fetchOffers() async {
+  static Future<List<Offering>> fetchOffersByIds(List<String> ids) async {
     try {
-      final offerings = await Purchases.getOfferings();
-      final current = offerings.current;
-      return current == null ? [] : [current];
+      final offers = await fetchOffers();
+      return offers.where((offer) => ids.contains(offer.identifier)).toList();
     } on PlatformException catch (e) {
       print(e.message);
+      return [];
+    }
+  }
+
+  static Future<List<Offering>> fetchOffers({bool all = true}) async {
+    try {
+      final offerings = await Purchases.getOfferings();
+      if (!all) {
+        final current = offerings.current;
+        return current == null ? [] : [current];
+      } else {
+        return offerings.all.values.toList();
+      }
+    } on PlatformException catch (e) {
       return [];
     }
   }
@@ -35,10 +46,9 @@ class PurchaseApi {
   static Future<bool> purchasePackage(Package package) async {
     try {
       PurchaserInfo purchaserInfo = await Purchases.purchasePackage(package);
+      print(purchaserInfo.allPurchasedProductIdentifiers);
+      print("entitlements " + purchaserInfo.entitlements.all.toString());
       return true;
-      // if (purchaserInfo.entitlements.all["REMOVEADS"].isActive) {
-      //   // Unlock that great "pro" content
-      // }
     } catch (e) {
       return false;
     }
