@@ -4,7 +4,7 @@ import 'package:infinity_sweeper/models/cell/cell_model.dart';
 import 'package:infinity_sweeper/models/cell/cellgrid_model.dart';
 import 'package:infinity_sweeper/models/game/gamedifficulty_model.dart';
 import 'package:infinity_sweeper/models/game/gamestate_model.dart';
-import 'package:infinity_sweeper/utils/spwcspSolver.dart';
+import 'package:infinity_sweeper/utils/spwcsp_solver.dart';
 
 class GameModelProvider extends ChangeNotifier {
   MinesGrid? cellGrid;
