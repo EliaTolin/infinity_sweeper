@@ -6,12 +6,12 @@
   "products" : [
     {
       "displayPrice" : "1.99",
-      "familyShareable" : false,
+      "familyShareable" : true,
       "internalID" : "DB7CF092",
       "localizations" : [
         {
-          "description" : "",
-          "displayName" : "",
+          "description" : "Allows the elimination of advertising forever",
+          "displayName" : "Pro Version",
           "locale" : "en_US"
         }
       ],
@@ -25,9 +25,9 @@
       "internalID" : "66392511",
       "localizations" : [
         {
-          "description" : "",
-          "displayName" : "",
-          "locale" : "en_US"
+          "description" : "Rimuovi annunci",
+          "displayName" : "Rimuovi annunci",
+          "locale" : "it"
         }
       ],
       "productID" : "REMOVE_ADS",
