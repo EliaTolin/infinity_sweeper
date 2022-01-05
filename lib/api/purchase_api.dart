@@ -17,6 +17,8 @@ class PurchaseApi {
   static Future init() async {
     await Purchases.setDebugLogsEnabled(true);
     await Purchases.setup(_getApiKey);
+    //TODO: rimuovere appUserID
+    await Purchases.logIn("appUserID");
   }
 
   static Future<List<Offering>> fetchOffers() async {
@@ -25,14 +27,18 @@ class PurchaseApi {
       final current = offerings.current;
       return current == null ? [] : [current];
     } on PlatformException catch (e) {
+      print(e.message);
       return [];
     }
   }
 
   static Future<bool> purchasePackage(Package package) async {
     try {
-      await Purchases.purchasePackage(package);
+      PurchaserInfo purchaserInfo = await Purchases.purchasePackage(package);
       return true;
+      // if (purchaserInfo.entitlements.all["REMOVEADS"].isActive) {
+      //   // Unlock that great "pro" content
+      // }
     } catch (e) {
       return false;
     }
