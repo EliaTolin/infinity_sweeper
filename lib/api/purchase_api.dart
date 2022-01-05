@@ -1,11 +1,22 @@
+import 'dart:io';
+
 import 'package:flutter/services.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
 class PurchaseApi {
-  static const _apiKey = 'goog_gRSHovGtMgcmlTurIwAScjhNGVY';
+  static String get _getApiKey {
+    if (Platform.isAndroid) {
+      return 'goog_gRSHovGtMgcmlTurIwAScjhNGVY';
+    } else if (Platform.isIOS) {
+      return 'appl_IxclWbdRQzOTrXUXvgStKiISyGx';
+    } else {
+      throw UnsupportedError('Unsupported platform');
+    }
+  }
+
   static Future init() async {
     await Purchases.setDebugLogsEnabled(true);
-    await Purchases.setup(_apiKey);
+    await Purchases.setup(_getApiKey);
   }
 
   static Future<List<Offering>> fetchOffers() async {
