@@ -110,6 +110,9 @@ class GameModelProvider extends ChangeNotifier {
   void checkWin() {
     for (List<CellModel> list in cellGrid!.gridCells) {
       for (var element in list) {
+        //non si ha vinto finche ci sono bombe non flaggate
+        //Salvo la posizione delle bombe e delle bandiere e controllo
+        //che non ci siano caselle coperte
         if (!element.isMine && (!element.isShowed || element.isFlagged)) {
           return;
         }
@@ -158,7 +161,8 @@ class GameModelProvider extends ChangeNotifier {
 
       for (int j = startX; j <= endX; j++) {
         for (int k = startY; k <= endY; k++) {
-          if (cellGrid!.gridCells[j][k].value != 0) cellGrid!.gridCells[j][k].show = true;
+          if (cellGrid!.gridCells[j][k].value != 0)
+            cellGrid!.gridCells[j][k].show = true;
           if (!cellGrid!.gridCells[j][k].isMine &&
               !cellGrid!.gridCells[j][k].isShowed &&
               cellGrid!.gridCells[j][k].value == 0) computeCell(j, k);
