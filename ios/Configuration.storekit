@@ -1,6 +1,24 @@
 {
-  "products" : [
+  "identifier" : "12738E68",
+  "nonRenewingSubscriptions" : [
 
+  ],
+  "products" : [
+    {
+      "displayPrice" : "1.99",
+      "familyShareable" : false,
+      "internalID" : "6AC8C182",
+      "localizations" : [
+        {
+          "description" : "",
+          "displayName" : "",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "REMOVE_ADS",
+      "referenceName" : "REMOVEADS",
+      "type" : "NonConsumable"
+    }
   ],
   "settings" : {
 
@@ -10,6 +28,6 @@
   ],
   "version" : {
     "major" : 1,
-    "minor" : 0
+    "minor" : 1
   }
 }
