@@ -32,7 +32,7 @@ class PurchaseProvider extends ChangeNotifier {
     print("ENTITLEMENT : " + purchaseInfo.entitlements.active.toString());
     final entitlements = purchaseInfo.entitlements.active.values.toList();
     _entitlements =
-        entitlements.isEmpty ? Entitlement.free : Entitlement.REMOVE_ADS;
+        entitlements.isEmpty ? Entitlement.free : Entitlement.proVersionAds;
     notifyListeners();
   }
 }

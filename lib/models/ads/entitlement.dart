@@ -1,1 +1,1 @@
-enum Entitlement { free, REMOVE_ADS }
+enum Entitlement { free, proVersionAds }

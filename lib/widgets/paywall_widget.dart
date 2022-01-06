@@ -1,17 +1,18 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:clay_containers/clay_containers.dart';
+import 'package:clay_containers/widgets/clay_container.dart';
 import 'package:flutter/material.dart';
+import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:purchases_flutter/package_wrapper.dart';
 
 class PayWallWidget extends StatefulWidget {
-  final String title;
-  final String description;
-  final List<Package> packages;
+  final BuildContext context;
+  final Package package;
+  final int index;
   final ValueChanged<Package> onClickedPages;
   const PayWallWidget(
-      {Key? key,
-      required this.title,
-      required this.description,
-      required this.packages,
-      required this.onClickedPages})
+      this.package, this.context, this.index, this.onClickedPages,
+      {Key? key})
       : super(key: key);
   @override
   _PayWallWidgetState createState() => _PayWallWidgetState();
@@ -20,51 +21,43 @@ class PayWallWidget extends StatefulWidget {
 class _PayWallWidgetState extends State<PayWallWidget> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      constraints: BoxConstraints(
-        maxHeight: MediaQuery.of(context).size.height * 0.75,
-      ),
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Text(widget.title),
-            const SizedBox(height: 16),
-            Text(widget.description),
-            const SizedBox(height: 16),
-            buildPackages(),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget buildPackages() {
-    return ListView.builder(
-        shrinkWrap: true,
-        primary: false,
-        itemCount: widget.packages.length,
-        itemBuilder: (context, index) {
-          final package = widget.packages[index];
-          return buildPackage(context, package);
-        });
-  }
-
-  Widget buildPackage(BuildContext context, Package package) {
-    final product = package.product;
-    return Card(
-      color: Colors.amber,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
+    final product = widget.package.product;
+    return ClayContainer(
+      curveType: CurveType.concave,
+      surfaceColor: StyleConstant.mainColor,
+      parentColor: StyleConstant.mainColor,
+      customBorderRadius: BorderRadius.circular(12),
       child: Theme(
         data: ThemeData.light(),
         child: ListTile(
           contentPadding: const EdgeInsets.all(8),
-          title: Text(product.title),
-          subtitle: Text(product.description),
-          trailing: Text(product.priceString),
-          onTap: () => widget.onClickedPages(package),
+          title: AutoSizeText(
+            product.title,
+            maxLines: 1,
+            style: TextStyle(
+              color: StyleConstant.listColors[widget.index],
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          subtitle: AutoSizeText(
+            product.description,
+            maxLines: 1,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          trailing: AutoSizeText(
+            product.priceString,
+            maxLines: 1,
+            style: TextStyle(
+              color: StyleConstant.listColors[widget.index],
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          onTap: () => widget.onClickedPages(widget.package),
         ),
       ),
     );
