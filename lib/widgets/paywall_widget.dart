@@ -1,6 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:clay_containers/clay_containers.dart';
-import 'package:clay_containers/widgets/clay_container.dart';
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:purchases_flutter/package_wrapper.dart';
