@@ -50,7 +50,9 @@ class CellWidget extends StatelessWidget {
       },
       onLongPress: (_) {
         HapticFeedback.mediumImpact();
-        Provider.of<GameModelProvider>(context, listen: false).setFlag(cell);
+        if (!cell.isShowed) {
+          Provider.of<GameModelProvider>(context, listen: false).setFlag(cell);
+        }
       },
       child: Container(
         width: cellWidth,

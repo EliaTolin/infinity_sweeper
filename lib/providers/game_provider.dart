@@ -12,7 +12,7 @@ class GameModelProvider extends ChangeNotifier {
   late int numFlag;
   late Difficulty difficulty;
   List<int> minesPosition = [];
-  List<int> flagPosition = [];
+  List<int> cellNotShowedPosition = [];
 
   void initizialize(GameDifficulty gameDifficulty) {
     state = GameState.idle;
@@ -75,15 +75,18 @@ class GameModelProvider extends ChangeNotifier {
       }
     }
     _addValueCell();
-    _savePositionMines();
+    _saveAllPosition();
   }
 
-  void _savePositionMines() {
+  void _saveAllPosition() {
     minesPosition.clear();
-    flagPosition.clear();
+    cellNotShowedPosition.clear();
     List<int> tmpMines = [];
     for (List<CellModel> list in cellGrid!.gridCells) {
       for (var element in list) {
+        if (!element.isShowed) {
+          cellNotShowedPosition.add(element.index);
+        }
         if (element.isMine) {
           tmpMines.add(element.index);
         }
@@ -120,14 +123,13 @@ class GameModelProvider extends ChangeNotifier {
   }
 
   void setFlag(CellModel cell) {
+    if (cell.isShowed) return;
     int x = cell.x;
     int y = cell.y;
     if (cell.isFlagged) {
-      flagPosition.remove(cell.index);
       numFlag++;
       cellGrid!.gridCells[x][y].flag = false;
     } else {
-      flagPosition.add(cell.index);
       numFlag--;
       cellGrid!.gridCells[x][y].flag = true;
       checkWin();
@@ -136,21 +138,9 @@ class GameModelProvider extends ChangeNotifier {
   }
 
   void checkWin() {
-    List sortedFlag = flagPosition..sort();
-    if (listEquals(sortedFlag, minesPosition)) {
-      bool areAllShowed = true;
-      for (List<CellModel> list in cellGrid!.gridCells) {
-        for (var element in list) {
-          if (!minesPosition.contains(element.index) && !element.isFlagged) {
-            if (!element.isShowed) {
-              areAllShowed = false;
-            }
-          }
-        }
-      }
-      if (areAllShowed) {
-        finishGame(GameState.victory);
-      }
+    List sortedList = cellNotShowedPosition..sort();
+    if (listEquals(sortedList, minesPosition)) {
+      finishGame(GameState.victory);
     }
   }
 
@@ -165,6 +155,11 @@ class GameModelProvider extends ChangeNotifier {
     }
   }
 
+  void showCell(CellModel cell) {
+    cell.show = true;
+    cellNotShowedPosition.remove(cell.index);
+  }
+
   void _openEmptyCell(CellModel cell) {
     //Show value
     if (cell.x > cellGrid!.numRows ||
@@ -172,7 +167,7 @@ class GameModelProvider extends ChangeNotifier {
         cell.x < 0 ||
         cell.y < 0 ||
         cell.isShowed) return;
-    cell.show = true;
+    showCell(cell);
     if (cell.value == 0) {
       int startX = (cell.x - 1) < 0 ? 0 : cell.x - 1;
       int endX = (cell.x + 1) > cellGrid!.numRows - 1
@@ -187,7 +182,7 @@ class GameModelProvider extends ChangeNotifier {
       for (int j = startX; j <= endX; j++) {
         for (int k = startY; k <= endY; k++) {
           if (cellGrid!.gridCells[j][k].value != 0) {
-            cellGrid!.gridCells[j][k].show = true;
+            showCell(cellGrid!.getCell(j, k));
           }
           if (!cellGrid!.gridCells[j][k].isMine &&
               !cellGrid!.gridCells[j][k].isShowed &&
@@ -200,6 +195,9 @@ class GameModelProvider extends ChangeNotifier {
   }
 
   void computeCell(CellModel cell) {
+    if (state == GameState.victory || state == GameState.lose) {
+      return;
+    }
     //Prevent open bomb first time
     if (state == GameState.idle) {
       generateMap(cell);
