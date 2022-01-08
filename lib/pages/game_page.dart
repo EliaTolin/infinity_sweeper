@@ -132,14 +132,14 @@ class _GamePageState extends State<GamePage> {
     }
     SharedPrefHelper sharedPrefHelper = SharedPrefHelper();
     int timeAds = 0;
-    if (await sharedPrefHelper.exist(DataConstant.counterAdsTime)) {
-      timeAds = await sharedPrefHelper.read(DataConstant.counterAdsTime);
+    if (await sharedPrefHelper.exist(DataConstant.proVersionAds)) {
+      timeAds = await sharedPrefHelper.read(DataConstant.proVersionAds);
     }
     timeAds++;
     if (timeAds >= AdConstant.frequencyShowInterstialAd) {
       timeAds = 0;
       adInterstitialHelper.showInterstialAds();
     }
-    sharedPrefHelper.save(DataConstant.counterAdsTime, timeAds);
+    sharedPrefHelper.save(DataConstant.proVersionAds, timeAds);
   }
 }

@@ -6,5 +6,5 @@ class DataConstant {
   static const String recordMedium = "record_medium";
   static const String recordDifficult = "record_difficult";
   //counter time for ads
-  static const String counterAdsTime = "counter_ads_time";
+  static const String proVersionAds = "pro_version_ent";
 }

@@ -6,8 +6,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:infinity_sweeper/api/purchase_api.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:infinity_sweeper/models/ads/entitlement.dart';
+import 'package:infinity_sweeper/models/providers/purchase_provider.dart';
 import 'package:infinity_sweeper/widgets/page_components/topbar_back_widget.dart';
 import 'package:infinity_sweeper/widgets/paywall_widget.dart';
+import 'package:provider/provider.dart';
 import 'package:purchases_flutter/object_wrappers.dart';
 
 class PurchasePage extends StatefulWidget {
@@ -46,14 +48,53 @@ class _PurchasePageState extends State<PurchasePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 40),
-                entitlement == Entitlement.proVersionAds
-                    ? buildAlreadyPurchase()
-                    : buildShowOfferings(),
+                Consumer<PurchaseProvider>(
+                  builder: (context, purchaseProvider, child) {
+                    if (entitlement == Entitlement.free) {
+                      if (isReady) {
+                        return buildShowOfferings();
+                      } else {
+                        return showLoadOfferings();
+                      }
+                    } else if (entitlement == Entitlement.proVersionAds) {
+                      return buildShowOfferings();
+                    }
+                    return Container();
+                  },
+                ),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget showLoadOfferings() {
+    return Column(
+      children: <Widget>[
+        buildCrown(),
+        const SizedBox(height: 50),
+        ClayContainer(
+          curveType: CurveType.concave,
+          surfaceColor: StyleConstant.mainColor,
+          parentColor: StyleConstant.mainColor,
+          customBorderRadius: BorderRadius.circular(12),
+          child: const Padding(
+            padding: EdgeInsets.all(25.0),
+            child: AutoSizeText(
+              "Loading your offers...",
+              maxLines: 2,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -150,24 +191,41 @@ class _PurchasePageState extends State<PurchasePage> {
     final offerings = await PurchaseApi.fetchOffers();
     if (offerings.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("No plans found"),
+        SnackBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          content: ClayContainer(
+            curveType: CurveType.concave,
+            surfaceColor: StyleConstant.mainColor,
+            parentColor: StyleConstant.mainColor,
+            customBorderRadius: BorderRadius.circular(12),
+            child: const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: AutoSizeText(
+                "No plans found!",
+                maxLines: 2,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: StyleConstant.textColor,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          duration: const Duration(seconds: 10),
         ),
       );
       setState(() {
         isReady = true;
-        isFound = false;
       });
     } else {
-      final offer = offerings.first;
-      print('DEBUG DEBUG OFFER: $offer');
       packages = offerings
           .map((offer) => offer.availablePackages)
           .expand((pair) => pair)
           .toList();
       setState(() {
         isReady = true;
-        isFound = true;
       });
     }
   }

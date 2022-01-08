@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/services.dart';
+import 'package:infinity_sweeper/constants/data_constant.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
 class PurchaseApi {
@@ -38,7 +39,7 @@ class PurchaseApi {
       } else {
         return offerings.all.values.toList();
       }
-    } on PlatformException catch (e) {
+    } on PlatformException catch (_) {
       return [];
     }
   }
@@ -46,10 +47,18 @@ class PurchaseApi {
   static Future<bool> purchasePackage(Package package) async {
     try {
       PurchaserInfo purchaserInfo = await Purchases.purchasePackage(package);
-      print(purchaserInfo.allPurchasedProductIdentifiers);
-      print("entitlements " + purchaserInfo.entitlements.all.toString());
-      return true;
-    } catch (e) {
+      if (purchaserInfo
+          .entitlements.all[DataConstant.proVersionAds]!.isActive) {
+        // Unlock that great "pro" content
+        return true;
+      } else {
+        return false;
+      }
+    } on PlatformException catch (e) {
+      var errorCode = PurchasesErrorHelper.getErrorCode(e);
+      if (errorCode != PurchasesErrorCode.purchaseCancelledError) {
+        //showError(e);
+      }
       return false;
     }
   }
