@@ -132,11 +132,27 @@ class GameModelProvider extends ChangeNotifier {
     } else {
       numFlag--;
       cellGrid!.gridCells[x][y].flag = true;
-      checkWin();
+      if (state == GameState.started) {
+        checkWin();
+      }
     }
     notifyListeners();
   }
 
+  // **** ATTENTION! ****
+  // *** ONLY FOR DEBUG ***
+  // void flagNotShowed() {
+  //   for (List<CellModel> list in cellGrid!.gridCells) {
+  //     for (var element in list) {
+  //       if (element.value == 0) {
+  //         element.flag = true;
+  //       }
+  //     }
+  //   }
+  //   notifyListeners();
+  // }
+  // *******************
+  
   void checkWin() {
     List sortedList = cellNotShowedPosition..sort();
     if (listEquals(sortedList, minesPosition)) {
@@ -156,8 +172,10 @@ class GameModelProvider extends ChangeNotifier {
   }
 
   void showCell(CellModel cell) {
-    cell.show = true;
-    cellNotShowedPosition.remove(cell.index);
+    if (!cell.isFlagged) {
+      cell.show = true;
+      cellNotShowedPosition.remove(cell.index);
+    }
   }
 
   void _openEmptyCell(CellModel cell) {
