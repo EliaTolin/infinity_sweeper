@@ -11,10 +11,34 @@ class PurchaseProvider extends ChangeNotifier {
   Map<String, dynamic> get entitlement => _entitlements;
   bool isInitiliazeData = false;
   SharedPrefHelper sharedPref = SharedPrefHelper();
+  late PurchaserInfo purchaserInfo;
+  bool isProVersionAds = true;
 
   PurchaseProvider() {
     init();
     initializeData();
+    initializePurchases();
+  }
+
+  void initializePurchases() async {
+    try {
+      PurchaserInfo purchaserInfo = await Purchases.getPurchaserInfo();
+      // access latest purchaserInfo
+      if (purchaserInfo.entitlements.all.isEmpty) {
+        isProVersionAds = false;
+      }
+      if (purchaserInfo.entitlements.all[PurchaseConstant.idProVersionEnt] !=
+              null &&
+          purchaserInfo
+              .entitlements.all[PurchaseConstant.idProVersionEnt]!.isActive) {
+        isProVersionAds = true;
+      } else {
+        isProVersionAds = false;
+      }
+      notifyListeners();
+    } on PlatformException catch (e) {
+      // Error fetching purchaser info
+    }
   }
 
   void initializeData() async {
@@ -58,7 +82,23 @@ class PurchaseProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool isProVersionAds() {
-    return _purchaseModel.isProVersionAds();
+  Future<bool> getProVersionAds() async {
+    try {
+      PurchaserInfo purchaserInfo = await Purchases.getPurchaserInfo();
+      // access latest purchaserInfo
+      if (purchaserInfo.entitlements.all.isEmpty) {
+        return false;
+      }
+      if (purchaserInfo.entitlements.all[PurchaseConstant.idProVersionEnt] !=
+              null &&
+          purchaserInfo
+              .entitlements.all[PurchaseConstant.idProVersionEnt]!.isActive) {
+        return true;
+      } else {
+        return false;
+      }
+    } on PlatformException catch (e) {
+      return false;
+    }
   }
 }

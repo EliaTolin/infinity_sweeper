@@ -128,8 +128,8 @@ class _GamePageState extends State<GamePage> {
 
   void interstitialAd() async {
     //TODO: Create helper for ads
-    if (Provider.of<PurchaseProvider>(context, listen: false)
-        .isProVersionAds()) {
+    if (await Provider.of<PurchaseProvider>(context, listen: false)
+        .getProVersionAds()) {
       return;
     }
     SharedPrefHelper sharedPrefHelper = SharedPrefHelper();

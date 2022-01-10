@@ -23,17 +23,27 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   AdBannerHelper adBannerHelper = AdBannerHelper();
   bool loadedBanner = false;
-
+  bool proVersion = false;
+  bool proVersionLoaded = false;
   void finishLoad(bool value) {
     setState(() {
       loadedBanner = value;
     });
   }
 
+  void getProVersionAds() async {
+    proVersion = await Provider.of<PurchaseProvider>(context, listen: false)
+        .getProVersionAds();
+    if (!proVersion) {
+      adBannerHelper.createBannerAd(finishLoad);
+    }
+    // setState(() {});
+  }
+
   @override
   void initState() {
     super.initState();
-    adBannerHelper.createBannerAd(finishLoad);
+    getProVersionAds();
   }
 
   @override
@@ -123,8 +133,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget? bottomBanner() {
-    bool proVersion = Provider.of<PurchaseProvider>(context, listen: false)
-        .isProVersionAds();
+    
     if (proVersion) {
       return null;
     }

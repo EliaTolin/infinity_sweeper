@@ -21,11 +21,19 @@ class PurchasePage extends StatefulWidget {
 class _PurchasePageState extends State<PurchasePage> {
   bool isReady = false;
   bool isFound = false;
+  bool proVersion = false;
   List<Package> packages = [];
+
+  void getProVersionAds() async {
+    proVersion = await Provider.of<PurchaseProvider>(context, listen: false)
+        .getProVersionAds();
+    setState(() {});
+  }
 
   @override
   void initState() {
     super.initState();
+    getProVersionAds();
     fetchOffers();
   }
 
@@ -45,20 +53,9 @@ class _PurchasePageState extends State<PurchasePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 40),
-                Consumer<PurchaseProvider>(
-                  builder: (context, purchaseProvider, child) {
-                    if (!purchaseProvider.isProVersionAds()) {
-                      if (isReady) {
-                        return buildShowOfferings();
-                      } else {
-                        return showLoadOfferings();
-                      }
-                    } else if (purchaseProvider.isProVersionAds()) {
-                      return buildAlreadyPurchase();
-                    }
-                    return Container();
-                  },
-                ),
+                !proVersion
+                    ? (isReady ? buildShowOfferings() : showLoadOfferings())
+                    : buildAlreadyPurchase(),
               ],
             ),
           ),
