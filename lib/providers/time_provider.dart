@@ -7,6 +7,7 @@ class TimerProvider with ChangeNotifier {
   int _second = 0;
   int _minute = 0;
   int _timerInSecond = 0;
+  int _timerInMillisecond = 0;
   bool _startEnable = true;
   bool _stopEnable = false;
   bool _continueEnable = false;
@@ -19,6 +20,30 @@ class TimerProvider with ChangeNotifier {
   bool get stopEnable => _stopEnable;
   bool get continueEnable => _continueEnable;
   int get getTickTimer => _timer?.tick ?? 0;
+
+  void tickTimerMillisecond() {
+    _timer = Timer.periodic(
+      const Duration(milliseconds: 1),
+      (timer) {
+        _timerInMillisecond++;
+        if (_timerInMillisecond % 999 == 0) {
+          _timerInSecond++;
+          if (_second < 59) {
+            _second++;
+          } else {
+            _second = 0;
+            if (_minute == 59) {
+              _minute == 0;
+              _hour++;
+            } else {
+              _minute++;
+            }
+          }
+          notifyListeners();
+        }
+      },
+    );
+  }
 
   void tickTimer() {
     _timer = Timer.periodic(
@@ -46,7 +71,8 @@ class TimerProvider with ChangeNotifier {
     _continueEnable = _startEnable = false;
     _stopEnable = true;
     if (_timer?.isActive == true) _timer?.cancel();
-    tickTimer();
+    //tickTimer();
+    tickTimerMillisecond();
   }
 
   void stopTimer({bool notify = true}) {
@@ -59,7 +85,7 @@ class TimerProvider with ChangeNotifier {
   }
 
   void resetTimer() {
-    _hour = _minute = _second = _timerInSecond = 0;
+    _hour = _minute = _second = _timerInSecond =_timerInMillisecond= 0;
   }
 
   void continueTimer() {
@@ -88,5 +114,9 @@ class TimerProvider with ChangeNotifier {
 
   int getTimeInSecond() {
     return _timerInSecond;
+  }
+
+  int getHundredthOfSecond() {
+    return (_timerInMillisecond ~/ 10);
   }
 }

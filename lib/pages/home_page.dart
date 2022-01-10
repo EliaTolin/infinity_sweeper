@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:games_services/games_services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:infinity_sweeper/constants/route_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
@@ -113,8 +114,8 @@ class _HomePageState extends State<HomePage> {
                     Padding(
                       padding: const EdgeInsets.all(8),
                       child: OptionButton(
-                        "Difficult",
-                        () => openGame(context, Difficulty.difficult),
+                        "Hard",
+                        () => openGame(context, Difficulty.hard),
                       ),
                     ),
                     const SizedBox(height: 15),
@@ -133,6 +134,15 @@ class _HomePageState extends State<HomePage> {
                         "Purchase",
                         () => Navigator.of(context)
                             .pushNamed(RouteConstant.purchaseRoute),
+                      ),
+                    ),
+                    const SizedBox(height: 15),
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: OptionButton(
+                        "Leaderboard",
+                        () => GamesServices.showLeaderboards(
+                            iOSLeaderboardID: 'easy_mode_leaderboard'),
                       ),
                     ),
                   ],

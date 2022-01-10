@@ -4,5 +4,5 @@ class DataConstant {
   //all record of GameData
   static const String recordEasy = "record_easy";
   static const String recordMedium = "record_medium";
-  static const String recordDifficult = "record_difficult";
+  static const String recordHard = "record_difficult";
 }

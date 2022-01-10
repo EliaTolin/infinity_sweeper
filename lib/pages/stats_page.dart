@@ -26,6 +26,7 @@ class _StatsPageState extends State<StatsPage> {
         Provider.of<GameDataProvider>(context, listen: false).getGameData();
     setState(() {});
   }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
@@ -87,9 +88,9 @@ class _StatsPageState extends State<StatsPage> {
                     parentColor: StyleConstant.mainColor,
                     color: StyleConstant.mainColor,
                     child: getRecordElement(
-                        "difficult",
+                        "hard",
                         gameData
-                            .recordTimeInSecond[DataConstant.recordDifficult],
+                            .recordTimeInSecond[DataConstant.recordHard],
                         StyleConstant.listColors[2]),
                   ),
                   const SizedBox(height: 10),

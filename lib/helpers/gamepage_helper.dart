@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/constants/route_constant.dart';
+import 'package:infinity_sweeper/helpers/gameservices_helper.dart';
 import 'package:infinity_sweeper/models/game/gamedifficulty_model.dart';
 import 'package:infinity_sweeper/providers/gamedata_provider.dart';
 import 'package:infinity_sweeper/providers/time_provider.dart';
@@ -8,6 +9,8 @@ import 'package:infinity_sweeper/widgets/alert_dialog/win_alert_dialog.dart';
 import 'package:provider/provider.dart';
 
 void computeWinGame(BuildContext context, Difficulty gameDifficulty) {
+  GamesServicesHelper gamesServicesHelper = GamesServicesHelper();
+
   bool record = false;
 
   Provider.of<TimerProvider>(context, listen: false).stopTimer(notify: false);
@@ -19,6 +22,11 @@ void computeWinGame(BuildContext context, Difficulty gameDifficulty) {
       .checkRecord(durationGame, gameDifficulty);
 
   Provider.of<GameDataProvider>(context, listen: false).addWin();
+  
+  int hundredthOfSecond =
+      Provider.of<TimerProvider>(context, listen: false).getHundredthOfSecond();
+  
+  gamesServicesHelper.submitScore(hundredthOfSecond, gameDifficulty);
 
   showDialog(
     barrierColor: Colors.black26,

@@ -1,4 +1,4 @@
-enum Difficulty { easy, medium, difficult }
+enum Difficulty { easy, medium, hard }
 
 class GameDifficulty {
   late int numMines;
@@ -7,20 +7,20 @@ class GameDifficulty {
   late Difficulty difficulty;
 
   GameDifficulty.easy() {
-    numMines = 10;
+    numMines = 3;
     numRow = numCol = 9;
     difficulty = Difficulty.easy;
   }
   GameDifficulty.medium() {
-    numMines = 40;
+    numMines = 3;
     numRow = numCol = 16;
     difficulty = Difficulty.medium;
   }
 
-  GameDifficulty.difficulty() {
-    numMines = 150;
+  GameDifficulty.hard() {
+    numMines = 3;
     numRow = numCol = 30;
-    difficulty = Difficulty.difficult;
+    difficulty = Difficulty.hard;
   }
 
   Difficulty getDifficulty() => difficulty;

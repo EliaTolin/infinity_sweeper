@@ -6,7 +6,7 @@ class GameData {
   Map<String, dynamic> recordTimeInSecond = {
     DataConstant.recordEasy: 0,
     DataConstant.recordMedium: 0,
-    DataConstant.recordDifficult: 0
+    DataConstant.recordHard: 0
   };
 
   GameData();

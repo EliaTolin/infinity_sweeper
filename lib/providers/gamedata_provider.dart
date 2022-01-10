@@ -53,7 +53,7 @@ String _getDifficultyDataString(Difficulty difficulty) {
       return DataConstant.recordEasy;
     case Difficulty.medium:
       return DataConstant.recordMedium;
-    case Difficulty.difficult:
-      return DataConstant.recordDifficult;
+    case Difficulty.hard:
+      return DataConstant.recordHard;
   }
 }
