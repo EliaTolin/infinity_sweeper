@@ -8,7 +8,7 @@ import 'package:infinity_sweeper/helpers/homepage_helper.dart';
 import 'package:infinity_sweeper/models/ads/ad_banner_helper.dart';
 import 'package:infinity_sweeper/models/game/gamedifficulty_model.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:infinity_sweeper/models/providers/purchase_provider.dart';
+import 'package:infinity_sweeper/providers/purchase_provider.dart';
 import 'package:infinity_sweeper/widgets/page_components/button/option_button_widget.dart';
 import 'package:infinity_sweeper/widgets/page_components/topbar_widget.dart';
 import 'package:provider/provider.dart';

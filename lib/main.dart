@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:infinity_sweeper/api/purchase_api.dart';
-import 'package:infinity_sweeper/models/providers/purchase_provider.dart';
+import 'package:infinity_sweeper/providers/purchase_provider.dart';
 import 'package:infinity_sweeper/providers/game_provider.dart';
 import 'package:infinity_sweeper/providers/gamedata_provider.dart';
 import 'package:infinity_sweeper/providers/time_provider.dart';

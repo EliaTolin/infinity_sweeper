@@ -8,7 +8,7 @@ import 'package:infinity_sweeper/helpers/sharedpref_helper.dart';
 import 'package:infinity_sweeper/models/ads/ad_interstitial_helper.dart';
 import 'package:infinity_sweeper/models/cell/cellgrid_model.dart';
 import 'package:infinity_sweeper/models/game/gamestate_model.dart';
-import 'package:infinity_sweeper/models/providers/purchase_provider.dart';
+import 'package:infinity_sweeper/providers/purchase_provider.dart';
 import 'package:infinity_sweeper/providers/game_provider.dart';
 import 'package:infinity_sweeper/providers/time_provider.dart';
 

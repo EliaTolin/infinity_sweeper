@@ -170,13 +170,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  google_mobile_ads:
-    dependency: "direct main"
-    description:
-      name: google_mobile_ads
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.1"
   gesture_x_detector:
     dependency: "direct main"
     description:
@@ -184,6 +177,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  google_mobile_ads:
+    dependency: "direct main"
+    description:
+      name: google_mobile_ads
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   image:
     dependency: transitive
     description:
