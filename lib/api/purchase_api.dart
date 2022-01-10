@@ -16,15 +16,15 @@ class PurchaseApi {
 
   static Future init() async {
     await Purchases.setDebugLogsEnabled(true);
-    await Purchases.setup(_getApiKey, appUserId: "12");
+    await Purchases.setup(_getApiKey);
+    // await Purchases.setup(_getApiKey, appUserId: "14");
   }
 
   static Future<List<Offering>> fetchOffersByIds(List<String> ids) async {
     try {
       final offers = await fetchOffers();
       return offers.where((offer) => ids.contains(offer.identifier)).toList();
-    } on PlatformException catch (e) {
-      print(e.message);
+    } on PlatformException catch (_) {
       return [];
     }
   }

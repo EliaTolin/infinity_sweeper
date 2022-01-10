@@ -2,7 +2,6 @@ import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:infinity_sweeper/constants/ad_constant.dart';
-import 'package:infinity_sweeper/constants/data_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:infinity_sweeper/helpers/gamepage_helper.dart';
 import 'package:infinity_sweeper/helpers/sharedpref_helper.dart';
@@ -24,7 +23,7 @@ class GamePage extends StatefulWidget {
 
 class _GamePageState extends State<GamePage> {
   AdInterstitialHelper adInterstitialHelper = AdInterstitialHelper();
-
+  
   @override
   void deactivate() {
     super.deactivate();
