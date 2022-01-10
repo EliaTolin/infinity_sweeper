@@ -31,9 +31,6 @@ class _PurchasePageState extends State<PurchasePage> {
 
   @override
   Widget build(BuildContext context) {
-    // Entitlement entitlement =
-    //     Provider.of<PurchaseProvider>(context, listen: false).entitlement;
-    Entitlement entitlement = Entitlement.proVersionAds;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: TopBarBack(
@@ -50,14 +47,14 @@ class _PurchasePageState extends State<PurchasePage> {
                 const SizedBox(height: 40),
                 Consumer<PurchaseProvider>(
                   builder: (context, purchaseProvider, child) {
-                    if (entitlement == Entitlement.free) {
+                    if (!purchaseProvider.isProVersionAds()) {
                       if (isReady) {
                         return buildShowOfferings();
                       } else {
                         return showLoadOfferings();
                       }
-                    } else if (entitlement == Entitlement.proVersionAds) {
-                      return buildShowOfferings();
+                    } else if (purchaseProvider.isProVersionAds()) {
+                      return buildAlreadyPurchase();
                     }
                     return Container();
                   },
@@ -115,7 +112,11 @@ class _PurchasePageState extends State<PurchasePage> {
                 index,
                 (Package package) async {
                   final isSuccess = await PurchaseApi.purchasePackage(package);
-                  isSuccess ? print("Good purchase") : print("Bad purchase");
+                  isSuccess
+                      ? ScaffoldMessenger.of(context)
+                          .showSnackBar(showSnackBar("Good purchase", 3))
+                      : ScaffoldMessenger.of(context)
+                          .showSnackBar(showSnackBar("Bad purchase", 3));
                 },
               );
             }),
@@ -190,32 +191,8 @@ class _PurchasePageState extends State<PurchasePage> {
   Future fetchOffers() async {
     final offerings = await PurchaseApi.fetchOffers();
     if (offerings.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          content: ClayContainer(
-            curveType: CurveType.concave,
-            surfaceColor: StyleConstant.mainColor,
-            parentColor: StyleConstant.mainColor,
-            customBorderRadius: BorderRadius.circular(12),
-            child: const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: AutoSizeText(
-                "No plans found!",
-                maxLines: 2,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: StyleConstant.textColor,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-          duration: const Duration(seconds: 10),
-        ),
-      );
+      ScaffoldMessenger.of(context)
+          .showSnackBar(showSnackBar("No plans found!", 4));
       setState(() {
         isReady = true;
       });
@@ -228,5 +205,32 @@ class _PurchasePageState extends State<PurchasePage> {
         isReady = true;
       });
     }
+  }
+
+  SnackBar showSnackBar(String text, int timeInSecond) {
+    return SnackBar(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      content: ClayContainer(
+        curveType: CurveType.concave,
+        surfaceColor: StyleConstant.mainColor,
+        parentColor: StyleConstant.mainColor,
+        customBorderRadius: BorderRadius.circular(12),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: AutoSizeText(
+            text,
+            maxLines: 2,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: StyleConstant.textColor,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ),
+      duration: Duration(seconds: timeInSecond),
+    );
   }
 }

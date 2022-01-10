@@ -127,19 +127,21 @@ class _GamePageState extends State<GamePage> {
   }
 
   void interstitialAd() async {
-    if (Provider.of<PurchaseProvider>(context, listen: false).purchase.proVersion) {
+    //TODO: Create helper for ads
+    if (Provider.of<PurchaseProvider>(context, listen: false)
+        .isProVersionAds()) {
       return;
     }
     SharedPrefHelper sharedPrefHelper = SharedPrefHelper();
     int timeAds = 0;
-    if (await sharedPrefHelper.exist(DataConstant.proVersionAds)) {
-      timeAds = await sharedPrefHelper.read(DataConstant.proVersionAds);
+    if (await sharedPrefHelper.exist(AdConstant.dataTimeShowAds)) {
+      timeAds = await sharedPrefHelper.read(AdConstant.dataTimeShowAds);
     }
     timeAds++;
     if (timeAds >= AdConstant.frequencyShowInterstialAd) {
       timeAds = 0;
       adInterstitialHelper.showInterstialAds();
     }
-    sharedPrefHelper.save(DataConstant.proVersionAds, timeAds);
+    sharedPrefHelper.save(AdConstant.dataTimeShowAds, timeAds);
   }
 }

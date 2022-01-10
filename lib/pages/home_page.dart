@@ -124,8 +124,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget? bottomBanner() {
     bool proVersion = Provider.of<PurchaseProvider>(context, listen: false)
-        .purchase
-        .proVersion;
+        .isProVersionAds();
     if (proVersion) {
       return null;
     }
