@@ -23,7 +23,7 @@ class GamePage extends StatefulWidget {
 
 class _GamePageState extends State<GamePage> {
   AdInterstitialHelper adInterstitialHelper = AdInterstitialHelper();
-  
+  bool isProVersionAds = false;
   @override
   void deactivate() {
     super.deactivate();
@@ -32,14 +32,20 @@ class _GamePageState extends State<GamePage> {
 
   @override
   void dispose() {
-    adInterstitialHelper.adDispose();
+    if (!isProVersionAds) {
+      adInterstitialHelper.adDispose();
+    }
     super.dispose();
   }
 
   @override
   void initState() {
     super.initState();
-    adInterstitialHelper.createInterstialAd();
+    isProVersionAds =
+        Provider.of<PurchaseProvider>(context, listen: false).isProVersionAds;
+    if (!isProVersionAds) {
+      adInterstitialHelper.createInterstialAd();
+    }
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       Provider.of<GameModelProvider>(context, listen: false).generateCellGrid();
       Provider.of<TimerProvider>(context, listen: false).startTimer();
@@ -126,7 +132,7 @@ class _GamePageState extends State<GamePage> {
   }
 
   void interstitialAd() async {
-    if (Provider.of<PurchaseProvider>(context, listen: false).isProVersionAds) {
+    if (isProVersionAds) {
       return;
     }
     SharedPrefHelper sharedPrefHelper = SharedPrefHelper();
