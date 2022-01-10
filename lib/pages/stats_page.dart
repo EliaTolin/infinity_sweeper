@@ -26,14 +26,13 @@ class _StatsPageState extends State<StatsPage> {
         Provider.of<GameDataProvider>(context, listen: false).getGameData();
     setState(() {});
   }
-
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: TopBarBack(size, "Game statistics", context),
+      appBar: TopBarBack("Game statistics", size),
       backgroundColor: StyleConstant.mainColor,
       body: Center(
         child: Padding(

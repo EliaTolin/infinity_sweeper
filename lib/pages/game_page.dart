@@ -1,12 +1,17 @@
 import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:infinity_sweeper/constants/ad_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:infinity_sweeper/helpers/gamepage_helper.dart';
+import 'package:infinity_sweeper/helpers/sharedpref_helper.dart';
+import 'package:infinity_sweeper/models/ads/ad_interstitial_helper.dart';
 import 'package:infinity_sweeper/models/cell/cellgrid_model.dart';
 import 'package:infinity_sweeper/models/game/gamestate_model.dart';
+import 'package:infinity_sweeper/models/providers/purchase_provider.dart';
 import 'package:infinity_sweeper/providers/game_provider.dart';
 import 'package:infinity_sweeper/providers/time_provider.dart';
+
 import 'package:infinity_sweeper/widgets/game/minesweeper_widget.dart';
 import 'package:infinity_sweeper/widgets/page_components/infobar_widget.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +23,8 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
+  AdInterstitialHelper adInterstitialHelper = AdInterstitialHelper();
+  bool isProVersionAds = false;
   bool firstTap = true;
   @override
   void deactivate() {
@@ -27,8 +34,21 @@ class _GamePageState extends State<GamePage> {
   }
 
   @override
+  void dispose() {
+    if (!isProVersionAds) {
+      adInterstitialHelper.adDispose();
+    }
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
+    isProVersionAds =
+        Provider.of<PurchaseProvider>(context, listen: false).isProVersionAds;
+    if (!isProVersionAds) {
+      adInterstitialHelper.createInterstialAd();
+    }
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       Provider.of<GameModelProvider>(context, listen: false).generateCellGrid();
     });
@@ -82,6 +102,7 @@ class _GamePageState extends State<GamePage> {
                                   firstTap = false;
                                 }
                                 if (gameModel.state == GameState.victory) {
+                                  interstitialAd();
                                   WidgetsBinding.instance?.addPostFrameCallback(
                                     (_) {
                                       computeWinGame(
@@ -90,6 +111,7 @@ class _GamePageState extends State<GamePage> {
                                   );
                                 }
                                 if (gameModel.state == GameState.lose) {
+                                  interstitialAd();
                                   WidgetsBinding.instance?.addPostFrameCallback(
                                     (_) {
                                       computeLoseGame(context);
@@ -116,5 +138,22 @@ class _GamePageState extends State<GamePage> {
         ),
       ),
     );
+  }
+
+  void interstitialAd() async {
+    if (isProVersionAds) {
+      return;
+    }
+    SharedPrefHelper sharedPrefHelper = SharedPrefHelper();
+    int timeAds = 0;
+    if (await sharedPrefHelper.exist(AdConstant.dataTimeShowAds)) {
+      timeAds = await sharedPrefHelper.read(AdConstant.dataTimeShowAds);
+    }
+    timeAds++;
+    if (timeAds >= AdConstant.frequencyShowInterstialAd) {
+      timeAds = 0;
+      adInterstitialHelper.showInterstialAds();
+    }
+    sharedPrefHelper.save(AdConstant.dataTimeShowAds, timeAds);
   }
 }

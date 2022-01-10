@@ -1,0 +1,48 @@
+{
+  "identifier" : "51EF705C",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "1.99",
+      "familyShareable" : true,
+      "internalID" : "DB7CF092",
+      "localizations" : [
+        {
+          "description" : "Allows the elimination of advertising forever",
+          "displayName" : "Pro Version",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "PRO_VERSION_ADS",
+      "referenceName" : "Pro Version Ads",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "1.99",
+      "familyShareable" : false,
+      "internalID" : "66392511",
+      "localizations" : [
+        {
+          "description" : "Rimuovi annunci",
+          "displayName" : "Rimuovi annunci",
+          "locale" : "it"
+        }
+      ],
+      "productID" : "REMOVE_ADS",
+      "referenceName" : "REMOVEADS",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 1,
+    "minor" : 1
+  }
+}

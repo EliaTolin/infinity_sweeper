@@ -1,5 +1,6 @@
 import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:infinity_sweeper/pages/home_page.dart';
 import 'package:infinity_sweeper/providers/gamedata_provider.dart';
@@ -16,6 +17,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenPageState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     Provider.of<GameDataProvider>(context, listen: false).initializeData();
     return EasySplashScreen(
       logo: Image.asset('assets/icons/icon_trasparent.png'),

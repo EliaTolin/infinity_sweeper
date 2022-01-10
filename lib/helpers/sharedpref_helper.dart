@@ -4,7 +4,7 @@ import 'dart:convert';
 class SharedPrefHelper {
   SharedPrefHelper();
 
-  Future<Map<String, dynamic>> read(String key) async {
+  Future<dynamic> read(String key) async {
     final prefs = await SharedPreferences.getInstance();
     var data = prefs.getString(key);
     return json.decode(data.toString());

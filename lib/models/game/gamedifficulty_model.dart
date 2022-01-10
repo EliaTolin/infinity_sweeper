@@ -16,6 +16,7 @@ class GameDifficulty {
     numRow = numCol = 16;
     difficulty = Difficulty.medium;
   }
+
   GameDifficulty.difficulty() {
     numMines = 150;
     numRow = numCol = 30;

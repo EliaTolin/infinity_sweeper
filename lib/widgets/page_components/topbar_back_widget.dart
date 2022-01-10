@@ -10,11 +10,11 @@ class TopBarBack extends StatelessWidget implements PreferredSizeWidget {
   final Function? onPressed;
   final Function? onTitleTapped;
   final Widget? child;
-  final BuildContext context;
+
   @override
   final Size preferredSize;
 
-  TopBarBack(this.size, this.title, this.context,
+  TopBarBack(this.title, this.size,
       {Key? key, this.child, this.onPressed, this.onTitleTapped})
       : preferredSize =
             Size.fromHeight(size.height * StyleConstant.kHeighBarRatio),
