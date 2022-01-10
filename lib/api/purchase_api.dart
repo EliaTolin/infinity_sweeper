@@ -17,7 +17,7 @@ class PurchaseApi {
   static Future init() async {
     await Purchases.setDebugLogsEnabled(true);
     await Purchases.setup(_getApiKey);
-    // await Purchases.setup(_getApiKey, appUserId: "14");
+    // await Purchases.setup(_getApiKey, appUserId: "15");
   }
 
   static Future<List<Offering>> fetchOffersByIds(List<String> ids) async {

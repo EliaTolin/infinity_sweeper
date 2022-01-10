@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:infinity_sweeper/constants/route_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
+import 'package:infinity_sweeper/helpers/gameservices_helper.dart';
 import 'package:infinity_sweeper/helpers/homepage_helper.dart';
 import 'package:infinity_sweeper/models/ads/ad_banner_helper.dart';
 import 'package:infinity_sweeper/models/game/gamedifficulty_model.dart';
@@ -22,6 +23,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   AdBannerHelper adBannerHelper = AdBannerHelper();
+  GamesServicesHelper gamesServicesHelper = GamesServicesHelper();
   bool loadedBanner = false;
 
   void finishLoad(bool value) {
@@ -33,6 +35,9 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    //intialize game services
+    gamesServicesHelper.loadGamesService();
+    //create bottom banner
     adBannerHelper.createBannerAd(finishLoad);
   }
 

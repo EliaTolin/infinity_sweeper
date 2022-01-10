@@ -1,5 +1,7 @@
 PODS:
   - Flutter (1.0.0)
+  - games_services (0.0.1):
+    - Flutter
   - Google-Mobile-Ads-SDK (8.11.0):
     - GoogleAppMeasurement (< 9.0, >= 7.0)
     - GoogleUserMessagingPlatform (>= 1.1)
@@ -65,6 +67,7 @@ PODS:
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
+  - games_services (from `.symlinks/plugins/games_services/ios`)
   - google_mobile_ads (from `.symlinks/plugins/google_mobile_ads/ios`)
   - in_app_purchase_storekit (from `.symlinks/plugins/in_app_purchase_storekit/ios`)
   - purchases_flutter (from `.symlinks/plugins/purchases_flutter/ios`)
@@ -85,6 +88,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
+  games_services:
+    :path: ".symlinks/plugins/games_services/ios"
   google_mobile_ads:
     :path: ".symlinks/plugins/google_mobile_ads/ios"
   in_app_purchase_storekit:
@@ -96,6 +101,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+  games_services: 6c9a23d55bc6ae0129b24507e008643dcb02f341
   Google-Mobile-Ads-SDK: be2192b51b74d74a6ed70590c2e8275412f1b71e
   google_mobile_ads: a2f8b901601401bf7e691b4224d5992e9a37599a
   GoogleAppMeasurement: a3311dbcf3ea651e5a070fe8559b57c174ada081

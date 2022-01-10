@@ -48,6 +48,7 @@ dependencies:
   intl: ^0.17.0
   purchases_flutter: ^3.8.0
   gesture_x_detector: ^1.0.0
+  games_services: ^2.0.2
   
 flutter_icons:
   ios: true
