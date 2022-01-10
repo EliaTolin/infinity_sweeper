@@ -160,7 +160,7 @@ class _WinAlertDialogState extends State<WinAlertDialog> {
                 "TIME RECORD!",
                 style: TextStyle(
                   fontSize: 17.0,
-                  color: Colors.grey.shade800,
+                  color: Colors.red.shade600,
                   fontWeight: FontWeight.bold,
                 ),
               )

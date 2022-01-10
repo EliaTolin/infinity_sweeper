@@ -2,23 +2,24 @@ enum Difficulty { easy, medium, difficult }
 
 class GameDifficulty {
   late int numMines;
-  late int sizeGrid;
+  late int numRow;
+  late int numCol;
   late Difficulty difficulty;
 
   GameDifficulty.easy() {
     numMines = 10;
-    sizeGrid = 9;
+    numRow = numCol = 9;
     difficulty = Difficulty.easy;
   }
   GameDifficulty.medium() {
     numMines = 40;
-    sizeGrid = 16;
+    numRow = numCol = 16;
     difficulty = Difficulty.medium;
   }
 
   GameDifficulty.difficulty() {
-    numMines = 243;
-    sizeGrid = 30;
+    numMines = 150;
+    numRow = numCol = 30;
     difficulty = Difficulty.difficult;
   }
 

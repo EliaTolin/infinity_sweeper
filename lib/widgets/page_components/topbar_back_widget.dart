@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
@@ -35,11 +36,15 @@ Column buildTopBar(Size size, String title, BuildContext context) {
       Stack(
         alignment: Alignment.centerLeft,
         children: <Widget>[
-          Container(
-            height: size.height,
-            decoration: const BoxDecoration(
+          Padding(
+            padding: const EdgeInsets.only(right: 20.0),
+            child: ClayContainer(
                 color: StyleConstant.mainColor,
-                borderRadius: BorderRadius.only(
+                parentColor: StyleConstant.mainColor,
+                surfaceColor: StyleConstant.mainColor,
+                height: size.height,
+                curveType: CurveType.concave,
+                customBorderRadius: const BorderRadius.only(
                   bottomRight: Radius.circular(StyleConstant.radiusComponent),
                 )),
           ),

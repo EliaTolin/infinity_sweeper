@@ -4,20 +4,21 @@ import 'package:infinity_sweeper/models/game/gamedifficulty_model.dart';
 
 import 'cell_widget.dart';
 
-class MineSweeperCore extends StatefulWidget {
+class MineSweeperWidget extends StatefulWidget {
   final List<List<CellModel>> listCell;
-  final int sizeGrid;
+  final int numRows;
+  final int numColumns;
   final int numMines;
   final Difficulty difficulty;
-  const MineSweeperCore(
-      this.listCell, this.sizeGrid, this.numMines, this.difficulty,
+  const MineSweeperWidget(this.listCell, this.numRows, this.numColumns,
+      this.numMines, this.difficulty,
       {Key? key})
       : super(key: key);
   @override
   _MineSweeperCore createState() => _MineSweeperCore();
 }
 
-class _MineSweeperCore extends State<MineSweeperCore> {
+class _MineSweeperCore extends State<MineSweeperWidget> {
   // final double maxWidth = 400;
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,8 @@ class _MineSweeperCore extends State<MineSweeperCore> {
     for (List<CellModel> list in widget.listCell) {
       for (var element in list) {
         var t = Padding(
-            padding: const EdgeInsets.all(1), child: Cell(element, 20, 20));
+            padding: const EdgeInsets.all(1),
+            child: CellWidget(element, 20, 20));
         tmp.add(t);
       }
     }
@@ -47,7 +49,7 @@ class _MineSweeperCore extends State<MineSweeperCore> {
                 padding: const EdgeInsets.all(4.0),
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: widget.sizeGrid),
+                    crossAxisCount: widget.numColumns),
                 itemCount: tmp.length,
                 addAutomaticKeepAlives: false,
                 itemBuilder: (BuildContext context, int index) {
@@ -69,8 +71,6 @@ class _MineSweeperCore extends State<MineSweeperCore> {
             children: [
               Container(
                 alignment: Alignment.center,
-                // height: 600,
-                // width: 600,
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -89,7 +89,7 @@ class _MineSweeperCore extends State<MineSweeperCore> {
 //Create grid game
   Column getGrid(final double maxWidth) {
     List<Row> rows = [];
-    for (int i = 0; i < widget.sizeGrid; i++) {
+    for (int i = 0; i < widget.numColumns; i++) {
       rows.add(addRow(i, maxWidth));
     }
     return Column(
@@ -100,11 +100,11 @@ class _MineSweeperCore extends State<MineSweeperCore> {
 //Add rows to the grid
   Row addRow(final int y, final double maxWidth) {
     List<Widget> list = [];
-    for (int i = 0; i < widget.sizeGrid; i++) {
+    for (int i = 0; i < widget.numRows; i++) {
       list.add(
         Padding(
           padding: const EdgeInsets.all(1.0),
-          child: Cell(widget.listCell[i][y], 40, 40),
+          child: CellWidget(widget.listCell[i][y], 40, 40),
         ),
       );
     }

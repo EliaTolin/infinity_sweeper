@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:infinity_sweeper/pages/home_page.dart';
+import 'package:infinity_sweeper/providers/gamedata_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../models/providers/gamedata_provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

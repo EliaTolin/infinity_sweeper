@@ -177,13 +177,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
-  holding_gesture:
+  gesture_x_detector:
     dependency: "direct main"
     description:
-      name: holding_gesture
+      name: gesture_x_detector
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.0"
+    version: "1.0.0"
   image:
     dependency: transitive
     description:
