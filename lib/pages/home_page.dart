@@ -23,27 +23,17 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   AdBannerHelper adBannerHelper = AdBannerHelper();
   bool loadedBanner = false;
-  bool proVersion = false;
-  bool proVersionLoaded = false;
+
   void finishLoad(bool value) {
     setState(() {
       loadedBanner = value;
     });
   }
 
-  void getProVersionAds() async {
-    proVersion = await Provider.of<PurchaseProvider>(context, listen: false)
-        .getProVersionAds();
-    if (!proVersion) {
-      adBannerHelper.createBannerAd(finishLoad);
-    }
-    // setState(() {});
-  }
-
   @override
   void initState() {
     super.initState();
-    getProVersionAds();
+    adBannerHelper.createBannerAd(finishLoad);
   }
 
   @override
@@ -59,7 +49,27 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: TopBar(size, "Infinity Sweeper"),
       backgroundColor: StyleConstant.mainColor,
-      bottomNavigationBar: bottomBanner(),
+      bottomNavigationBar: Consumer<PurchaseProvider>(
+        builder: (context, purchaseProvider, child) {
+          if (purchaseProvider.isProVersionAds) {
+            return Container(height: 1);
+          }
+          if (loadedBanner) {
+            // ignore: sized_box_for_whitespace
+            return Container(
+              height: adBannerHelper.getSizeBanner().height.toDouble(),
+              width: adBannerHelper.getSizeBanner().width.toDouble(),
+              child: AdWidget(
+                ad: adBannerHelper.getBanner(),
+              ),
+            );
+          } else {
+            return Container(
+              height: 50,
+            );
+          }
+        },
+      ),
       body: SingleChildScrollView(
         child: Center(
           child: Padding(
@@ -130,26 +140,5 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
-  }
-
-  Widget? bottomBanner() {
-    
-    if (proVersion) {
-      return null;
-    }
-    if (loadedBanner) {
-      // ignore: sized_box_for_whitespace
-      return Container(
-        height: adBannerHelper.getSizeBanner().height.toDouble(),
-        width: adBannerHelper.getSizeBanner().width.toDouble(),
-        child: AdWidget(
-          ad: adBannerHelper.getBanner(),
-        ),
-      );
-    } else {
-      return Container(
-        height: 50,
-      );
-    }
   }
 }

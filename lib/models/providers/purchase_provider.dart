@@ -17,15 +17,17 @@ class PurchaseProvider extends ChangeNotifier {
   PurchaseProvider() {
     init();
     initializeData();
-    initializePurchases();
+    getUserPurchases();
+    notifyListeners();
   }
 
-  void initializePurchases() async {
+  void getUserPurchases() async {
     try {
       PurchaserInfo purchaserInfo = await Purchases.getPurchaserInfo();
       // access latest purchaserInfo
       if (purchaserInfo.entitlements.all.isEmpty) {
         isProVersionAds = false;
+        return;
       }
       if (purchaserInfo.entitlements.all[PurchaseConstant.idProVersionEnt] !=
               null &&
@@ -35,7 +37,6 @@ class PurchaseProvider extends ChangeNotifier {
       } else {
         isProVersionAds = false;
       }
-      notifyListeners();
     } on PlatformException catch (e) {
       // Error fetching purchaser info
     }
@@ -64,41 +65,11 @@ class PurchaseProvider extends ChangeNotifier {
   Future init() async {
     try {
       Purchases.addPurchaserInfoUpdateListener((purchaseInfo) async {
-        updatePurchaseStatus();
+        getUserPurchases();
+        notifyListeners();
       });
     } on PlatformException catch (e) {
       print(e.message);
-    }
-  }
-
-  Future updatePurchaseStatus() async {
-    final purchaseInfo = await Purchases.getPurchaserInfo();
-    final entitlements = purchaseInfo.entitlements.active.values.toList();
-    for (var ent in entitlements) {
-      if (ent.identifier == PurchaseConstant.idProVersionEnt) {
-        setPurchase(PurchaseConstant.idProVersionEnt);
-      }
-    }
-    notifyListeners();
-  }
-
-  Future<bool> getProVersionAds() async {
-    try {
-      PurchaserInfo purchaserInfo = await Purchases.getPurchaserInfo();
-      // access latest purchaserInfo
-      if (purchaserInfo.entitlements.all.isEmpty) {
-        return false;
-      }
-      if (purchaserInfo.entitlements.all[PurchaseConstant.idProVersionEnt] !=
-              null &&
-          purchaserInfo
-              .entitlements.all[PurchaseConstant.idProVersionEnt]!.isActive) {
-        return true;
-      } else {
-        return false;
-      }
-    } on PlatformException catch (e) {
-      return false;
     }
   }
 }

@@ -16,10 +16,11 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(
+            create: (context) => PurchaseProvider(), lazy: false),
         ChangeNotifierProvider(create: (context) => GameModelProvider()),
         ChangeNotifierProvider(create: (context) => TimerProvider()),
         ChangeNotifierProvider(create: (context) => GameDataProvider()),
-        ChangeNotifierProvider(create: (context) => PurchaseProvider()),
       ],
       child: const InfinitySweeper(),
     ),

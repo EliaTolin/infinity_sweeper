@@ -33,8 +33,8 @@ class _GamePageState extends State<GamePage> {
 
   @override
   void dispose() {
-    super.dispose();
     adInterstitialHelper.adDispose();
+    super.dispose();
   }
 
   @override
@@ -127,9 +127,7 @@ class _GamePageState extends State<GamePage> {
   }
 
   void interstitialAd() async {
-    //TODO: Create helper for ads
-    if (await Provider.of<PurchaseProvider>(context, listen: false)
-        .getProVersionAds()) {
+    if (Provider.of<PurchaseProvider>(context, listen: false).isProVersionAds) {
       return;
     }
     SharedPrefHelper sharedPrefHelper = SharedPrefHelper();
