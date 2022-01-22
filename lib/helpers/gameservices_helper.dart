@@ -15,9 +15,9 @@ class GamesServicesHelper {
   }
 
   void loadGamesService() async {
-    if (!await GamesServices.isSignedIn) {
+    try {
       GamesServices.signIn();
-    }
+    } on Exception catch (_) {}
   }
 
   void submitScore(int score, Difficulty difficulty) async {

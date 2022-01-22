@@ -2,10 +2,10 @@ import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
+import 'package:infinity_sweeper/helpers/gameservices_helper.dart';
 import 'package:infinity_sweeper/pages/home_page.dart';
 import 'package:infinity_sweeper/providers/gamedata_provider.dart';
 import 'package:provider/provider.dart';
-
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -15,6 +15,13 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenPageState extends State<SplashScreen> {
+  GamesServicesHelper gamesServicesHelper = GamesServicesHelper();
+  @override
+  void initState() {
+    super.initState();
+    gamesServicesHelper.loadGamesService();
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
