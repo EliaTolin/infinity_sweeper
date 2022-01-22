@@ -48,6 +48,7 @@ dependencies:
   intl: ^0.17.0
   purchases_flutter: ^3.8.0
   gesture_x_detector: ^1.0.0
+  games_services: ^2.0.2
   
 flutter_icons:
   ios: true
@@ -58,7 +59,7 @@ flutter_icons:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  change_app_package_name: any
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your

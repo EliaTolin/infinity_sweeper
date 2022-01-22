@@ -13,8 +13,8 @@ void openGame(BuildContext context, Difficulty difficulty) {
     case Difficulty.medium:
       gameDifficulty = GameDifficulty.medium();
       break;
-    case Difficulty.difficult:
-      gameDifficulty = GameDifficulty.difficulty();
+    case Difficulty.hard:
+      gameDifficulty = GameDifficulty.hard();
       break;
   }
   Provider.of<GameModelProvider>(context, listen: false)

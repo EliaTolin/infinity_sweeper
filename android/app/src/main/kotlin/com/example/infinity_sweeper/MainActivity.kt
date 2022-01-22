@@ -1,4 +1,4 @@
-package com.example.infinity_sweeper
+package com.eliatolin.infinity_sweeper
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -59,7 +59,7 @@ class _MineSweeperCore extends State<MineSweeperWidget> {
             ),
           ),
         );
-      case Difficulty.difficult:
+      case Difficulty.hard:
       case Difficulty.medium:
         return InteractiveViewer(
           minScale: 0.5,

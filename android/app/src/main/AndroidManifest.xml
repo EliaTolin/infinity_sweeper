@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.infinity_sweeper">
+    package="com.eliatolin.infinity_sweeper">
 
    <application
         android:label="infinity_sweeper"
@@ -41,5 +41,8 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-7500053685536877~8685132668"/>
+        <meta-data android:name="com.google.android.gms.games.APP_ID" android:value="@string/app_id" />
+        <meta-data android:name="com.google.android.gms.version"
+        android:value="@integer/google_play_services_version"/>
     </application>
 </manifest>

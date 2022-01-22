@@ -36,6 +36,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  change_app_package_name:
+    dependency: "direct dev"
+    description:
+      name: change_app_package_name
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   characters:
     dependency: transitive
     description:
@@ -170,6 +177,20 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  games_services:
+    dependency: "direct main"
+    description:
+      name: games_services
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.2"
+  games_services_platform_interface:
+    dependency: transitive
+    description:
+      name: games_services_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.1"
   gesture_x_detector:
     dependency: "direct main"
     description:
