@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:infinity_sweeper/constants/ad_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
-import 'package:infinity_sweeper/helpers/gamepage_helper.dart';
+import 'package:infinity_sweeper/helpers/startgame_helper.dart';
 import 'package:infinity_sweeper/helpers/sharedpref_helper.dart';
 import 'package:infinity_sweeper/models/ads/ad_interstitial_helper.dart';
 import 'package:infinity_sweeper/models/cell/cellgrid_model.dart';
@@ -16,13 +16,13 @@ import 'package:infinity_sweeper/widgets/game/minesweeper_widget.dart';
 import 'package:infinity_sweeper/widgets/page_components/infobar_widget.dart';
 import 'package:provider/provider.dart';
 
-class GamePage extends StatefulWidget {
-  const GamePage({Key? key}) : super(key: key);
+class MinesweeperPage extends StatefulWidget {
+  const MinesweeperPage({Key? key}) : super(key: key);
   @override
-  _GamePageState createState() => _GamePageState();
+  _MinesweeperPageState createState() => _MinesweeperPageState();
 }
 
-class _GamePageState extends State<GamePage> {
+class _MinesweeperPageState extends State<MinesweeperPage> {
   AdInterstitialHelper adInterstitialHelper = AdInterstitialHelper();
   bool isProVersionAds = false;
   bool firstTap = true;

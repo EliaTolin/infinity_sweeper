@@ -22,10 +22,10 @@ void computeWinGame(BuildContext context, Difficulty gameDifficulty) {
       .checkRecord(durationGame, gameDifficulty);
 
   Provider.of<GameDataProvider>(context, listen: false).addWin();
-  
+
   int hundredthOfSecond =
       Provider.of<TimerProvider>(context, listen: false).getHundredthOfSecond();
-  
+
   gamesServicesHelper.submitScore(hundredthOfSecond, gameDifficulty);
 
   showDialog(
@@ -36,7 +36,7 @@ void computeWinGame(BuildContext context, Difficulty gameDifficulty) {
         title: "You win!",
         textButton1: "Home",
         textButton2: "Show grid",
-        route: RouteConstant.homeRoute,
+        route: RouteConstant.startGamesRoute,
         durationGame: durationGame.toString(),
         record: record,
       );
@@ -58,7 +58,7 @@ void computeLoseGame(BuildContext context) {
         description: "When you lose, don't miss the lesson",
         textButton1: "Home",
         textButton2: "Show grid",
-        route: RouteConstant.homeRoute,
+        route: RouteConstant.startGamesRoute,
       );
     },
   );

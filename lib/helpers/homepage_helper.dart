@@ -19,5 +19,5 @@ void openGame(BuildContext context, Difficulty difficulty) {
   }
   Provider.of<GameModelProvider>(context, listen: false)
       .initizialize(gameDifficulty);
-  Navigator.of(context).pushNamed(RouteConstant.gameRoute);
+  Navigator.of(context).pushNamed(RouteConstant.minesweeperRoute);
 }

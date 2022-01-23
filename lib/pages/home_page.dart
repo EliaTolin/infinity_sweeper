@@ -76,81 +76,67 @@ class _HomePageState extends State<HomePage> {
           }
         },
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.only(
-              left: 8,
-              right: 8,
-              top: 20,
-              bottom: 20,
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                SvgPicture.asset(
-                  "assets/icons/icon.svg",
-                  height: 150,
-                  width: 150,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: OptionButton(
-                        "Easy",
-                        () => openGame(context, Difficulty.easy),
-                      ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.only(
+            left: 8,
+            right: 8,
+            top: 20,
+            bottom: 20,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SvgPicture.asset(
+                "assets/icons/icon.svg",
+                height: 150,
+                width: 150,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: OptionButton(
+                      "Play!",
+                      () => Navigator.of(context)
+                          .pushNamed(RouteConstant.startGamesRoute),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: OptionButton(
-                        "Medium",
-                        () => openGame(context, Difficulty.medium),
-                      ),
+                  ),
+                  const SizedBox(height: 50),
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: OptionButton(
+                      "Statistics",
+                      () => Navigator.of(context)
+                          .pushNamed(RouteConstant.statsRoute),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: OptionButton(
-                        "Hard",
-                        () => openGame(context, Difficulty.hard),
-                      ),
+                  ),
+                  const SizedBox(height: 15),
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: OptionButton(
+                      "Purchase",
+                      () => Navigator.of(context)
+                          .pushNamed(RouteConstant.purchaseRoute),
                     ),
-                    const SizedBox(height: 15),
-                    Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: OptionButton(
-                        "Statistics",
-                        () => Navigator.of(context)
-                            .pushNamed(RouteConstant.statsRoute),
-                      ),
+                  ),
+                  const SizedBox(height: 15),
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: OptionButton(
+                      "Leaderboard",
+                      () => GamesServices.showLeaderboards(
+                          iOSLeaderboardID: 'easy_mode_leaderboard'),
                     ),
-                    const SizedBox(height: 15),
-                    Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: OptionButton(
-                        "Purchase",
-                        () => Navigator.of(context)
-                            .pushNamed(RouteConstant.purchaseRoute),
-                      ),
-                    ),
-                    const SizedBox(height: 15),
-                    Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: OptionButton(
-                        "Leaderboard",
-                        () => GamesServices.showLeaderboards(
-                            iOSLeaderboardID: 'easy_mode_leaderboard'),
-                      ),
-                    ),
-                  ],
-                ),
-                const AutoSizeText("Develop by Tolin Elia",
-                    style: TextStyle(color: StyleConstant.textColor)),
-              ],
-            ),
+                  ),
+                  const SizedBox(height: 15),
+                ],
+              ),
+              const AutoSizeText("Develop by Tolin Elia",
+                  style: TextStyle(color: StyleConstant.textColor)),
+            ],
           ),
         ),
       ),
