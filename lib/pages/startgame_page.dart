@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:infinity_sweeper/constants/route_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
-import 'package:infinity_sweeper/helpers/homepage_helper.dart';
+import 'package:infinity_sweeper/helpers/difficulty_helper.dart';
 import 'package:infinity_sweeper/models/ads/ad_banner_helper.dart';
 import 'package:infinity_sweeper/models/game/gamedifficulty_model.dart';
 import 'package:infinity_sweeper/providers/purchase_provider.dart';
@@ -83,21 +83,21 @@ class _StartGamePageState extends State<StartGamePage> {
                   padding: const EdgeInsets.all(8),
                   child: OptionButton(
                     "Easy",
-                    () => openGame(context, Difficulty.easy),
+                    () => openDifficultyGame(context, Difficulty.easy),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8),
                   child: OptionButton(
                     "Medium",
-                    () => openGame(context, Difficulty.medium),
+                    () => openDifficultyGame(context, Difficulty.medium),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8),
                   child: OptionButton(
                     "Hard",
-                    () => openGame(context, Difficulty.hard),
+                    () => openDifficultyGame(context, Difficulty.hard),
                   ),
                 ),
                 const SizedBox(height: 30),

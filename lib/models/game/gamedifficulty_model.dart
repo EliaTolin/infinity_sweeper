@@ -7,18 +7,18 @@ class GameDifficulty {
   late Difficulty difficulty;
 
   GameDifficulty.easy() {
-    numMines = 3;
+    numMines = 10;
     numRow = numCol = 9;
     difficulty = Difficulty.easy;
   }
   GameDifficulty.medium() {
-    numMines = 3;
+    numMines = 40;
     numRow = numCol = 16;
     difficulty = Difficulty.medium;
   }
 
   GameDifficulty.hard() {
-    numMines = 3;
+    numMines = 150;
     numRow = numCol = 30;
     difficulty = Difficulty.hard;
   }
