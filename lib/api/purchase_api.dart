@@ -17,7 +17,7 @@ class PurchaseApi {
   static Future init() async {
     await Purchases.setDebugLogsEnabled(true);
     await Purchases.setup(_getApiKey);
-    // await Purchases.setup(_getApiKey, appUserId: "15");
+    // await Purchases.setup(_getApiKey, appUserId: "18");
   }
 
   static Future<List<Offering>> fetchOffersByIds(List<String> ids) async {
@@ -54,6 +54,7 @@ class PurchaseApi {
       }
     } on PlatformException catch (e) {
       var errorCode = PurchasesErrorHelper.getErrorCode(e);
+      print(e.message);
       if (errorCode != PurchasesErrorCode.purchaseCancelledError) {
         //showError(e);
       }

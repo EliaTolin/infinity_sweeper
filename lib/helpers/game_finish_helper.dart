@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/constants/route_constant.dart';
 import 'package:infinity_sweeper/helpers/gameservices_helper.dart';
@@ -23,10 +25,20 @@ void computeWinGame(BuildContext context, Difficulty gameDifficulty) {
 
   Provider.of<GameDataProvider>(context, listen: false).addWin();
 
-  int hundredthOfSecond =
-      Provider.of<TimerProvider>(context, listen: false).getHundredthOfSecond();
+  int scoreTime = 0;
 
-  gamesServicesHelper.submitScore(hundredthOfSecond, gameDifficulty);
+  if (Platform.isAndroid) {
+    scoreTime = Provider.of<TimerProvider>(context, listen: false)
+        .getTimeInMillisecond();
+  } else if (Platform.isIOS) {
+    scoreTime = Provider.of<TimerProvider>(context, listen: false)
+        .getTimeInHundredthOfSecond();
+  }
+
+  Provider.of<TimerProvider>(context, listen: false)
+      .getTimeInHundredthOfSecond();
+
+  gamesServicesHelper.submitScore(scoreTime, gameDifficulty);
 
   showDialog(
     barrierColor: Colors.black26,

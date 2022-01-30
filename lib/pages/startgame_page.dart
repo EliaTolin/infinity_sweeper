@@ -39,73 +39,78 @@ class _StartGamePageState extends State<StartGamePage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-    return Scaffold(
-      appBar: TopBar(size, "Infinity Sweeper"),
-      backgroundColor: StyleConstant.mainColor,
-      bottomNavigationBar: Consumer<PurchaseProvider>(
-        builder: (context, purchaseProvider, child) {
-          if (purchaseProvider.isProVersionAds) {
-            return Container(height: 1);
-          }
-          if (loadedBanner) {
-            // ignore: sized_box_for_whitespace
-            return Container(
-              height: adBannerHelper.getSizeBanner().height.toDouble(),
-              width: adBannerHelper.getSizeBanner().width.toDouble(),
-              child: AdWidget(
-                ad: adBannerHelper.getBanner(),
-              ),
-            );
-          } else {
-            return Container(
-              height: 50,
-            );
-          }
-        },
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.only(
-            left: 8,
-            right: 8,
-            top: 20,
-            bottom: 20,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8),
-                child: OptionButton(
-                  "Easy",
-                  () => openGame(context, Difficulty.easy),
+    return WillPopScope(
+      onWillPop: () async {
+        return true;
+      },
+      child: Scaffold(
+        appBar: TopBar(size, "Infinity Sweeper"),
+        backgroundColor: StyleConstant.mainColor,
+        bottomNavigationBar: Consumer<PurchaseProvider>(
+          builder: (context, purchaseProvider, child) {
+            if (purchaseProvider.isProVersionAds) {
+              return Container(height: 1);
+            }
+            if (loadedBanner) {
+              // ignore: sized_box_for_whitespace
+              return Container(
+                height: adBannerHelper.getSizeBanner().height.toDouble(),
+                width: adBannerHelper.getSizeBanner().width.toDouble(),
+                child: AdWidget(
+                  ad: adBannerHelper.getBanner(),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8),
-                child: OptionButton(
-                  "Medium",
-                  () => openGame(context, Difficulty.medium),
+              );
+            } else {
+              return Container(
+                height: 50,
+              );
+            }
+          },
+        ),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.only(
+              left: 8,
+              right: 8,
+              top: 20,
+              bottom: 20,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: OptionButton(
+                    "Easy",
+                    () => openGame(context, Difficulty.easy),
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8),
-                child: OptionButton(
-                  "Hard",
-                  () => openGame(context, Difficulty.hard),
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: OptionButton(
+                    "Medium",
+                    () => openGame(context, Difficulty.medium),
+                  ),
                 ),
-              ),
-              const SizedBox(height: 30),
-              Padding(
-                padding: const EdgeInsets.all(8),
-                child: OptionButton(
-                  "Home",
-                  () =>
-                      Navigator.of(context).pushNamed(RouteConstant.homeRoute),
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: OptionButton(
+                    "Hard",
+                    () => openGame(context, Difficulty.hard),
+                  ),
                 ),
-              ),
-            ],
+                const SizedBox(height: 30),
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: OptionButton(
+                    "Home",
+                    () => Navigator.of(context)
+                        .pushNamed(RouteConstant.homeRoute),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

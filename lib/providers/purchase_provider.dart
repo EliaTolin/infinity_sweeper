@@ -25,7 +25,8 @@ class PurchaseProvider extends ChangeNotifier {
       } else {
         return false;
       }
-    } on PlatformException catch (_) {
+    } on PlatformException catch (e) {
+      print(e.message);
       return false;
     }
   }

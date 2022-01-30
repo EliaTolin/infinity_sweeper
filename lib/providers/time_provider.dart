@@ -116,7 +116,12 @@ class TimerProvider with ChangeNotifier {
     return _timerInSecond;
   }
 
-  int getHundredthOfSecond() {
+  int getTimeInHundredthOfSecond() {
     return (_timerInMillisecond ~/ 10);
+  }
+
+  int getTimeInMillisecond()
+  {
+    return _timerInMillisecond;
   }
 }

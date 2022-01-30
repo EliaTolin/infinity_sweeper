@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:infinity_sweeper/constants/ad_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
-import 'package:infinity_sweeper/helpers/startgame_helper.dart';
+import 'package:infinity_sweeper/helpers/game_finish_helper.dart';
 import 'package:infinity_sweeper/helpers/sharedpref_helper.dart';
 import 'package:infinity_sweeper/models/ads/ad_interstitial_helper.dart';
 import 'package:infinity_sweeper/models/cell/cellgrid_model.dart';
