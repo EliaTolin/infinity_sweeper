@@ -1,22 +1,16 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:infinity_sweeper/constants/purchase_constant.dart';
+import 'package:infinity_sweeper/helpers/logger_helper.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
 class PurchaseApi {
-  static String get _getApiKey {
-    if (Platform.isAndroid) {
-      return 'goog_gRSHovGtMgcmlTurIwAScjhNGVY';
-    } else if (Platform.isIOS) {
-      return 'appl_IxclWbdRQzOTrXUXvgStKiISyGx';
-    } else {
-      throw UnsupportedError('Unsupported platform');
-    }
-  }
+  
 
   static Future init() async {
-    await Purchases.setDebugLogsEnabled(true);
-    await Purchases.setup(_getApiKey);
+    if (kDebugMode) await Purchases.setDebugLogsEnabled(true);
+    await Purchases.setup(PurchaseConstant.getApiKey);
     // await Purchases.setup(_getApiKey, appUserId: "18");
   }
 
@@ -54,7 +48,7 @@ class PurchaseApi {
       }
     } on PlatformException catch (e) {
       var errorCode = PurchasesErrorHelper.getErrorCode(e);
-      print(e.message);
+      LoggerHelper.print(e.message);
       if (errorCode != PurchasesErrorCode.purchaseCancelledError) {
         //showError(e);
       }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:infinity_sweeper/constants/purchase_constant.dart';
+import 'package:infinity_sweeper/helpers/logger_helper.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
 class PurchaseProvider extends ChangeNotifier {
@@ -26,7 +27,7 @@ class PurchaseProvider extends ChangeNotifier {
         return false;
       }
     } on PlatformException catch (e) {
-      print(e.message);
+      LoggerHelper.print(e.message);
       return false;
     }
   }
