@@ -2,7 +2,7 @@
     package="com.eliatolin.infinity_sweeper">
 
    <application
-        android:label="infinity_sweeper"
+        android:label="Infinity MineSweeper"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
