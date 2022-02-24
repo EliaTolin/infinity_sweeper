@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:games_services/games_services.dart';
 import 'package:infinity_sweeper/constants/gameservices_constant.dart';
 import 'package:infinity_sweeper/models/game/gamedifficulty_model.dart';
@@ -16,7 +18,7 @@ class GamesServicesHelper {
 
   void loadGamesService() async {
     try {
-      GamesServices.signIn();
+      await GamesServices.signIn();
     } on Exception catch (_) {}
   }
 
@@ -24,11 +26,16 @@ class GamesServicesHelper {
     String leaderBoardId = _getLeaderBoardFromDifficulty(difficulty);
 
     if (await GamesServices.isSignedIn) {
+      Score gameScore;
+      if (Platform.isAndroid) {
+        gameScore = Score(androidLeaderboardID: leaderBoardId, value: score);
+      } else if (Platform.isIOS) {
+        gameScore = Score(iOSLeaderboardID: leaderBoardId, value: score);
+      } else {
+        throw UnsupportedError('Unsupported platform');
+      }
       GamesServices.submitScore(
-        score: Score(
-            androidLeaderboardID: leaderBoardId,
-            iOSLeaderboardID: leaderBoardId,
-            value: score),
+        score: gameScore,
       );
     }
   }
