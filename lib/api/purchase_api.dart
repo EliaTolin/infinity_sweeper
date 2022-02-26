@@ -5,12 +5,10 @@ import 'package:infinity_sweeper/helpers/logger_helper.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
 class PurchaseApi {
-  
-
   static Future init() async {
     if (kDebugMode) await Purchases.setDebugLogsEnabled(true);
     await Purchases.setup(PurchaseConstant.getApiKey);
-    // await Purchases.setup(_getApiKey, appUserId: "18");
+    //await Purchases.setup(PurchaseConstant.getApiKey, appUserId: "19");
   }
 
   static Future<List<Offering>> fetchOffersByIds(List<String> ids) async {

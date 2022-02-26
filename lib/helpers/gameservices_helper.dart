@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:games_services/games_services.dart';
 import 'package:infinity_sweeper/constants/gameservices_constant.dart';
 import 'package:infinity_sweeper/models/game/gamedifficulty_model.dart';
@@ -16,8 +17,10 @@ class GamesServicesHelper {
 
   void loadGamesService() async {
     try {
-      GamesServices.signIn();
-    } on Exception catch (_) {}
+      await GamesServices.signIn();
+    } on PlatformException catch (e) {
+      print(e.message);
+    }
   }
 
   void submitScore(int score, Difficulty difficulty) async {
