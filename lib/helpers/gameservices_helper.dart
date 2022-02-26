@@ -18,20 +18,29 @@ class GamesServicesHelper {
   void loadGamesService() async {
     try {
       await GamesServices.signIn();
+<<<<<<< HEAD
     } on PlatformException catch (e) {
       print(e.message);
     }
+=======
+    } on Exception catch (_) {}
+>>>>>>> 9f322af41c132f4a0dc8dca64c22a8556c46f511
   }
 
   void submitScore(int score, Difficulty difficulty) async {
     String leaderBoardId = _getLeaderBoardFromDifficulty(difficulty);
 
     if (await GamesServices.isSignedIn) {
+      Score gameScore;
+      if (Platform.isAndroid) {
+        gameScore = Score(androidLeaderboardID: leaderBoardId, value: score);
+      } else if (Platform.isIOS) {
+        gameScore = Score(iOSLeaderboardID: leaderBoardId, value: score);
+      } else {
+        throw UnsupportedError('Unsupported platform');
+      }
       GamesServices.submitScore(
-        score: Score(
-            androidLeaderboardID: leaderBoardId,
-            iOSLeaderboardID: leaderBoardId,
-            value: score),
+        score: gameScore,
       );
     }
   }
