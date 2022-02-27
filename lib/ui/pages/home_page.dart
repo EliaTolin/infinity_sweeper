@@ -6,12 +6,11 @@ import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:infinity_sweeper/constants/route_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
-import 'package:infinity_sweeper/helpers/gameservices_helper.dart';
+import 'package:infinity_sweeper/core/providers/purchase_provider.dart';
 import 'package:infinity_sweeper/models/ads/ad_banner_helper.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:infinity_sweeper/providers/purchase_provider.dart';
-import 'package:infinity_sweeper/widgets/page_components/button/option_button_widget.dart';
-import 'package:infinity_sweeper/widgets/page_components/topbar_widget.dart';
+import 'package:infinity_sweeper/ui/widgets/page_components/button/option_button_widget.dart';
+import 'package:infinity_sweeper/ui/widgets/page_components/topbar_widget.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {

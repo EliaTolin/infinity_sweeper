@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:infinity_sweeper/api/purchase_api.dart';
-import 'package:infinity_sweeper/binding/home_binding.dart';
-import 'package:infinity_sweeper/pages/home_page.dart';
-import 'package:infinity_sweeper/pages/minesweeper_page.dart';
-import 'package:infinity_sweeper/pages/purchase_page.dart';
-import 'package:infinity_sweeper/pages/splashscreen_page.dart';
-import 'package:infinity_sweeper/pages/startgame_page.dart';
-import 'package:infinity_sweeper/pages/stats_page.dart';
+import 'package:infinity_sweeper/core/api/purchase_api.dart';
+import 'package:infinity_sweeper/core/binding/startgame_binding.dart';
+import 'package:infinity_sweeper/ui/pages/home_page.dart';
+import 'package:infinity_sweeper/ui/pages/minesweeper_page.dart';
+import 'package:infinity_sweeper/ui/pages/purchase_page.dart';
+import 'package:infinity_sweeper/ui/pages/splashscreen_page.dart';
+import 'package:infinity_sweeper/ui/pages/startgame_page.dart';
+import 'package:infinity_sweeper/ui/pages/stats_page.dart';
 import 'constants/route_constant.dart';
 
 void main() async {
@@ -43,7 +43,6 @@ class InfinitySweeper extends StatelessWidget {
         GetPage(
           name: RouteConstant.homeRoute,
           page: () => const HomePage(),
-          binding: HomeBinding(),
         ),
         GetPage(
           name: RouteConstant.minesweeperRoute,
@@ -60,6 +59,7 @@ class InfinitySweeper extends StatelessWidget {
         GetPage(
           name: RouteConstant.startGamesRoute,
           page: () => const StartGamePage(),
+          binding: StartGameBinding(),
         ),
       ],
     );

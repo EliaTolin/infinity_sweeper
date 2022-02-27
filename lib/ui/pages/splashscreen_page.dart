@@ -2,9 +2,9 @@ import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
+import 'package:infinity_sweeper/core/providers/gamedata_provider.dart';
 import 'package:infinity_sweeper/helpers/gameservices_helper.dart';
-import 'package:infinity_sweeper/pages/home_page.dart';
-import 'package:infinity_sweeper/providers/gamedata_provider.dart';
+import 'package:infinity_sweeper/ui/pages/home_page.dart';
 import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {

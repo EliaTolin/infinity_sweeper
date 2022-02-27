@@ -4,11 +4,12 @@ import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:infinity_sweeper/constants/route_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
+import 'package:infinity_sweeper/core/controllers/startgame_controller.dart';
+import 'package:infinity_sweeper/core/providers/purchase_provider.dart';
 import 'package:infinity_sweeper/models/ads/ad_banner_helper.dart';
 import 'package:infinity_sweeper/models/game/gamedifficulty_model.dart';
-import 'package:infinity_sweeper/providers/purchase_provider.dart';
-import 'package:infinity_sweeper/widgets/page_components/button/option_button_widget.dart';
-import 'package:infinity_sweeper/widgets/page_components/topbar_widget.dart';
+import 'package:infinity_sweeper/ui/widgets/page_components/button/option_button_widget.dart';
+import 'package:infinity_sweeper/ui/widgets/page_components/topbar_widget.dart';
 import 'package:provider/provider.dart';
 
 class StartGamePage extends StatefulWidget {
@@ -39,6 +40,7 @@ class _StartGamePageState extends State<StartGamePage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+    final startGameController = Get.find<StartGameController>();
     return WillPopScope(
       onWillPop: () async {
         return true;
@@ -83,21 +85,21 @@ class _StartGamePageState extends State<StartGamePage> {
                   padding: const EdgeInsets.all(8),
                   child: OptionButton(
                     "Easy",
-                    () => openGame(context, Difficulty.easy),
+                    () => startGameController.openGame(context, Difficulty.easy),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8),
                   child: OptionButton(
                     "Medium",
-                    () => openGame(context, Difficulty.medium),
+                    () => startGameController.openGame(context, Difficulty.medium),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8),
                   child: OptionButton(
                     "Hard",
-                    () => openGame(context, Difficulty.hard),
+                    () => startGameController.openGame(context, Difficulty.hard),
                   ),
                 ),
                 const SizedBox(height: 30),

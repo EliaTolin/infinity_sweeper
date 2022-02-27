@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
+import 'package:infinity_sweeper/core/providers/game_provider.dart';
 import 'package:infinity_sweeper/models/cell/cell_model.dart';
-import 'package:infinity_sweeper/providers/game_provider.dart';
 import 'package:provider/provider.dart';
 
 class CellWidget extends StatefulWidget {
@@ -52,7 +52,6 @@ class _CellWidgetState extends State<CellWidget> {
   void _startOperation(BuildContext ctx) {
     _timer = Timer(const Duration(milliseconds: 150), () {
       isLongPressed = true;
-      HapticFeedback.mediumImpact();
       if (!widget.cell.isShowed) {
         Provider.of<GameModelProvider>(ctx, listen: false).setFlag(widget.cell);
       }
@@ -70,6 +69,7 @@ class _CellWidgetState extends State<CellWidget> {
           Provider.of<GameModelProvider>(context, listen: false)
               .computeCell(widget.cell);
         } else {
+          HapticFeedback.mediumImpact();
           isLongPressed = false;
         }
         _timer.cancel();

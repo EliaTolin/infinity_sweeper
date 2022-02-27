@@ -3,11 +3,11 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:infinity_sweeper/api/purchase_api.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
-import 'package:infinity_sweeper/providers/purchase_provider.dart';
-import 'package:infinity_sweeper/widgets/page_components/topbar_back_widget.dart';
-import 'package:infinity_sweeper/widgets/paywall_widget.dart';
+import 'package:infinity_sweeper/core/api/purchase_api.dart';
+import 'package:infinity_sweeper/core/providers/purchase_provider.dart';
+import 'package:infinity_sweeper/ui/widgets/page_components/topbar_back_widget.dart';
+import 'package:infinity_sweeper/ui/widgets/paywall_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:purchases_flutter/object_wrappers.dart';
 

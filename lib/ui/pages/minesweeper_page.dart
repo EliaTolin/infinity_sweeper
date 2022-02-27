@@ -1,19 +1,20 @@
 import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:infinity_sweeper/constants/ad_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
-import 'package:infinity_sweeper/helpers/game_finish_helper.dart';
+import 'package:infinity_sweeper/core/controllers/minesweeper_controllers.dart';
+import 'package:infinity_sweeper/core/providers/game_provider.dart';
+import 'package:infinity_sweeper/core/providers/purchase_provider.dart';
+import 'package:infinity_sweeper/core/providers/time_provider.dart';
 import 'package:infinity_sweeper/helpers/sharedpref_helper.dart';
 import 'package:infinity_sweeper/models/ads/ad_interstitial_helper.dart';
 import 'package:infinity_sweeper/models/cell/cellgrid_model.dart';
 import 'package:infinity_sweeper/models/game/gamestate_model.dart';
-import 'package:infinity_sweeper/providers/purchase_provider.dart';
-import 'package:infinity_sweeper/providers/game_provider.dart';
-import 'package:infinity_sweeper/providers/time_provider.dart';
+import 'package:infinity_sweeper/ui/widgets/game/minesweeper_widget.dart';
+import 'package:infinity_sweeper/ui/widgets/page_components/infobar_widget.dart';
 
-import 'package:infinity_sweeper/widgets/game/minesweeper_widget.dart';
-import 'package:infinity_sweeper/widgets/page_components/infobar_widget.dart';
 import 'package:provider/provider.dart';
 
 class MinesweeperPage extends StatefulWidget {
@@ -59,6 +60,7 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
     //For android
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     Size size = MediaQuery.of(context).size;
+    final msController = Get.find<MinesweeperController>();
     return Scaffold(
       backgroundColor: StyleConstant.mainColor,
       body: SafeArea(
@@ -105,7 +107,7 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
                                   interstitialAd();
                                   WidgetsBinding.instance?.addPostFrameCallback(
                                     (_) {
-                                      computeWinGame(
+                                      msController.computeWinGame(
                                           context, gameModel.difficulty);
                                     },
                                   );
@@ -114,7 +116,7 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
                                   interstitialAd();
                                   WidgetsBinding.instance?.addPostFrameCallback(
                                     (_) {
-                                      computeLoseGame(context);
+                                      msController.computeLoseGame(context);
                                     },
                                   );
                                 }
