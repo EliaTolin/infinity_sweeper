@@ -1,6 +1,7 @@
 //custom_alert_dialog.dart
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CustomAlertDialog extends StatefulWidget {
   final String textButton1;
@@ -53,8 +54,7 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
             child: InkWell(
               highlightColor: Colors.grey[200],
               onTap: () {
-                Navigator.of(context)
-                    .pushNamedAndRemoveUntil(widget.route, (route) => false);
+                Get.offNamedUntil(widget.route, (route) => false);
               },
               child: Center(
                 child: Text(
@@ -80,9 +80,7 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
                 bottomRight: Radius.circular(15.0),
               ),
               highlightColor: Colors.grey[200],
-              onTap: () {
-                Navigator.of(context).pop();
-              },
+              onTap: () => Get.back(),
               child: const Center(
                 child: Icon(
                   Icons.remove_red_eye_outlined,

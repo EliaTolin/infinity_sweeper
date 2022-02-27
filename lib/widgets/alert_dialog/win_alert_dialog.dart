@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class WinAlertDialog extends StatefulWidget {
   final String textButton1;
@@ -73,10 +74,7 @@ class _WinAlertDialogState extends State<WinAlertDialog> {
             height: 50,
             child: InkWell(
               highlightColor: Colors.grey[200],
-              onTap: () {
-                Navigator.of(context)
-                    .pushNamedAndRemoveUntil(widget.route, (route) => false);
-              },
+              onTap: () => Get.offNamedUntil(widget.route, (route) => false),
               child: Center(
                 child: AutoSizeText(
                   widget.textButton1,
@@ -101,9 +99,7 @@ class _WinAlertDialogState extends State<WinAlertDialog> {
                 bottomRight: Radius.circular(15.0),
               ),
               highlightColor: Colors.grey[200],
-              onTap: () {
-                Navigator.of(context).pop();
-              },
+              onTap: () => Get.back(),
               child: const Center(
                 child: Icon(
                   Icons.remove_red_eye_outlined,

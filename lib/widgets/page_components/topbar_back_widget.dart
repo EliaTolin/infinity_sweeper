@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
 
 class TopBarBack extends StatelessWidget implements PreferredSizeWidget {
@@ -55,9 +56,7 @@ Column buildTopBar(Size size, String title, BuildContext context) {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
+                  onPressed: () =>Get.back(),
                   icon: SvgPicture.asset(
                     "assets/icons/arrow-back.svg",
                     height: StyleConstant.kSizeIcons,

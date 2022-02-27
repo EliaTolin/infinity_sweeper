@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:games_services/games_services.dart';
+import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:infinity_sweeper/constants/route_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
@@ -95,8 +96,7 @@ class _HomePageState extends State<HomePage> {
                     padding: const EdgeInsets.all(8),
                     child: OptionButton(
                       "Play!",
-                      () => Navigator.of(context)
-                          .pushNamed(RouteConstant.startGamesRoute),
+                      () => Get.toNamed(RouteConstant.startGamesRoute),
                     ),
                   ),
                   const SizedBox(height: 50),
@@ -104,8 +104,7 @@ class _HomePageState extends State<HomePage> {
                     padding: const EdgeInsets.all(8),
                     child: OptionButton(
                       "Statistics",
-                      () => Navigator.of(context)
-                          .pushNamed(RouteConstant.statsRoute),
+                      () => Get.toNamed(RouteConstant.statsRoute),
                     ),
                   ),
                   const SizedBox(height: 15),
@@ -113,8 +112,7 @@ class _HomePageState extends State<HomePage> {
                     padding: const EdgeInsets.all(8),
                     child: OptionButton(
                       "Purchase",
-                      () => Navigator.of(context)
-                          .pushNamed(RouteConstant.purchaseRoute),
+                      () => Get.toNamed(RouteConstant.purchaseRoute),
                     ),
                   ),
                   const SizedBox(height: 15),
