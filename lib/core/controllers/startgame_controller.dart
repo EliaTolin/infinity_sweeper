@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinity_sweeper/constants/route_constant.dart';
-import 'package:infinity_sweeper/core/providers/game_provider.dart';
+import 'package:infinity_sweeper/core/controllers/game_logic_controller.dart';
 import 'package:infinity_sweeper/models/game/gamedifficulty_model.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +19,7 @@ class StartGameController extends GetxController {
         gameDifficulty = GameDifficulty.hard();
         break;
     }
-    Provider.of<GameModelProvider>(context, listen: false)
+    Provider.of<GameLogicController>(context, listen: false)
         .initizialize(gameDifficulty);
     Get.toNamed(RouteConstant.minesweeperRoute);
   }

@@ -1,9 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:infinity_sweeper/constants/route_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
-import 'package:infinity_sweeper/core/providers/game_provider.dart';
+import 'package:infinity_sweeper/core/controllers/game_logic_controller.dart';
 import 'package:infinity_sweeper/core/providers/time_provider.dart';
 import 'package:infinity_sweeper/ui/widgets/alert_dialog/custom_alert_dialog.dart';
 import 'package:provider/provider.dart';
@@ -20,6 +21,7 @@ class InfoBar extends StatefulWidget {
 }
 
 class InfoBarState extends State<InfoBar> {
+  final gameController = Get.find<GameLogicController>();
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -41,11 +43,9 @@ class InfoBarState extends State<InfoBar> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               // crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Consumer<GameModelProvider>(
+                Consumer<GameLogicController>(
                   builder: (context, gameModel, child) {
-                    int numFlag =
-                        Provider.of<GameModelProvider>(context, listen: false)
-                            .numFlag;
+                    int numFlag = gameController.numFlag.value;
                     return Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,

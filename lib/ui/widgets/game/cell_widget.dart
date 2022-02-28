@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
-import 'package:infinity_sweeper/core/providers/game_provider.dart';
+import 'package:infinity_sweeper/core/controllers/game_logic_controller.dart';
 import 'package:infinity_sweeper/models/cell/cell_model.dart';
 import 'package:provider/provider.dart';
 
@@ -53,7 +53,7 @@ class _CellWidgetState extends State<CellWidget> {
     _timer = Timer(const Duration(milliseconds: 150), () {
       isLongPressed = true;
       if (!widget.cell.isShowed) {
-        Provider.of<GameModelProvider>(ctx, listen: false).setFlag(widget.cell);
+        Provider.of<GameLogicController>(ctx, listen: false).setFlag(widget.cell);
       }
     });
   }
@@ -66,7 +66,7 @@ class _CellWidgetState extends State<CellWidget> {
       },
       onTapUp: (_) {
         if (!isLongPressed) {
-          Provider.of<GameModelProvider>(context, listen: false)
+          Provider.of<GameLogicController>(context, listen: false)
               .computeCell(widget.cell);
         } else {
           HapticFeedback.mediumImpact();

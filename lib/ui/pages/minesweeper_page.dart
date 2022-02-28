@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:infinity_sweeper/constants/ad_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:infinity_sweeper/core/controllers/minesweeper_controllers.dart';
-import 'package:infinity_sweeper/core/providers/game_provider.dart';
+import 'package:infinity_sweeper/core/controllers/game_logic_controller.dart';
 import 'package:infinity_sweeper/core/providers/purchase_provider.dart';
 import 'package:infinity_sweeper/core/providers/time_provider.dart';
 import 'package:infinity_sweeper/helpers/sharedpref_helper.dart';
@@ -27,6 +27,9 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
   AdInterstitialHelper adInterstitialHelper = AdInterstitialHelper();
   bool isProVersionAds = false;
   bool firstTap = true;
+  final gameController = Get.find<GameLogicController>();
+  final msController = Get.find<MinesweeperController>();
+
   @override
   void deactivate() {
     super.deactivate();
@@ -51,7 +54,7 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
       adInterstitialHelper.createInterstialAd();
     }
     WidgetsBinding.instance?.addPostFrameCallback((_) {
-      Provider.of<GameModelProvider>(context, listen: false).generateCellGrid();
+      gameController.generateCellGrid();
     });
   }
 
@@ -60,7 +63,7 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
     //For android
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     Size size = MediaQuery.of(context).size;
-    final msController = Get.find<MinesweeperController>();
+
     return Scaffold(
       backgroundColor: StyleConstant.mainColor,
       body: SafeArea(
@@ -89,45 +92,7 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                           child: Center(
-                            child: Consumer<GameModelProvider>(
-                              builder: (context, gameModel, child) {
-                                //throw if cellGrid is null
-                                MinesGrid? cellGrid = gameModel.cellGrid;
-                                if (cellGrid!.gridCells.isEmpty) {
-                                  return Container();
-                                }
-                                if (gameModel.state == GameState.started &&
-                                    firstTap) {
-                                  Provider.of<TimerProvider>(context,
-                                          listen: false)
-                                      .startTimer();
-                                  firstTap = false;
-                                }
-                                if (gameModel.state == GameState.victory) {
-                                  interstitialAd();
-                                  WidgetsBinding.instance?.addPostFrameCallback(
-                                    (_) {
-                                      msController.computeWinGame(
-                                          context, gameModel.difficulty);
-                                    },
-                                  );
-                                }
-                                if (gameModel.state == GameState.lose) {
-                                  interstitialAd();
-                                  WidgetsBinding.instance?.addPostFrameCallback(
-                                    (_) {
-                                      msController.computeLoseGame(context);
-                                    },
-                                  );
-                                }
-                                return MineSweeperWidget(
-                                    cellGrid.gridCells,
-                                    cellGrid.numRows,
-                                    cellGrid.numColumns,
-                                    cellGrid.numMines,
-                                    gameModel.difficulty);
-                              },
-                            ),
+                            child: buildMineSweeperWidget(),
                           ),
                         );
                       },
@@ -140,6 +105,36 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
         ),
       ),
     );
+  }
+
+  Widget buildMineSweeperWidget() {
+    //throw if cellGrid is null
+    MinesGrid cellGrid = gameController.cellGrid.value;
+    if (cellGrid.gridCells.isEmpty) {
+      return Container();
+    }
+    if (gameController.state == GameState.started && firstTap) {
+      Provider.of<TimerProvider>(context, listen: false).startTimer();
+      firstTap = false;
+    }
+    if (gameController.state == GameState.victory) {
+      interstitialAd();
+      WidgetsBinding.instance?.addPostFrameCallback(
+        (_) {
+          msController.computeWinGame(context, gameController.difficulty);
+        },
+      );
+    }
+    if (gameController.state == GameState.lose) {
+      interstitialAd();
+      WidgetsBinding.instance?.addPostFrameCallback(
+        (_) {
+          msController.computeLoseGame(context);
+        },
+      );
+    }
+    return MineSweeperWidget(cellGrid.gridCells, cellGrid.numRows,
+        cellGrid.numColumns, cellGrid.numMines, gameController.difficulty);
   }
 
   void interstitialAd() async {
