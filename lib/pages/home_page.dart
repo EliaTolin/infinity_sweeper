@@ -26,7 +26,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   AdBannerHelper adBannerHelper = AdBannerHelper();
-  GamesServicesHelper gamesServicesHelper = GamesServicesHelper();
   bool loadedBanner = false;
   int selectedIndex = 1;
 
@@ -39,8 +38,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    //intialize game services
-    gamesServicesHelper.loadGamesService();
     //create bottom banner
     adBannerHelper.createBannerAd(finishLoad);
   }

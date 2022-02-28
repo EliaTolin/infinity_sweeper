@@ -35,9 +35,6 @@ void computeWinGame(BuildContext context, Difficulty gameDifficulty) {
         .getTimeInHundredthOfSecond();
   }
 
-  Provider.of<TimerProvider>(context, listen: false)
-      .getTimeInHundredthOfSecond();
-
   gamesServicesHelper.submitScore(scoreTime, gameDifficulty);
 
   showDialog(
