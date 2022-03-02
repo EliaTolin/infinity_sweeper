@@ -36,9 +36,10 @@ class InfinitySweeper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: "Infinity MineSweeper",
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(fontFamily: 'Futura Round'),
       onGenerateRoute: router.generateRoute,
       initialRoute: RouteConstant.splashRoute,
     );

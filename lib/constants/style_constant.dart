@@ -5,7 +5,7 @@ class StyleConstant {
   static const mainColor = Color(0xFFEFF3F6);
   static const textColor = Colors.black54;
   static const optionButtonColor = Colors.blueGrey;
-  static const textAppBarColor = Colors.black;
+  static const textAppBarColor = Colors.black87;
   static const appBarColor = Colors.blue;
   static const colorNumber = [
     Colors.blue,
@@ -33,6 +33,11 @@ class StyleConstant {
     Colors.amber,
     Colors.grey,
     Colors.cyan,
+  ];
+  static List<Color> listColorShadeDifficulty = [
+    Colors.blue.shade200,
+    Colors.green.shade300,
+    Colors.red.shade200,
   ];
   //Size
   static const double radiusComponent = 40.0;
