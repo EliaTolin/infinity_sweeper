@@ -179,6 +179,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget buildBodySelectElement(int index) {
     Difficulty difficulty = getDifficultyFromIndex(index);
+    var groupAutoSizeText = AutoSizeGroup();
     return InkWell(
       onTap: () => openDifficultyGame(context, difficulty),
       child: ClayContainer(
@@ -190,39 +191,40 @@ class _HomePageState extends State<HomePage> {
         parentColor: StyleConstant.listColorShadeDifficulty[index - 1],
         child: Padding(
           padding: const EdgeInsets.all(15.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              AutoSizeText(
-                getDifficultyGridSizeString(difficulty),
-                style: TextStyle(
-                  fontFamily: 'Futura Round',
-                  fontWeight: FontWeight.bold,
-                  color: StyleConstant.listColors[index - 1],
-                  fontSize: 60,
+          child: FittedBox(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  getDifficultyGridSizeString(difficulty),
+                  style: TextStyle(
+                    fontFamily: 'Futura Round',
+                    fontWeight: FontWeight.bold,
+                    color: StyleConstant.listColors[index - 1],
+                    fontSize: 60,
+                  ),
+                  maxLines: 1,
                 ),
-                maxLines: 1,
-              ),
-              AutoSizeText(
-                getDifficultyBombString(difficulty) + " BOMBS",
-                style: TextStyle(
-                  fontSize: 25,
-                  color: StyleConstant.listColors[index - 1].withAlpha(150),
-                  fontWeight: FontWeight.bold,
+                Text(
+                  getDifficultyBombString(difficulty) + " BOMBS",
+                  style: TextStyle(
+                    fontSize: 25,
+                    color: StyleConstant.listColors[index - 1].withAlpha(150),
+                    fontWeight: FontWeight.bold,
+                  ),
+                  maxLines: 1,
                 ),
-                maxLines: 1,
-              ),
-              AutoSizeText(
-                getDifficultyString(difficulty),
-                style: TextStyle(
-                  fontFamily: 'Futura Round',
-                  color: StyleConstant.listColors[index - 1],
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
+                Text(
+                  getDifficultyString(difficulty),
+                  style: TextStyle(
+                    fontFamily: 'Futura Round',
+                    color: StyleConstant.listColors[index - 1],
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                maxLines: 1,
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
