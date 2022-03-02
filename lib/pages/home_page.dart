@@ -1,6 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:clay_containers/clay_containers.dart';
-import 'package:clay_containers/widgets/clay_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:games_services/games_services.dart';
@@ -8,9 +7,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:infinity_sweeper/constants/route_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:infinity_sweeper/helpers/difficulty_helper.dart';
-import 'package:infinity_sweeper/helpers/gameservices_helper.dart';
 import 'package:infinity_sweeper/models/ads/ad_banner_helper.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:infinity_sweeper/models/game/gamedifficulty_model.dart';
 import 'package:infinity_sweeper/providers/purchase_provider.dart';
 import 'package:infinity_sweeper/widgets/page_components/button/option_button_widget.dart';
@@ -179,7 +176,6 @@ class _HomePageState extends State<HomePage> {
 
   Widget buildBodySelectElement(int index) {
     Difficulty difficulty = getDifficultyFromIndex(index);
-    var groupAutoSizeText = AutoSizeGroup();
     return InkWell(
       onTap: () => openDifficultyGame(context, difficulty),
       child: ClayContainer(
@@ -192,6 +188,7 @@ class _HomePageState extends State<HomePage> {
         child: Padding(
           padding: const EdgeInsets.all(15.0),
           child: FittedBox(
+            fit: BoxFit.scaleDown,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
