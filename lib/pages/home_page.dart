@@ -181,11 +181,12 @@ class _HomePageState extends State<HomePage> {
     Difficulty difficulty = getDifficultyFromIndex(index);
     return ClayContainer(
       borderRadius: 30,
-      // depth: 40,
-      // spread: 20,
+      depth: 35,
+      spread: 10,
       curveType: CurveType.concave,
       surfaceColor: StyleConstant.mainColor,
-      parentColor: StyleConstant.mainColor,
+      // parentColor: Colors.green.shade300,
+      parentColor: StyleConstant.listColorShadeDifficulty[index - 1],
       child: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(
@@ -199,7 +200,7 @@ class _HomePageState extends State<HomePage> {
                   color: StyleConstant.listColors[index - 1].withAlpha(150),
                   fontWeight: FontWeight.bold),
             ),
-            Text(
+            AutoSizeText(
               getDifficultyString(difficulty),
               style: TextStyle(
                 fontFamily: 'Futura Round',

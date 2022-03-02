@@ -34,6 +34,11 @@ class StyleConstant {
     Colors.grey,
     Colors.cyan,
   ];
+  static List<Color> listColorShadeDifficulty = [
+    Colors.blue.shade200,
+    Colors.green.shade300,
+    Colors.red.shade200,
+  ];
   //Size
   static const double radiusComponent = 40.0;
   static const double kHeighBarRatio = 0.13;

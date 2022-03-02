@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:clay_containers/widgets/clay_text.dart';
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/constants/route_constant.dart';
@@ -71,7 +72,7 @@ Widget getDifficultyIcon(Difficulty difficulty) {
 }
 
 Widget buildDifficultIcon(String text, Color color) {
-  return Text(
+  return AutoSizeText(
     text,
     style: TextStyle(
       fontFamily: 'Futura Round',
