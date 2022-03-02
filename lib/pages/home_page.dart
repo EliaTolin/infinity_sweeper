@@ -184,7 +184,7 @@ class _HomePageState extends State<HomePage> {
       // depth: 40,
       // spread: 20,
       curveType: CurveType.concave,
-      surfaceColor: StyleConstant.listColors[selectedIndex - 1],
+      surfaceColor: StyleConstant.mainColor,
       parentColor: StyleConstant.mainColor,
       child: Padding(
         padding: const EdgeInsets.all(15.0),
@@ -199,13 +199,10 @@ class _HomePageState extends State<HomePage> {
                   color: StyleConstant.listColors[index - 1].withAlpha(150),
                   fontWeight: FontWeight.bold),
             ),
-            ClayText(
+            Text(
               getDifficultyString(difficulty),
-              emboss: true,
-              color: StyleConstant.listColors[index - 1],
-              parentColor: StyleConstant.listColors[index - 1],
-              textColor: StyleConstant.listColors[index - 1],
               style: TextStyle(
+                fontFamily: 'Futura Round',
                 color: StyleConstant.listColors[index - 1],
                 fontSize: 30,
                 fontWeight: FontWeight.bold,

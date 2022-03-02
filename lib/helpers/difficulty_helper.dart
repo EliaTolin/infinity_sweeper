@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:clay_containers/widgets/clay_text.dart';
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/constants/route_constant.dart';
@@ -63,43 +62,22 @@ String getDifficultyBombString(Difficulty difficulty) {
 Widget getDifficultyIcon(Difficulty difficulty) {
   switch (difficulty) {
     case Difficulty.easy:
-      return ClayText(
-        "9x9",
-        emboss: false,
-        color: StyleConstant.listColors[0],
-        parentColor: StyleConstant.listColors[0],
-        textColor: StyleConstant.listColors[0],
-        style: TextStyle(
-          color: StyleConstant.listColors[0],
-          fontSize: 60,
-          fontWeight: FontWeight.bold,
-        ),
-      );
+      return buildDifficultIcon('9x9', StyleConstant.listColors[0]);
     case Difficulty.medium:
-      return ClayText(
-        "16x16",
-        emboss: false,
-        color: StyleConstant.listColors[1],
-        parentColor: StyleConstant.listColors[1],
-        textColor: StyleConstant.listColors[1],
-        style: TextStyle(
-          color: StyleConstant.listColors[1],
-          fontSize: 60,
-          fontWeight: FontWeight.bold,
-        ),
-      );
+      return buildDifficultIcon('16x16', StyleConstant.listColors[1]);
     case Difficulty.hard:
-      return ClayText(
-        "30x30",
-        emboss: false,
-        color: StyleConstant.listColors[2],
-        parentColor: StyleConstant.listColors[2],
-        textColor: StyleConstant.listColors[2],
-        style: TextStyle(
-          color: StyleConstant.listColors[2],
-          fontSize: 60,
-          fontWeight: FontWeight.bold,
-        ),
-      );
+      return buildDifficultIcon('30x30', StyleConstant.listColors[2]);
   }
+}
+
+Widget buildDifficultIcon(String text, Color color) {
+  return Text(
+    text,
+    style: TextStyle(
+      fontFamily: 'Futura Round',
+      fontWeight: FontWeight.bold,
+      color: color,
+      fontSize: 60,
+    ),
+  );
 }
