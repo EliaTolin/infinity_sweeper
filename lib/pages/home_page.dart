@@ -124,7 +124,7 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(height: 15),
                   ],
                 ),
-                const AutoSizeText("Develop by Tolin Elia",
+                const AutoSizeText("Develop by Aurora",
                     style: TextStyle(color: StyleConstant.textColor)),
               ],
             ),
@@ -179,37 +179,51 @@ class _HomePageState extends State<HomePage> {
 
   Widget buildBodySelectElement(int index) {
     Difficulty difficulty = getDifficultyFromIndex(index);
-    return ClayContainer(
-      borderRadius: 30,
-      depth: 35,
-      spread: 10,
-      curveType: CurveType.concave,
-      surfaceColor: StyleConstant.mainColor,
-      // parentColor: Colors.green.shade300,
-      parentColor: StyleConstant.listColorShadeDifficulty[index - 1],
-      child: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            getDifficultyIcon(difficulty),
-            AutoSizeText(
-              getDifficultyBombString(difficulty) + " BOMBS",
-              style: TextStyle(
+    return InkWell(
+      onTap: () => openDifficultyGame(context, difficulty),
+      child: ClayContainer(
+        borderRadius: 30,
+        depth: 35,
+        spread: 10,
+        curveType: CurveType.concave,
+        surfaceColor: StyleConstant.mainColor,
+        parentColor: StyleConstant.listColorShadeDifficulty[index - 1],
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              AutoSizeText(
+                getDifficultyGridSizeString(difficulty),
+                style: TextStyle(
+                  fontFamily: 'Futura Round',
+                  fontWeight: FontWeight.bold,
+                  color: StyleConstant.listColors[index - 1],
+                  fontSize: 60,
+                ),
+                maxLines: 1,
+              ),
+              AutoSizeText(
+                getDifficultyBombString(difficulty) + " BOMBS",
+                style: TextStyle(
                   fontSize: 25,
                   color: StyleConstant.listColors[index - 1].withAlpha(150),
-                  fontWeight: FontWeight.bold),
-            ),
-            AutoSizeText(
-              getDifficultyString(difficulty),
-              style: TextStyle(
-                fontFamily: 'Futura Round',
-                color: StyleConstant.listColors[index - 1],
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.bold,
+                ),
+                maxLines: 1,
               ),
-            ),
-          ],
+              AutoSizeText(
+                getDifficultyString(difficulty),
+                style: TextStyle(
+                  fontFamily: 'Futura Round',
+                  color: StyleConstant.listColors[index - 1],
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+                maxLines: 1,
+              ),
+            ],
+          ),
         ),
       ),
     );

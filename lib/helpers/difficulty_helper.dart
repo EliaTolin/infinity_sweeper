@@ -1,8 +1,5 @@
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:clay_containers/widgets/clay_text.dart';
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/constants/route_constant.dart';
-import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:infinity_sweeper/models/game/gamedifficulty_model.dart';
 import 'package:infinity_sweeper/providers/game_provider.dart';
 import 'package:provider/provider.dart';
@@ -60,25 +57,13 @@ String getDifficultyBombString(Difficulty difficulty) {
   }
 }
 
-Widget getDifficultyIcon(Difficulty difficulty) {
+String getDifficultyGridSizeString(Difficulty difficulty) {
   switch (difficulty) {
     case Difficulty.easy:
-      return buildDifficultIcon('9x9', StyleConstant.listColors[0]);
+      return '9x9';
     case Difficulty.medium:
-      return buildDifficultIcon('16x16', StyleConstant.listColors[1]);
+      return '16x16';
     case Difficulty.hard:
-      return buildDifficultIcon('30x30', StyleConstant.listColors[2]);
+      return '30x30';
   }
-}
-
-Widget buildDifficultIcon(String text, Color color) {
-  return AutoSizeText(
-    text,
-    style: TextStyle(
-      fontFamily: 'Futura Round',
-      fontWeight: FontWeight.bold,
-      color: color,
-      fontSize: 60,
-    ),
-  );
 }

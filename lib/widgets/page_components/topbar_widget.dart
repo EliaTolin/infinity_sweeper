@@ -56,9 +56,7 @@ Column buildTopBar(Size size, String title) {
                 title,
                 style: const TextStyle(
                   fontSize: 40,
-                  // color: StyleConstant.textAppBarColor,
-                  color: Colors.black87,
-                  // fontWeight: FontWeight.bold,
+                  color: StyleConstant.textAppBarColor,
                 ),
               ),
             ),

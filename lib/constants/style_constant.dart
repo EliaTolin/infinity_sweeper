@@ -5,7 +5,7 @@ class StyleConstant {
   static const mainColor = Color(0xFFEFF3F6);
   static const textColor = Colors.black54;
   static const optionButtonColor = Colors.blueGrey;
-  static const textAppBarColor = Colors.black;
+  static const textAppBarColor = Colors.black87;
   static const appBarColor = Colors.blue;
   static const colorNumber = [
     Colors.blue,
