@@ -36,12 +36,17 @@ Column buildTopBar(Size size, String title) {
         alignment: Alignment.center,
         children: <Widget>[
           ClayContainer(
+            depth: 35,
+            spread: 10,
             color: StyleConstant.mainColor,
             parentColor: StyleConstant.mainColor,
             surfaceColor: StyleConstant.mainColor,
             height: size.height,
-            curveType: CurveType.convex,
-            borderRadius: StyleConstant.radiusComponent,
+            curveType: CurveType.concave,
+            customBorderRadius: const BorderRadius.only(
+              bottomRight: Radius.circular(StyleConstant.radiusComponent),
+              bottomLeft: Radius.circular(StyleConstant.radiusComponent),
+            ),
           ),
           Positioned(
             bottom: 15,
@@ -50,9 +55,10 @@ Column buildTopBar(Size size, String title) {
               child: Text(
                 title,
                 style: const TextStyle(
-                  fontSize: 30,
-                  color: StyleConstant.textAppBarColor,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 40,
+                  // color: StyleConstant.textAppBarColor,
+                  color: Colors.black87,
+                  // fontWeight: FontWeight.bold,
                 ),
               ),
             ),
