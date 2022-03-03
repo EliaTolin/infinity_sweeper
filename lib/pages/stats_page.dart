@@ -89,8 +89,7 @@ class _StatsPageState extends State<StatsPage> {
                     color: StyleConstant.mainColor,
                     child: getRecordElement(
                         "hard",
-                        gameData
-                            .recordTimeInSecond[DataConstant.recordHard],
+                        gameData.recordTimeInSecond[DataConstant.recordHard],
                         StyleConstant.listColors[2]),
                   ),
                   const SizedBox(height: 10),
