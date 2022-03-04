@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.eliatolin.infinity_sweeper">
-
+    <uses-permission android:name="android.permission.VIBRATE" />
    <application
         android:label="Infinity Minesweeper"
         android:icon="@mipmap/ic_launcher">
@@ -45,4 +45,5 @@
         <meta-data android:name="com.google.android.gms.version"
         android:value="@integer/google_play_services_version"/>
     </application>
+    
 </manifest>
