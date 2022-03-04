@@ -2,6 +2,7 @@ import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:infinity_sweeper/constants/ad_constant.dart';
+import 'package:infinity_sweeper/constants/data_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:infinity_sweeper/helpers/game_finish_helper.dart';
 import 'package:infinity_sweeper/helpers/sharedpref_helper.dart';
@@ -11,6 +12,7 @@ import 'package:infinity_sweeper/models/game/gamestate_model.dart';
 import 'package:infinity_sweeper/providers/purchase_provider.dart';
 import 'package:infinity_sweeper/providers/game_provider.dart';
 import 'package:infinity_sweeper/providers/time_provider.dart';
+import 'package:infinity_sweeper/widgets/alert_dialog/tutorial_alert_dialog.dart';
 
 import 'package:infinity_sweeper/widgets/game/minesweeper_widget.dart';
 import 'package:infinity_sweeper/widgets/page_components/infobar_widget.dart';
@@ -26,6 +28,8 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
   AdInterstitialHelper adInterstitialHelper = AdInterstitialHelper();
   bool isProVersionAds = false;
   bool firstTap = true;
+  bool showedTutorial = false;
+
   @override
   void deactivate() {
     super.deactivate();
@@ -44,6 +48,7 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
   @override
   void initState() {
     super.initState();
+    getTutorialShow();
     isProVersionAds =
         Provider.of<PurchaseProvider>(context, listen: false).isProVersionAds;
     if (!isProVersionAds) {
@@ -59,6 +64,7 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
     //For android
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: StyleConstant.mainColor,
       body: SafeArea(
@@ -155,5 +161,67 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
       adInterstitialHelper.showInterstialAds();
     }
     sharedPrefHelper.save(AdConstant.dataTimeShowAds, timeAds);
+  }
+
+  Future<void> getTutorialShow() async {
+    SharedPrefHelper sharedPrefHelper = SharedPrefHelper();
+    if (await sharedPrefHelper.exist(DataConstant.isShowedTutorial)) {
+      showedTutorial =
+          await sharedPrefHelper.read(DataConstant.isShowedTutorial);
+    }
+    if (!showedTutorial) {
+      await showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return const TutorialDialogBox(
+                "Start game",
+                "To start click any cell, a solvable playing field will be created.",
+                "Next",
+                "assets/icons_tutorial/cover_tile.png");
+          });
+      await showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return const TutorialDialogBox(
+                "Find bombs",
+                "The numbers indicate how many bombs there are in the adjacent cells. For example, the number 3 indicates that there are three bombs around the cell.",
+                "Next",
+                "assets/icons_tutorial/flag_tile.png");
+          });
+
+      await showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return const TutorialDialogBox(
+                "Flag bombs",
+                "Longpress and hold a cell to insert a flag which can help you remember where a bomb may be.",
+                "Next",
+                "assets/icons_tutorial/flag.png");
+          });
+      await showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return const TutorialDialogBox(
+                "Victory",
+                "You win if you leave all the bombs covered and discover all the cells free.",
+                "Next",
+                "assets/icons_tutorial/win.png");
+          });
+      await showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return const TutorialDialogBox(
+                "World Ranking",
+                "Try to solve the field as quickly as possible to climb the world ranking that you find on the home page!",
+                "Play!",
+                "assets/icons_tutorial/ranking.png");
+          });
+      //TODO: Save flag tutorial
+    }
   }
 }
