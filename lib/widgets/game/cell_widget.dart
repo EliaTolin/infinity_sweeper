@@ -54,6 +54,7 @@ class _CellWidgetState extends State<CellWidget> {
       isLongPressed = true;
       if (!widget.cell.isShowed) {
         Provider.of<GameModelProvider>(ctx, listen: false).setFlag(widget.cell);
+        HapticFeedback.mediumImpact();
       }
     });
   }
@@ -69,7 +70,6 @@ class _CellWidgetState extends State<CellWidget> {
           Provider.of<GameModelProvider>(context, listen: false)
               .computeCell(widget.cell);
         } else {
-          HapticFeedback.mediumImpact();
           isLongPressed = false;
         }
         _timer.cancel();
