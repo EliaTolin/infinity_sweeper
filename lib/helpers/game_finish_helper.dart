@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/constants/route_constant.dart';
 import 'package:infinity_sweeper/helpers/gameservices_helper.dart';
@@ -36,18 +35,20 @@ void computeWinGame(BuildContext context, Difficulty gameDifficulty) {
   }
 
   gamesServicesHelper.submitScore(scoreTime, gameDifficulty);
-
+  String gameTime =
+      Provider.of<TimerProvider>(context, listen: false).getString();
   showDialog(
     barrierColor: Colors.black26,
     context: context,
     builder: (context) {
-      return WinAlertDialog(
-        title: "You win!",
-        textButton1: "Home",
-        textButton2: "Show grid",
-        route: RouteConstant.startGamesRoute,
-        durationGame: durationGame.toString(),
-        record: record,
+      return WinDialogBox(
+        "You win!",
+        "You completed game in :",
+        "Home",
+        gameTime,
+        record,
+        () => Navigator.of(context).pushNamedAndRemoveUntil(
+            RouteConstant.startGamesRoute, (route) => false),
       );
     },
   );
@@ -62,12 +63,13 @@ void computeLoseGame(BuildContext context) {
     barrierColor: Colors.black26,
     context: context,
     builder: (context) {
-      return const CustomAlertDialog(
-        title: "You lose!",
-        description: "When you lose, don't miss the lesson",
-        textButton1: "Home",
-        textButton2: "Show grid",
-        route: RouteConstant.startGamesRoute,
+      return CustomDialogBox(
+        "You lose!",
+        "When you lose, don't miss the lesson",
+        "Home",
+        "assets/icons/home.png",
+        () => Navigator.of(context).pushNamedAndRemoveUntil(
+            RouteConstant.startGamesRoute, (route) => false),
       );
     },
   );

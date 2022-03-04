@@ -12,7 +12,7 @@ import 'package:infinity_sweeper/models/game/gamestate_model.dart';
 import 'package:infinity_sweeper/providers/purchase_provider.dart';
 import 'package:infinity_sweeper/providers/game_provider.dart';
 import 'package:infinity_sweeper/providers/time_provider.dart';
-import 'package:infinity_sweeper/widgets/alert_dialog/tutorial_alert_dialog.dart';
+import 'package:infinity_sweeper/widgets/alert_dialog/custom_alert_dialog.dart';
 
 import 'package:infinity_sweeper/widgets/game/minesweeper_widget.dart';
 import 'package:infinity_sweeper/widgets/page_components/infobar_widget.dart';
@@ -29,7 +29,7 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
   bool isProVersionAds = false;
   bool firstTap = true;
   bool showedTutorial = false;
-
+  bool gameTerminate = false;
   @override
   void deactivate() {
     super.deactivate();
@@ -107,7 +107,9 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
                                       .startTimer();
                                   firstTap = false;
                                 }
-                                if (gameModel.state == GameState.victory) {
+                                if (!gameTerminate &&
+                                    gameModel.state == GameState.victory) {
+                                  gameTerminate = true;
                                   interstitialAd();
                                   WidgetsBinding.instance?.addPostFrameCallback(
                                     (_) {
@@ -116,7 +118,9 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
                                     },
                                   );
                                 }
-                                if (gameModel.state == GameState.lose) {
+                                if (!gameTerminate &&
+                                    gameModel.state == GameState.lose) {
+                                  gameTerminate = true;
                                   interstitialAd();
                                   WidgetsBinding.instance?.addPostFrameCallback(
                                     (_) {
@@ -174,54 +178,64 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
           context: context,
           barrierDismissible: false,
           builder: (BuildContext context) {
-            return const TutorialDialogBox(
-                "Start game",
-                "To start click any cell, a solvable playing field will be created.",
-                "Next",
-                "assets/icons_tutorial/cover_tile.png");
+            return CustomDialogBox(
+              "Start game",
+              "To start click any cell, a solvable playing field will be created.",
+              "Next",
+              "assets/icons_tutorial/cover_tile.png",
+              () => Navigator.of(context).pop(),
+            );
           });
       await showDialog(
           context: context,
           barrierDismissible: false,
           builder: (BuildContext context) {
-            return const TutorialDialogBox(
-                "Find bombs",
-                "The numbers indicate how many bombs there are in the adjacent cells. For example, the number 3 indicates that there are three bombs around the cell.",
-                "Next",
-                "assets/icons_tutorial/flag_tile.png");
+            return CustomDialogBox(
+              "Find bombs",
+              "The numbers indicate how many bombs there are in the adjacent cells. For example, the number 3 indicates that there are three bombs around the cell.",
+              "Next",
+              "assets/icons_tutorial/flag_tile.png",
+              () => Navigator.of(context).pop(),
+            );
           });
 
       await showDialog(
           context: context,
           barrierDismissible: false,
           builder: (BuildContext context) {
-            return const TutorialDialogBox(
-                "Flag bombs",
-                "Longpress and hold a cell to insert a flag which can help you remember where a bomb may be.",
-                "Next",
-                "assets/icons_tutorial/flag.png");
+            return CustomDialogBox(
+              "Flag bombs",
+              "Longpress and hold a cell to insert a flag which can help you remember where a bomb may be.",
+              "Next",
+              "assets/icons_tutorial/flag.png",
+              () => Navigator.of(context).pop(),
+            );
           });
       await showDialog(
           context: context,
           barrierDismissible: false,
           builder: (BuildContext context) {
-            return const TutorialDialogBox(
-                "Victory",
-                "You win if you leave all the bombs covered and discover all the cells free.",
-                "Next",
-                "assets/icons_tutorial/win.png");
+            return CustomDialogBox(
+              "Victory",
+              "You win if you leave all the bombs covered and discover all the cells free.",
+              "Next",
+              "assets/icons/win.png",
+              () => Navigator.of(context).pop(),
+            );
           });
       await showDialog(
           context: context,
           barrierDismissible: false,
           builder: (BuildContext context) {
-            return const TutorialDialogBox(
-                "World Ranking",
-                "Try to solve the field as quickly as possible to climb the world ranking that you find on the home page!",
-                "Play!",
-                "assets/icons_tutorial/ranking.png");
+            return CustomDialogBox(
+              "World Ranking",
+              "Try to solve the field as quickly as possible to climb the world ranking that you find on the home page!",
+              "Play!",
+              "assets/icons_tutorial/ranking.png",
+              () => Navigator.of(context).pop(),
+            );
           });
-      //TODO: Save flag tutorial
+      sharedPrefHelper.save(DataConstant.isShowedTutorial, true);
     }
   }
 }
