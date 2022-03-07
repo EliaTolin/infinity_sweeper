@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:infinity_sweeper/constants/route_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
@@ -38,7 +37,6 @@ class _StartGamePageState extends State<StartGamePage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     return WillPopScope(
       onWillPop: () async {
         return true;

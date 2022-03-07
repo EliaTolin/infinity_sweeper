@@ -1,7 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:games_services/games_services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:infinity_sweeper/constants/route_constant.dart';
@@ -48,7 +47,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     return Scaffold(
       appBar: TopBar(size, "Infinity Sweeper"),
       backgroundColor: StyleConstant.mainColor,

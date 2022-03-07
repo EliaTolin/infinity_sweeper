@@ -15,6 +15,7 @@ void main() async {
   await SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
   );
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
   MobileAds.instance.initialize();
   await PurchaseApi.init();
   runApp(

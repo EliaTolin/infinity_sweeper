@@ -1,6 +1,5 @@
 import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:infinity_sweeper/constants/ad_constant.dart';
 import 'package:infinity_sweeper/constants/data_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
@@ -61,8 +60,6 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
 
   @override
   Widget build(BuildContext context) {
-    //For android
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
