@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:infinity_sweeper/constants/ad_constant.dart';
+import 'package:infinity_sweeper/constants/data_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:infinity_sweeper/core/controllers/minesweeper_controllers.dart';
 import 'package:infinity_sweeper/core/controllers/game_logic_controller.dart';
@@ -12,6 +13,7 @@ import 'package:infinity_sweeper/helpers/sharedpref_helper.dart';
 import 'package:infinity_sweeper/models/ads/ad_interstitial_helper.dart';
 import 'package:infinity_sweeper/models/cell/cellgrid_model.dart';
 import 'package:infinity_sweeper/models/game/gamestate_model.dart';
+import 'package:infinity_sweeper/ui/widgets/alert_dialog/custom_alert_dialog.dart';
 import 'package:infinity_sweeper/ui/widgets/game/minesweeper_widget.dart';
 import 'package:infinity_sweeper/ui/widgets/page_components/infobar_widget.dart';
 
@@ -29,6 +31,8 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
   bool firstTap = true;
   final gameController = Get.find<GameLogicController>();
   final msController = Get.find<MinesweeperController>();
+  bool showedTutorial = false;
+  bool gameTerminate = false;
 
   @override
   void deactivate() {
@@ -48,6 +52,7 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
   @override
   void initState() {
     super.initState();
+    getTutorialShow();
     isProVersionAds =
         Provider.of<PurchaseProvider>(context, listen: false).isProVersionAds;
     if (!isProVersionAds) {
@@ -60,8 +65,6 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
 
   @override
   Widget build(BuildContext context) {
-    //For android
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -117,16 +120,18 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
       Provider.of<TimerProvider>(context, listen: false).startTimer();
       firstTap = false;
     }
-    if (gameController.state == GameState.victory) {
+    if (!gameTerminate &&gameController.state == GameState.victory) {
       interstitialAd();
+      gameTerminate = true;
       WidgetsBinding.instance?.addPostFrameCallback(
         (_) {
           msController.computeWinGame(context, gameController.difficulty);
         },
       );
     }
-    if (gameController.state == GameState.lose) {
+    if (!gameTerminate && gameController.state == GameState.lose) {
       interstitialAd();
+      gameTerminate = true;
       WidgetsBinding.instance?.addPostFrameCallback(
         (_) {
           msController.computeLoseGame(context);
@@ -152,5 +157,77 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
       adInterstitialHelper.showInterstialAds();
     }
     sharedPrefHelper.save(AdConstant.dataTimeShowAds, timeAds);
+  }
+
+  Future<void> getTutorialShow() async {
+    SharedPrefHelper sharedPrefHelper = SharedPrefHelper();
+    if (await sharedPrefHelper.exist(DataConstant.isShowedTutorial)) {
+      showedTutorial =
+          await sharedPrefHelper.read(DataConstant.isShowedTutorial);
+    }
+    if (!showedTutorial) {
+      await showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return CustomDialogBox(
+              "Start game",
+              "To start click any cell, a solvable playing field will be created.",
+              "Next",
+              "assets/icons_tutorial/cover_tile.png",
+              () => Navigator.of(context).pop(),
+            );
+          });
+      await showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return CustomDialogBox(
+              "Find bombs",
+              "The numbers indicate how many bombs there are in the adjacent cells. For example, the number 3 indicates that there are three bombs around the cell.",
+              "Next",
+              "assets/icons_tutorial/flag_tile.png",
+              () => Navigator.of(context).pop(),
+            );
+          });
+
+      await showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return CustomDialogBox(
+              "Flag bombs",
+              "Longpress and hold a cell to insert a flag which can help you remember where a bomb may be.",
+              "Next",
+              "assets/icons_tutorial/flag.png",
+              () => Navigator.of(context).pop(),
+            );
+          });
+      await showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return CustomDialogBox(
+              "Victory",
+              "You win if you leave all the bombs covered and discover all the cells free.",
+              "Next",
+              "assets/icons/win.png",
+              () => Navigator.of(context).pop(),
+            );
+          });
+      await showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return CustomDialogBox(
+              "World Ranking",
+              "Try to solve the field as quickly as possible to climb the world ranking that you find on the home page!",
+              "Play!",
+              "assets/icons_tutorial/ranking.png",
+              () => Navigator.of(context).pop(),
+            );
+          });
+      sharedPrefHelper.save(DataConstant.isShowedTutorial, true);
+    }
   }
 }

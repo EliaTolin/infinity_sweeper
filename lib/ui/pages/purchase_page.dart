@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:infinity_sweeper/core/api/purchase_api.dart';
 import 'package:infinity_sweeper/core/providers/purchase_provider.dart';
+import 'package:infinity_sweeper/ui/widgets/page_components/button/option_button_widget.dart';
 import 'package:infinity_sweeper/ui/widgets/page_components/topbar_back_widget.dart';
 import 'package:infinity_sweeper/ui/widgets/paywall_widget.dart';
 import 'package:provider/provider.dart';
@@ -100,25 +101,30 @@ class _PurchasePageState extends State<PurchasePage> {
         buildCrown(),
         const SizedBox(height: 50),
         ListView.builder(
-            shrinkWrap: true,
-            primary: false,
-            itemCount: packages.length,
-            itemBuilder: (context, index) {
-              final package = packages[index];
-              return PayWallWidget(
-                package,
-                context,
-                index,
-                (Package package) async {
-                  final isSuccess = await PurchaseApi.purchasePackage(package);
-                  isSuccess
-                      ? ScaffoldMessenger.of(context)
-                          .showSnackBar(showSnackBar("Good purchase", 3))
-                      : ScaffoldMessenger.of(context)
-                          .showSnackBar(showSnackBar("Bad purchase", 3));
-                },
-              );
-            }),
+          shrinkWrap: true,
+          primary: false,
+          itemCount: packages.length,
+          itemBuilder: (context, index) {
+            final package = packages[index];
+            return PayWallWidget(
+              package,
+              context,
+              index,
+              (Package package) async {
+                final isSuccess = await PurchaseApi.purchasePackage(package);
+                isSuccess
+                    ? ScaffoldMessenger.of(context)
+                        .showSnackBar(showSnackBar("Good purchase", 3))
+                    : ScaffoldMessenger.of(context)
+                        .showSnackBar(showSnackBar("Bad purchase", 3));
+              },
+            );
+          },
+        ),
+        OptionButton(
+            "Restore purchase",
+            () => Provider.of<PurchaseProvider>(context, listen: false)
+                .restorePurchase()),
       ],
     );
   }

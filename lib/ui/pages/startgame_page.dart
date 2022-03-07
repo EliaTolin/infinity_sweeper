@@ -39,7 +39,6 @@ class _StartGamePageState extends State<StartGamePage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     final startGameController = Get.find<StartGameController>();
     return WillPopScope(
       onWillPop: () async {

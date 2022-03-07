@@ -1,96 +1,120 @@
-//custom_alert_dialog.dart
-
+import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class CustomAlertDialog extends StatefulWidget {
-  final String textButton1;
-  final String textButton2;
-  final String route;
-  const CustomAlertDialog({
+class CustomDialogBox extends StatefulWidget {
+  final String title, descriptions, text;
+  final String pathImage;
+  final Function action;
+  const CustomDialogBox(
+    this.title,
+    this.descriptions,
+    this.text,
+    this.pathImage,
+    this.action, {
     Key? key,
-    required this.title,
-    required this.description,
-    required this.textButton1,
-    required this.textButton2,
-    required this.route,
   }) : super(key: key);
 
-  final String title, description;
-
   @override
-  _CustomAlertDialogState createState() => _CustomAlertDialogState();
+  _CustomDialogBoxState createState() => _CustomDialogBoxState();
 }
 
-class _CustomAlertDialogState extends State<CustomAlertDialog> {
+class _CustomDialogBoxState extends State<CustomDialogBox> {
+  static const double padding = 20;
+  static const double avatarRadius = 45;
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      elevation: 0,
-      backgroundColor: const Color(0xffffffff),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
+        borderRadius: BorderRadius.circular(padding),
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const SizedBox(height: 15),
-          Text(
-            widget.title,
-            style: const TextStyle(
-              fontSize: 18.0,
-              fontWeight: FontWeight.bold,
-            ),
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      child: contentBox(context),
+    );
+  }
+
+  contentBox(context) {
+    return Stack(
+      children: <Widget>[
+        Container(
+          padding: const EdgeInsets.only(
+              left: padding,
+              top: avatarRadius + padding,
+              right: padding,
+              bottom: padding),
+          margin: const EdgeInsets.only(top: avatarRadius),
+          decoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(padding),
+            boxShadow: const [
+              BoxShadow(
+                  color: Colors.black, offset: Offset(0, 10), blurRadius: 10),
+            ],
           ),
-          const SizedBox(height: 15),
-          Text(widget.description),
-          const SizedBox(height: 20),
-          const Divider(
-            height: 1,
-          ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: 50,
-            child: InkWell(
-              highlightColor: Colors.grey[200],
-              onTap: () {
-                Get.offNamedUntil(widget.route, (route) => false);
-              },
-              child: Center(
-                child: Text(
-                  widget.textButton1,
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    color: Theme.of(context).primaryColor,
-                    fontWeight: FontWeight.bold,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text(
+                widget.title,
+                style:
+                    const TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Text(
+                widget.descriptions,
+                style: const TextStyle(fontSize: 14),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(
+                height: 22,
+              ),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: InkWell(
+                    onTap: () => widget.action(),
+                    child: ClayContainer(
+                      borderRadius: 10,
+                      curveType: CurveType.concave,
+                      surfaceColor: Colors.white,
+                      parentColor: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          left: 10,
+                          right: 10,
+                          top: 10,
+                          bottom: 10,
+                        ),
+                        child: Text(
+                          widget.text,
+                          style: const TextStyle(fontSize: 18),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
+            ],
           ),
-          const Divider(
-            height: 1,
+        ),
+        Positioned(
+          left: padding,
+          right: padding,
+          child: CircleAvatar(
+            backgroundColor: Colors.transparent,
+            radius: avatarRadius,
+            child: ClipRRect(
+                borderRadius:
+                    const BorderRadius.all(Radius.circular(avatarRadius)),
+                child: Image.asset(widget.pathImage)),
           ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: 50,
-            child: InkWell(
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(15.0),
-                bottomRight: Radius.circular(15.0),
-              ),
-              highlightColor: Colors.grey[200],
-              onTap: () => Get.back(),
-              child: const Center(
-                child: Icon(
-                  Icons.remove_red_eye_outlined,
-                  size: 30,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

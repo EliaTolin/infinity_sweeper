@@ -19,6 +19,7 @@ void main() async {
     [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
   );
 
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
   MobileAds.instance.initialize();
   await PurchaseApi.init();
   runApp(
@@ -34,6 +35,7 @@ class InfinitySweeper extends StatelessWidget {
     return GetMaterialApp(
       title: "Infinity MineSweeper",
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(fontFamily: 'Futura Round'),
       initialRoute: RouteConstant.splashRoute,
       getPages: [
         GetPage(

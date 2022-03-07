@@ -54,6 +54,7 @@ class _CellWidgetState extends State<CellWidget> {
       isLongPressed = true;
       if (!widget.cell.isShowed) {
         Provider.of<GameLogicController>(ctx, listen: false).setFlag(widget.cell);
+        HapticFeedback.mediumImpact();
       }
     });
   }

@@ -3,7 +3,7 @@ import 'dart:io';
 class GamesServicesConstant {
   static String get idLeaderBoardEasy {
     if (Platform.isAndroid) {
-      return 'CgkIo8GA57QREAIQBg';
+      return 'CgkIo8GA57QREAIQBw';
     } else if (Platform.isIOS) {
       return 'easy_mode_leaderboard';
     } else {

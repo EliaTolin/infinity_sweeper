@@ -105,13 +105,13 @@ class InfoBarState extends State<InfoBar> {
                       barrierColor: Colors.black26,
                       context: context,
                       builder: (context) {
-                        //to do, pause timer.
-                        return const CustomAlertDialog(
-                          title: "Home",
-                          description: "You want back home?",
-                          textButton1: "Home",
-                          textButton2: "Cancel",
-                          route: RouteConstant.homeRoute,
+                        return CustomDialogBox(
+                          "Game pause",
+                          "Tap outside to continue or go to home.",
+                          "Home",
+                          "assets/icons/home.png",
+                          () => Navigator.of(context).pushNamedAndRemoveUntil(
+                              RouteConstant.homeRoute, (route) => false),
                         );
                       },
                     );

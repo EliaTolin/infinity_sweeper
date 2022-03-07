@@ -40,6 +40,8 @@ Column buildTopBar(Size size, String title, BuildContext context) {
           Padding(
             padding: const EdgeInsets.only(right: 20.0),
             child: ClayContainer(
+                depth: 35,
+                spread: 10,
                 color: StyleConstant.mainColor,
                 parentColor: StyleConstant.mainColor,
                 surfaceColor: StyleConstant.mainColor,
@@ -74,7 +76,7 @@ Column buildTopBar(Size size, String title, BuildContext context) {
                     title,
                     maxLines: 1,
                     style: const TextStyle(
-                      fontSize: 24,
+                      fontSize: 30,
                       color: StyleConstant.textColor,
                       fontWeight: FontWeight.bold,
                     ),
