@@ -121,10 +121,8 @@ class _PurchasePageState extends State<PurchasePage> {
             );
           },
         ),
-        OptionButton(
-            "Restore purchase",
-            () => Provider.of<PurchaseProvider>(context, listen: false)
-                .restorePurchase()),
+        const SizedBox(height: 20),
+        OptionButton("Restore purchase", () => restorePurchase()),
       ],
     );
   }
@@ -191,6 +189,13 @@ class _PurchasePageState extends State<PurchasePage> {
         ),
       ],
     );
+  }
+
+  Future restorePurchase() async {
+    await Provider.of<PurchaseProvider>(context, listen: false)
+        .restorePurchase();
+    ScaffoldMessenger.of(context)
+        .showSnackBar(showSnackBar("Restore purchase done", 4));
   }
 
   Future fetchOffers() async {

@@ -48,10 +48,10 @@ class PurchaseProvider extends ChangeNotifier {
 
   Future<void> restorePurchase() async {
     try {
-      PurchaserInfo restoredInfo = await Purchases.restoreTransactions();
+      await Purchases.restoreTransactions();
       getUserPurchases();
       notifyListeners();
-    } on PlatformException catch (e) {
+    } on PlatformException catch (_) {
       // Error restoring purchases
     }
   }
