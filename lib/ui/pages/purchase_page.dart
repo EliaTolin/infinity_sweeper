@@ -6,9 +6,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:infinity_sweeper/api/purchase_api.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:infinity_sweeper/providers/purchase_provider.dart';
-import 'package:infinity_sweeper/widgets/page_components/button/option_button_widget.dart';
-import 'package:infinity_sweeper/widgets/page_components/topbar_back_widget.dart';
-import 'package:infinity_sweeper/widgets/paywall_widget.dart';
+import 'package:infinity_sweeper/ui/widgets/page_components/button/option_button_widget.dart';
+import 'package:infinity_sweeper/ui/widgets/page_components/topbar_back_widget.dart';
+import 'package:infinity_sweeper/ui/widgets/paywall_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:purchases_flutter/object_wrappers.dart';
 

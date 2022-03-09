@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/constants/route_constant.dart';
-import 'package:infinity_sweeper/pages/minesweeper_page.dart';
-import 'package:infinity_sweeper/pages/home_page.dart';
-import 'package:infinity_sweeper/pages/purchase_page.dart';
-import 'package:infinity_sweeper/pages/startgame_page.dart';
-import 'package:infinity_sweeper/pages/stats_page.dart';
-import 'package:infinity_sweeper/pages/splashscreen_page.dart';
+import 'package:infinity_sweeper/ui/pages/minesweeper_page.dart';
+import 'package:infinity_sweeper/ui/pages/home_page.dart';
+import 'package:infinity_sweeper/ui/pages/purchase_page.dart';
+import 'package:infinity_sweeper/ui/pages/startgame_page.dart';
+import 'package:infinity_sweeper/ui/pages/stats_page.dart';
+import 'package:infinity_sweeper/ui/pages/splashscreen_page.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
