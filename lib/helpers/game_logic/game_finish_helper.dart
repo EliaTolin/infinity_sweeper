@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/constants/route_constant.dart';
-import 'package:infinity_sweeper/helpers/gameservices_helper.dart';
+import 'package:infinity_sweeper/helpers/games_service/gameservices_helper.dart';
 import 'package:infinity_sweeper/models/game/gamedifficulty_model.dart';
 import 'package:infinity_sweeper/providers/gamedata_provider.dart';
 import 'package:infinity_sweeper/providers/time_provider.dart';

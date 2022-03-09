@@ -3,7 +3,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:infinity_sweeper/constants/route_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:infinity_sweeper/helpers/ads/ad_banner_helper.dart';
-import 'package:infinity_sweeper/helpers/game/difficulty_helper.dart';
+import 'package:infinity_sweeper/helpers/game_logic/difficulty_helper.dart';
 import 'package:infinity_sweeper/models/game/gamedifficulty_model.dart';
 import 'package:infinity_sweeper/providers/purchase_provider.dart';
 import 'package:infinity_sweeper/ui/widgets/page_components/button/option_button_widget.dart';

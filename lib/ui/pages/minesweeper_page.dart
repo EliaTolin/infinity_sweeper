@@ -4,7 +4,7 @@ import 'package:infinity_sweeper/constants/ad_constant.dart';
 import 'package:infinity_sweeper/constants/data_constant.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:infinity_sweeper/helpers/ads/ad_interstitial_helper.dart';
-import 'package:infinity_sweeper/helpers/game/game_finish_helper.dart';
+import 'package:infinity_sweeper/helpers/game_logic/game_finish_helper.dart';
 import 'package:infinity_sweeper/helpers/sharedpref_helper.dart';
 import 'package:infinity_sweeper/models/cell/cellgrid_model.dart';
 import 'package:infinity_sweeper/models/game/gamestate_model.dart';
