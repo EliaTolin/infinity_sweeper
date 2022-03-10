@@ -8,6 +8,7 @@ import 'package:infinity_sweeper/providers/time_provider.dart';
 import 'package:infinity_sweeper/ui/widgets/alert_dialog/custom_alert_dialog.dart';
 import 'package:infinity_sweeper/ui/widgets/alert_dialog/win_alert_dialog.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void computeWinGame(BuildContext context, Difficulty gameDifficulty) {
   GamesServicesHelper gamesServicesHelper = GamesServicesHelper();
@@ -35,15 +36,17 @@ void computeWinGame(BuildContext context, Difficulty gameDifficulty) {
   }
 
   gamesServicesHelper.submitScore(scoreTime, gameDifficulty);
+
   String gameTime =
       Provider.of<TimerProvider>(context, listen: false).getString();
+
   showDialog(
     barrierColor: Colors.black26,
     context: context,
     builder: (context) {
       return WinDialogBox(
-        "You win!",
-        "You completed game in :",
+        AppLocalizations.of(context)!.youCompletedGameTitle,
+        AppLocalizations.of(context)!.youCompletedGameDescr,
         "Home",
         gameTime,
         record,
@@ -64,9 +67,9 @@ void computeLoseGame(BuildContext context) {
     context: context,
     builder: (context) {
       return CustomDialogBox(
-        "You lose!",
-        "When you lose, don't miss the lesson",
-        "Home",
+        AppLocalizations.of(context)!.youLoseTitle,
+        AppLocalizations.of(context)!.youLoseDesc,
+        AppLocalizations.of(context)!.home,
         "assets/icons/home.png",
         () => Navigator.of(context).pushNamedAndRemoveUntil(
             RouteConstant.startGamesRoute, (route) => false),

@@ -12,6 +12,7 @@ import 'package:infinity_sweeper/providers/purchase_provider.dart';
 import 'package:infinity_sweeper/ui/widgets/page_components/button/option_button_widget.dart';
 import 'package:infinity_sweeper/ui/widgets/page_components/topbar_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -93,7 +94,7 @@ class _HomePageState extends State<HomePage> {
                     Padding(
                       padding: const EdgeInsets.all(8),
                       child: OptionButton(
-                        "Statistics",
+                        AppLocalizations.of(context)!.statistics,
                         () => Navigator.of(context)
                             .pushNamed(RouteConstant.statsRoute),
                       ),
@@ -102,7 +103,7 @@ class _HomePageState extends State<HomePage> {
                     Padding(
                       padding: const EdgeInsets.all(8),
                       child: OptionButton(
-                        "Purchase",
+                        AppLocalizations.of(context)!.purchase,
                         () => Navigator.of(context)
                             .pushNamed(RouteConstant.purchaseRoute),
                       ),
@@ -111,7 +112,7 @@ class _HomePageState extends State<HomePage> {
                     Padding(
                       padding: const EdgeInsets.all(8),
                       child: OptionButton(
-                        "Leaderboard",
+                        AppLocalizations.of(context)!.leaderboard,
                         () => GamesServices.showLeaderboards(
                             iOSLeaderboardID: 'easy_mode_leaderboard'),
                       ),
@@ -119,8 +120,9 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(height: 15),
                   ],
                 ),
-                const AutoSizeText("Develop by Aurora",
-                    style: TextStyle(color: StyleConstant.textColor)),
+                AutoSizeText(
+                    AppLocalizations.of(context)!.developBy + " Aurora",
+                    style: const TextStyle(color: StyleConstant.textColor)),
               ],
             ),
           ),
@@ -201,7 +203,7 @@ class _HomePageState extends State<HomePage> {
                   maxLines: 1,
                 ),
                 Text(
-                  getDifficultyBombString(difficulty) + " BOMBS",
+                  getDifficultyBombString(difficulty) + " "+AppLocalizations.of(context)!.bombs.toUpperCase(),
                   style: TextStyle(
                     fontSize: 25,
                     color: StyleConstant.listColors[index - 1].withAlpha(150),
@@ -210,7 +212,7 @@ class _HomePageState extends State<HomePage> {
                   maxLines: 1,
                 ),
                 Text(
-                  getDifficultyString(difficulty),
+                  getDifficultyString(difficulty, context),
                   style: TextStyle(
                     fontFamily: 'Futura Round',
                     color: StyleConstant.listColors[index - 1],

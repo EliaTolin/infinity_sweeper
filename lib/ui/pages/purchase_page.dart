@@ -11,6 +11,7 @@ import 'package:infinity_sweeper/ui/widgets/page_components/topbar_back_widget.d
 import 'package:infinity_sweeper/ui/widgets/paywall_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:purchases_flutter/object_wrappers.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PurchasePage extends StatefulWidget {
   const PurchasePage({Key? key}) : super(key: key);
@@ -34,7 +35,7 @@ class _PurchasePageState extends State<PurchasePage> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: TopBarBack(
-        "Pro Version Ads",
+        AppLocalizations.of(context)!.purchasePageTitle,
         size,
       ),
       body: SingleChildScrollView(
@@ -77,13 +78,13 @@ class _PurchasePageState extends State<PurchasePage> {
           surfaceColor: StyleConstant.mainColor,
           parentColor: StyleConstant.mainColor,
           customBorderRadius: BorderRadius.circular(12),
-          child: const Padding(
-            padding: EdgeInsets.all(25.0),
+          child: Padding(
+            padding: const EdgeInsets.all(25.0),
             child: AutoSizeText(
-              "Loading your offers...",
+              AppLocalizations.of(context)!.loadingOffers,
               maxLines: 2,
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.black,
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
@@ -113,16 +114,17 @@ class _PurchasePageState extends State<PurchasePage> {
               (Package package) async {
                 final isSuccess = await PurchaseApi.purchasePackage(package);
                 isSuccess
-                    ? ScaffoldMessenger.of(context)
-                        .showSnackBar(showSnackBar("Good purchase", 3))
-                    : ScaffoldMessenger.of(context)
-                        .showSnackBar(showSnackBar("Bad purchase", 3));
+                    ? ScaffoldMessenger.of(context).showSnackBar(showSnackBar(
+                        AppLocalizations.of(context)!.goodPurchase, 3))
+                    : ScaffoldMessenger.of(context).showSnackBar(showSnackBar(
+                        AppLocalizations.of(context)!.badPurchase, 3));
               },
             );
           },
         ),
         const SizedBox(height: 20),
-        OptionButton("Restore purchase", () => restorePurchase()),
+        OptionButton(
+            AppLocalizations.of(context)!.restore, () => restorePurchase()),
       ],
     );
   }
@@ -173,13 +175,13 @@ class _PurchasePageState extends State<PurchasePage> {
           surfaceColor: StyleConstant.mainColor,
           parentColor: StyleConstant.mainColor,
           customBorderRadius: BorderRadius.circular(12),
-          child: const Padding(
-            padding: EdgeInsets.all(25.0),
+          child: Padding(
+            padding: const EdgeInsets.all(25.0),
             child: AutoSizeText(
-              "You are already Pro Gamer, you will never see ads again! ",
+              AppLocalizations.of(context)!.alreadyProGamer,
               maxLines: 2,
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.black,
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -194,15 +196,15 @@ class _PurchasePageState extends State<PurchasePage> {
   Future restorePurchase() async {
     await Provider.of<PurchaseProvider>(context, listen: false)
         .restorePurchase();
-    ScaffoldMessenger.of(context)
-        .showSnackBar(showSnackBar("Restore purchase done", 4));
+    ScaffoldMessenger.of(context).showSnackBar(
+        showSnackBar(AppLocalizations.of(context)!.restorePurchaseDone, 4));
   }
 
   Future fetchOffers() async {
     final offerings = await PurchaseApi.fetchOffers();
     if (offerings.isEmpty) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(showSnackBar("No plans found!", 4));
+      ScaffoldMessenger.of(context).showSnackBar(
+          showSnackBar(AppLocalizations.of(context)!.badPurchase, 4));
       setState(() {
         isReady = true;
       });

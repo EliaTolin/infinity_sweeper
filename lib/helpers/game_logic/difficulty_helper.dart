@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/constants/route_constant.dart';
 import 'package:infinity_sweeper/models/game/gamedifficulty_model.dart';
 import 'package:infinity_sweeper/providers/game_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 void openDifficultyGame(BuildContext context, Difficulty difficulty) {
@@ -35,14 +36,14 @@ Difficulty getDifficultyFromIndex(int index) {
   }
 }
 
-String getDifficultyString(Difficulty difficulty) {
+String getDifficultyString(Difficulty difficulty, BuildContext context) {
   switch (difficulty) {
     case Difficulty.easy:
-      return "EASY";
+      return AppLocalizations.of(context)!.easy.toUpperCase();
     case Difficulty.medium:
-      return "MEDIUM";
+      return AppLocalizations.of(context)!.medium.toUpperCase();
     case Difficulty.hard:
-      return "HARD";
+      return AppLocalizations.of(context)!.hard.toUpperCase();
   }
 }
 

@@ -9,6 +9,7 @@ import 'package:infinity_sweeper/providers/purchase_provider.dart';
 import 'package:infinity_sweeper/ui/widgets/page_components/button/option_button_widget.dart';
 import 'package:infinity_sweeper/ui/widgets/page_components/topbar_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class StartGamePage extends StatefulWidget {
   const StartGamePage({Key? key}) : super(key: key);
@@ -80,21 +81,21 @@ class _StartGamePageState extends State<StartGamePage> {
                 Padding(
                   padding: const EdgeInsets.all(8),
                   child: OptionButton(
-                    "Easy",
+                    AppLocalizations.of(context)!.easy,
                     () => openDifficultyGame(context, Difficulty.easy),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8),
                   child: OptionButton(
-                    "Medium",
+                    AppLocalizations.of(context)!.medium,
                     () => openDifficultyGame(context, Difficulty.medium),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8),
                   child: OptionButton(
-                    "Hard",
+                    AppLocalizations.of(context)!.hard,
                     () => openDifficultyGame(context, Difficulty.hard),
                   ),
                 ),
@@ -102,7 +103,7 @@ class _StartGamePageState extends State<StartGamePage> {
                 Padding(
                   padding: const EdgeInsets.all(8),
                   child: OptionButton(
-                    "Home",
+                    AppLocalizations.of(context)!.home,
                     () => Navigator.of(context)
                         .pushNamed(RouteConstant.homeRoute),
                   ),

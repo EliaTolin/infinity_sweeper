@@ -7,6 +7,7 @@ import 'package:infinity_sweeper/providers/game_provider.dart';
 import 'package:infinity_sweeper/providers/time_provider.dart';
 import 'package:infinity_sweeper/ui/widgets/alert_dialog/custom_alert_dialog.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class InfoBar extends StatefulWidget {
   final double maxHeight;
@@ -60,7 +61,10 @@ class InfoBarState extends State<InfoBar> {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: " BOMBS",
+                                  text: " " +
+                                      AppLocalizations.of(context)!
+                                          .bombs
+                                          .toUpperCase(),
                                   style: TextStyle(
                                     fontSize: 15.0,
                                     color: Colors.grey.shade800,
@@ -86,7 +90,10 @@ class InfoBarState extends State<InfoBar> {
                             ),
                           ),
                           TextSpan(
-                            text: " TIME",
+                            text: " " +
+                                AppLocalizations.of(context)!
+                                    .time
+                                    .toUpperCase(),
                             style: TextStyle(
                               fontSize: 15.0,
                               color: Colors.grey.shade800,
@@ -106,9 +113,9 @@ class InfoBarState extends State<InfoBar> {
                       context: context,
                       builder: (context) {
                         return CustomDialogBox(
-                          "Game pause",
-                          "Tap outside to continue or go to home.",
-                          "Home",
+                          AppLocalizations.of(context)!.gamePauseTitle,
+                          AppLocalizations.of(context)!.gamePauseDescr,
+                          AppLocalizations.of(context)!.home,
                           "assets/icons/home.png",
                           () => Navigator.of(context).pushNamedAndRemoveUntil(
                               RouteConstant.homeRoute, (route) => false),

@@ -2,7 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:infinity_sweeper/models/game/gamedata_model.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'indicator_widget.dart';
 
 class PieChartStats extends StatefulWidget {
@@ -63,7 +63,7 @@ class PieChartStatsState extends State<PieChartStats> {
             children: <Widget>[
               Indicator(
                 color: StyleConstant.colorNumber[winIndex],
-                text: 'Win',
+                text: AppLocalizations.of(context)!.win,
                 isSquare: false,
               ),
               const SizedBox(
@@ -71,7 +71,7 @@ class PieChartStatsState extends State<PieChartStats> {
               ),
               Indicator(
                 color: StyleConstant.colorNumber[loseIndex],
-                text: 'Lose',
+                text: AppLocalizations.of(context)!.lose,
                 isSquare: false,
               ),
               const SizedBox(

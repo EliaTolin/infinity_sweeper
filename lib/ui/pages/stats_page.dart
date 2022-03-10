@@ -8,6 +8,7 @@ import 'package:infinity_sweeper/providers/gamedata_provider.dart';
 import 'package:infinity_sweeper/ui/widgets/page_components/graph/stats_pie_chart.dart';
 import 'package:infinity_sweeper/ui/widgets/page_components/topbar_back_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class StatsPage extends StatefulWidget {
   const StatsPage({Key? key}) : super(key: key);
@@ -28,10 +29,9 @@ class _StatsPageState extends State<StatsPage> {
 
   @override
   Widget build(BuildContext context) {
-
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: TopBarBack("Game statistics", size),
+      appBar: TopBarBack(AppLocalizations.of(context)!.gameStatistics, size),
       backgroundColor: StyleConstant.mainColor,
       body: Center(
         child: Padding(
@@ -62,7 +62,7 @@ class _StatsPageState extends State<StatsPage> {
                     parentColor: StyleConstant.mainColor,
                     color: StyleConstant.mainColor,
                     child: getRecordElement(
-                        "easy",
+                        AppLocalizations.of(context)!.easy.toLowerCase(),
                         gameData.recordTimeInSecond[DataConstant.recordEasy],
                         StyleConstant.listColors[0]),
                   ),
@@ -74,7 +74,7 @@ class _StatsPageState extends State<StatsPage> {
                     parentColor: StyleConstant.mainColor,
                     color: StyleConstant.mainColor,
                     child: getRecordElement(
-                        "medium",
+                        AppLocalizations.of(context)!.medium.toLowerCase(),
                         gameData.recordTimeInSecond[DataConstant.recordMedium],
                         StyleConstant.listColors[1]),
                   ),
@@ -86,9 +86,8 @@ class _StatsPageState extends State<StatsPage> {
                     parentColor: StyleConstant.mainColor,
                     color: StyleConstant.mainColor,
                     child: getRecordElement(
-                        "hard",
-                        gameData
-                            .recordTimeInSecond[DataConstant.recordHard],
+                        AppLocalizations.of(context)!.hard.toLowerCase(),
+                        gameData.recordTimeInSecond[DataConstant.recordHard],
                         StyleConstant.listColors[2]),
                   ),
                   const SizedBox(height: 10),
@@ -110,7 +109,7 @@ class _StatsPageState extends State<StatsPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               AutoSizeText(
-                "Your record for " + difficulty + " is :",
+                AppLocalizations.of(context)!.yourRecord(difficulty),
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,

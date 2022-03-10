@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WinDialogBox extends StatefulWidget {
   final String title, descriptions, text;
@@ -27,24 +28,19 @@ class _WinDialogBoxState extends State<WinDialogBox> {
   late String timeUnitGame;
 
   @override
-  void initState() {
-    super.initState();
+  Widget build(BuildContext context) {
     final int count = ':'.allMatches(widget.durationGame).length;
     switch (count) {
       case 2:
-        timeUnitGame = "Hours";
+        timeUnitGame = AppLocalizations.of(context)!.hours.toUpperCase();
         break;
       case 1:
-        timeUnitGame = "Minutes";
+        timeUnitGame = AppLocalizations.of(context)!.minuts.toUpperCase();
         break;
       case 0:
-        timeUnitGame = "Seconds";
+        timeUnitGame = AppLocalizations.of(context)!.seconds.toUpperCase();
         break;
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(padding),
@@ -79,8 +75,11 @@ class _WinDialogBoxState extends State<WinDialogBox> {
             children: <Widget>[
               Text(
                 widget.title,
-                style:
-                    const TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+                style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.blue,
+                ),
               ),
               const SizedBox(
                 height: 15,
@@ -119,7 +118,7 @@ class _WinDialogBoxState extends State<WinDialogBox> {
               ),
               widget.isRecord
                   ? AutoSizeText(
-                      "Time Record!",
+                      AppLocalizations.of(context)!.timeRecord.toUpperCase(),
                       style: TextStyle(
                         fontSize: 17.0,
                         color: Colors.red.shade600,

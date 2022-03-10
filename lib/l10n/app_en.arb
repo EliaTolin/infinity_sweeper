@@ -1,0 +1,104 @@
+{
+    "language": "English",
+    "@language":{
+        "description": "The current Language"
+    },
+    "hard": "Hard",
+    "@hard":{
+        "description": "Hard difficulty"
+    },
+    "yourRecord": "Your record for {modality} mode is :",
+    "@yourRecord": {
+        "placeholders": {
+            "modality":
+            {
+                "type": "String"
+            }
+        }
+    },
+    "easy": "Easy",
+
+    "medium": "Medium",
+
+    "bombs": "bombs",
+
+    "statistics": "Statistics",
+
+    "leaderboard": "Leaderboard",
+
+    "purchase": "Purchase",
+
+    "developBy": "Develop By",
+
+    "win": "Win",
+
+    "lose":"Lose",
+
+    "gameStatistics":"Game Statistics",
+
+    "alreadyProGamer":"You are already Pro Gamer, you will never see ads again! ",
+
+    "purchasePageTitle":"Purchase",
+
+    "tutorial1StartGameTitle":"Start game",
+
+    "tutorial1StartGame": "To start click any cell, a solvable playing field will be created.",
+
+    "tutorial2FindBombsTitle":"Find bombs",
+
+    "tutorial2FindBombs": "The numbers indicate how many bombs there are in the adjacent cells. For example, the number 3 indicates that there are three bombs around the cell.",
+    
+    "tutorial3FlagsTitle":"Flag bombs",
+    
+    "tutorial3Flags":"Longpress and hold a cell to insert a flag which can help you remember where a bomb may be.",
+    
+    "tutorial4WinTitle":"Victory",
+
+    "tutorial4Win":"You win if you leave all the bombs covered and discover all the cells free.",
+    
+    "tutorial5WorldRankingTitle":"World Ranking",
+    
+    "tutorial5WorldRanking":"Try to solve the field as quickly as possible to climb the world ranking that you find on the home page!",
+    
+    "next":"Next",
+    
+    "play":"Play",
+    
+    "time":"Time",
+    
+    "gamePauseTitle":"Game Pause",
+    
+    "gamePauseDescr":"Tap outside to continue or go to home.",
+
+    "youLoseTitle":"You lose!",
+
+    "youLoseDesc":"When you lose, don't miss the lesson.",
+
+    "youCompletedGameTitle":"You win, congrats!",
+
+    "youCompletedGameDescr":"You complete the game in  :",
+
+    "seconds": "Seconds",
+
+    "minuts":"Minuts",
+
+    "hours":"Hours",
+
+    "home":"Home",
+
+    "loadingOffers" : "Loading offers...",
+
+    "goodPurchase":"Purchase successful!",
+    
+    "badPurchase":"Purchase completed with error.",
+    
+    "restorePurchaseDone":"Purchase restore completed.",
+    
+    "noPlansFound":"Offers not found!",
+
+    "loading":"Loading",
+
+    "restore": "Restore",
+
+    "timeRecord":"Time record!"
+}

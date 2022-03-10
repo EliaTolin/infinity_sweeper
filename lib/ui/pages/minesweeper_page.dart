@@ -15,6 +15,7 @@ import 'package:infinity_sweeper/ui/widgets/alert_dialog/custom_alert_dialog.dar
 import 'package:infinity_sweeper/ui/widgets/game/minesweeper_widget.dart';
 import 'package:infinity_sweeper/ui/widgets/page_components/infobar_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MinesweeperPage extends StatefulWidget {
   const MinesweeperPage({Key? key}) : super(key: key);
@@ -175,9 +176,9 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
           barrierDismissible: false,
           builder: (BuildContext context) {
             return CustomDialogBox(
-              "Start game",
-              "To start click any cell, a solvable playing field will be created.",
-              "Next",
+              AppLocalizations.of(context)!.tutorial1StartGameTitle,
+              AppLocalizations.of(context)!.tutorial1StartGame,
+              AppLocalizations.of(context)!.next,
               "assets/icons_tutorial/cover_tile.png",
               () => Navigator.of(context).pop(),
             );
@@ -187,9 +188,9 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
           barrierDismissible: false,
           builder: (BuildContext context) {
             return CustomDialogBox(
-              "Find bombs",
-              "The numbers indicate how many bombs there are in the adjacent cells. For example, the number 3 indicates that there are three bombs around the cell.",
-              "Next",
+              AppLocalizations.of(context)!.tutorial2FindBombsTitle,
+              AppLocalizations.of(context)!.tutorial2FindBombs,
+              AppLocalizations.of(context)!.next,
               "assets/icons_tutorial/flag_tile.png",
               () => Navigator.of(context).pop(),
             );
@@ -200,9 +201,9 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
           barrierDismissible: false,
           builder: (BuildContext context) {
             return CustomDialogBox(
-              "Flag bombs",
-              "Longpress and hold a cell to insert a flag which can help you remember where a bomb may be.",
-              "Next",
+              AppLocalizations.of(context)!.tutorial3FlagsTitle,
+              AppLocalizations.of(context)!.tutorial3Flags,
+              AppLocalizations.of(context)!.next,
               "assets/icons_tutorial/flag.png",
               () => Navigator.of(context).pop(),
             );
@@ -212,9 +213,9 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
           barrierDismissible: false,
           builder: (BuildContext context) {
             return CustomDialogBox(
-              "Victory",
-              "You win if you leave all the bombs covered and discover all the cells free.",
-              "Next",
+              AppLocalizations.of(context)!.tutorial4Win,
+              AppLocalizations.of(context)!.tutorial4WinTitle,
+              AppLocalizations.of(context)!.next,
               "assets/icons/win.png",
               () => Navigator.of(context).pop(),
             );
@@ -224,9 +225,9 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
           barrierDismissible: false,
           builder: (BuildContext context) {
             return CustomDialogBox(
-              "World Ranking",
-              "Try to solve the field as quickly as possible to climb the world ranking that you find on the home page!",
-              "Play!",
+              AppLocalizations.of(context)!.tutorial5WorldRankingTitle,
+              AppLocalizations.of(context)!.tutorial5WorldRankingTitle,
+              AppLocalizations.of(context)!.play,
               "assets/icons_tutorial/ranking.png",
               () => Navigator.of(context).pop(),
             );

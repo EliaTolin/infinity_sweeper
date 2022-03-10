@@ -1,0 +1,93 @@
+{
+    "language": "Italiano",
+    
+    "easy": "Facile",
+    
+    "medium": "Intermedio",
+    
+    "hard": "Difficile",
+    
+    "bombs": "bombe",
+    
+    "statistics": "Statistiche",
+    
+    "leaderboard": "Classifiche",
+    
+    "purchase": "Acquisti",
+    
+    "developBy": "Sviluppato da",
+    
+    "yourRecord": "Il tuo record per la modilità {modality} è : ",
+    
+    "win": "Vincite",
+    
+    "lose":"Perdite",
+    
+    "gameStatistics":"Statistiche di gioco",
+    
+    "alreadyProGamer":"Sei già utente Pro, non vedrai mai più la pubblicità!",
+    
+    "purchasePageTitle":"Acquisti",
+    
+    "tutorial1StartGameTitle":"Inizia il gioco",
+    
+    "tutorial1StartGame": "Per iniziare clicca una qualsiasi cella, un campo di gioco risolvibile verrà creato",
+    
+    "tutorial2FindBombsTitle":"Bombe",
+    
+    "tutorial2FindBombs": "Il numero indica quante bombe adiacenti alla cella ci sono. Per esempio 3 indica che ci sono tre bombe intorno ad alla cella",
+    
+    "tutorial3FlagsTitle":"Bandiere",
+    
+    "tutorial3Flags":"Inserisci una bandiera dove pensi ci sia una bomba tenendo premuta una cella, ti aiuterà a ricordare dove sono le bombe.",
+    
+    "tutorial4WinTitle":"Vittoria",
+    
+    "tutorial4Win":"Vinci scopri tutte le celle libere, lasciando coperte quelle con le bombe.",
+    
+    "tutorial5WorldRankingTitle":"World Ranking",
+    
+    "tutorial5WorldRanking":"Cerca di risolvere il campo il più velocemente possibile per scalare la classifica mondiale che trovi nell'home page!",
+    
+    "next":"Avanti",
+    
+    "play":"Gioca",
+    
+    "time":"Tempo",
+    
+    "gamePauseTitle":"Gioco in pausa",
+    
+    "gamePauseDescr":"Tocca fuori per continuare a giocare oppure torna alla home.",
+    
+    "youLoseTitle":"Hai perso!",
+    
+    "youLoseDesc":"Quando perdi, non dimenticarti la lezione.",
+    
+    "youCompletedGameTitle":"Hai vinto, complimenti!",
+    
+    "youCompletedGameDescr":"Hai completato il campo in :",
+    
+    "seconds": "secondi",
+    
+    "minuts":"minuti",
+    
+    "hours":"ore",
+    
+    "home":"Home",
+    
+    "loadingOffers":"Caricamento offerte...",
+    
+    "goodPurchase":"Acquisto andato a buon fine!",
+    
+    "badPurchase":"Acquisto terminato con errore.",
+    
+    "restorePurchaseDone":"Ripristino acquisti terminato",
+    
+    "noPlansFound":"Offerte non trovate!",
+    
+    "loading":"Caricamento",
+
+    "restore": "Ripristina",
+
+    "timeRecord":"Tempo record!"
+}
