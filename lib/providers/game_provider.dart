@@ -152,7 +152,7 @@ class GameModelProvider extends ChangeNotifier {
   //   notifyListeners();
   // }
   // *******************
-  
+
   void checkWin() {
     List sortedList = cellNotShowedPosition..sort();
     if (listEquals(sortedList, minesPosition)) {
@@ -176,6 +176,46 @@ class GameModelProvider extends ChangeNotifier {
       cell.show = true;
       cellNotShowedPosition.remove(cell.index);
     }
+  }
+
+  void speedOpenCell(CellModel cell) {
+    if (state == GameState.victory || state == GameState.lose) {
+      return;
+    }
+    if (!cell.isShowed) return;
+
+    int startX = (cell.x - 1) < 0 ? 0 : cell.x - 1;
+    int endX = (cell.x + 1) > cellGrid!.numRows - 1
+        ? cellGrid!.numRows - 1
+        : cell.x + 1;
+
+    int startY = (cell.y - 1) < 0 ? 0 : cell.y - 1;
+    int endY = (cell.y + 1) > cellGrid!.numColumns - 1
+        ? cellGrid!.numColumns - 1
+        : cell.y + 1;
+
+    int numFlags = 0;
+    for (int j = startX; j <= endX; j++) {
+      for (int k = startY; k <= endY; k++) {
+        if (cellGrid!.gridCells[j][k].isFlagged) numFlags++;
+      }
+    }
+    if (numFlags < cell.value) return;
+
+    for (int j = startX; j <= endX; j++) {
+      for (int k = startY; k <= endY; k++) {
+        if (!cellGrid!.gridCells[j][k].isFlagged &&
+            !cellGrid!.gridCells[j][k].isShowed) {
+          if (cellGrid!.gridCells[j][k].isMine) {
+            finishGame(GameState.lose);
+          }
+          showCell(cellGrid!.getCell(j, k));
+        }
+      }
+    }
+    //Check if win
+    checkWin();
+    notifyListeners();
   }
 
   void _openEmptyCell(CellModel cell) {

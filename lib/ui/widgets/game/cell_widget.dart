@@ -62,6 +62,8 @@ class _CellWidgetState extends State<CellWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onDoubleTap: () => Provider.of<GameModelProvider>(context, listen: false)
+          .speedOpenCell(widget.cell),
       onTapDown: (_) {
         _startOperation(context);
       },
