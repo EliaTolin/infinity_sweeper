@@ -141,7 +141,7 @@ class _HomePageState extends State<HomePage> {
             options: CarouselOptions(
               height: constraints.maxHeight,
               enableInfiniteScroll: false,
-              initialPage: 1,
+              initialPage: 0,
             ),
             items: [1, 2, 3].map((i) {
               return Builder(
