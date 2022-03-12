@@ -177,7 +177,7 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
           builder: (BuildContext context) {
             return CustomDialogBox(
               AppLocalizations.of(context)!.tutorial1StartGameTitle,
-              AppLocalizations.of(context)!.tutorial1StartGame,
+              AppLocalizations.of(context)!.tutorial1StartGameDescr,
               AppLocalizations.of(context)!.next,
               "assets/icons_tutorial/cover_tile.png",
               () => Navigator.of(context).pop(),
@@ -189,7 +189,7 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
           builder: (BuildContext context) {
             return CustomDialogBox(
               AppLocalizations.of(context)!.tutorial2FindBombsTitle,
-              AppLocalizations.of(context)!.tutorial2FindBombs,
+              AppLocalizations.of(context)!.tutorial2FindBombsDescr,
               AppLocalizations.of(context)!.next,
               "assets/icons_tutorial/flag_tile.png",
               () => Navigator.of(context).pop(),
@@ -202,9 +202,22 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
           builder: (BuildContext context) {
             return CustomDialogBox(
               AppLocalizations.of(context)!.tutorial3FlagsTitle,
-              AppLocalizations.of(context)!.tutorial3Flags,
+              AppLocalizations.of(context)!.tutorial3FlagsDescr,
               AppLocalizations.of(context)!.next,
               "assets/icons_tutorial/flag.png",
+              () => Navigator.of(context).pop(),
+            );
+          });
+
+      await showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return CustomDialogBox(
+              AppLocalizations.of(context)!.tutorial6DoubleClickTitle,
+              AppLocalizations.of(context)!.tutorial6DoubleClickDescr,
+              AppLocalizations.of(context)!.next,
+              "assets/icons_tutorial/flags_double_click.png",
               () => Navigator.of(context).pop(),
             );
           });
@@ -213,8 +226,8 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
           barrierDismissible: false,
           builder: (BuildContext context) {
             return CustomDialogBox(
-              AppLocalizations.of(context)!.tutorial4Win,
               AppLocalizations.of(context)!.tutorial4WinTitle,
+              AppLocalizations.of(context)!.tutorial4WinDescr,
               AppLocalizations.of(context)!.next,
               "assets/icons/win.png",
               () => Navigator.of(context).pop(),
@@ -226,7 +239,7 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
           builder: (BuildContext context) {
             return CustomDialogBox(
               AppLocalizations.of(context)!.tutorial5WorldRankingTitle,
-              AppLocalizations.of(context)!.tutorial5WorldRankingTitle,
+              AppLocalizations.of(context)!.tutorial5WorldRankingDescr,
               AppLocalizations.of(context)!.play,
               "assets/icons_tutorial/ranking.png",
               () => Navigator.of(context).pop(),

@@ -42,24 +42,28 @@
 
     "tutorial1StartGameTitle":"Start game",
 
-    "tutorial1StartGame": "To start click any cell, a solvable playing field will be created.",
+    "tutorial1StartGameDescr": "To start click any cell, a solvable playing field will be created.",
 
     "tutorial2FindBombsTitle":"Find bombs",
 
-    "tutorial2FindBombs": "The numbers indicate how many bombs there are in the adjacent cells. For example, the number 3 indicates that there are three bombs around the cell.",
+    "tutorial2FindBombsDescr": "The numbers indicate how many bombs there are in the adjacent cells. For example, the number 3 indicates that there are three bombs around the cell.",
     
     "tutorial3FlagsTitle":"Flag bombs",
     
-    "tutorial3Flags":"Longpress and hold a cell to insert a flag which can help you remember where a bomb may be.",
+    "tutorial3FlagsDescr":"Longpress and hold a cell to insert a flag which can help you remember where a bomb may be.",
     
     "tutorial4WinTitle":"Victory",
 
-    "tutorial4Win":"You win if you leave all the bombs covered and discover all the cells free.",
+    "tutorial4WinDescr":"You win if you leave all the bombs covered and discover all the cells free.",
     
     "tutorial5WorldRankingTitle":"World Ranking",
     
-    "tutorial5WorldRanking":"Try to solve the field as quickly as possible to climb the world ranking that you find on the home page!",
+    "tutorial5WorldRankingDescr":"Try to solve the field as quickly as possible to climb the world ranking that you find on the home page!",
     
+    "tutorial6DoubleClickTitle": "Speed Opening",
+
+    "tutorial6DoubleClickDescr": "Double click on an uncovered cell where you have already placed all flags around it to open all adjacent free cells!",
+
     "next":"Next",
     
     "play":"Play",
