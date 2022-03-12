@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:games_services/games_services.dart';
@@ -75,8 +76,8 @@ class _HomePageState extends State<HomePage> {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.only(
-            left: 8,
-            right: 8,
+            // left: 8,
+            // right: 8,
             top: 20,
             bottom: 20,
           ),
@@ -136,45 +137,30 @@ class _HomePageState extends State<HomePage> {
       builder: (BuildContext context, BoxConstraints constraints) {
         return SizedBox(
           height: constraints.maxHeight,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                flex: 1,
-                child: selectedIndex > 1
-                    ? IconButton(
-                        onPressed: () {
-                          setState(() {});
-                          selectedIndex > 1 ? selectedIndex-- : null;
-                        },
-                        icon: const Icon(Icons.arrow_back_ios_rounded),
-                      )
-                    : Container(),
-              ),
-              Expanded(
-                flex: 4,
-                child: buildBodySelectElement(selectedIndex),
-              ),
-              Expanded(
-                flex: 1,
-                child: selectedIndex < 3
-                    ? IconButton(
-                        onPressed: () {
-                          setState(() {});
-                          selectedIndex < 3 ? selectedIndex++ : null;
-                        },
-                        icon: const Icon(Icons.arrow_forward_ios_rounded),
-                      )
-                    : Container(),
-              ),
-            ],
+          child: CarouselSlider(
+            options: CarouselOptions(
+              height: constraints.maxHeight,
+              enableInfiniteScroll: false,
+              initialPage: 1,
+            ),
+            items: [1, 2, 3].map((i) {
+              return Builder(
+                builder: (BuildContext context) {
+                  return Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child:
+                        buildBodySelectElement(i, constraints.maxWidth * 0.75),
+                  );
+                },
+              );
+            }).toList(),
           ),
         );
       },
     );
   }
 
-  Widget buildBodySelectElement(int index) {
+  Widget buildBodySelectElement(int index, double sizeWidth) {
     Difficulty difficulty = getDifficultyFromIndex(index);
     return InkWell(
       onTap: () => openDifficultyGame(context, difficulty),
@@ -182,6 +168,7 @@ class _HomePageState extends State<HomePage> {
         borderRadius: 30,
         depth: 35,
         spread: 10,
+        width: sizeWidth,
         curveType: CurveType.concave,
         surfaceColor: StyleConstant.mainColor,
         parentColor: StyleConstant.listColorShadeDifficulty[index - 1],
@@ -203,7 +190,9 @@ class _HomePageState extends State<HomePage> {
                   maxLines: 1,
                 ),
                 Text(
-                  getDifficultyBombString(difficulty) + " "+AppLocalizations.of(context)!.bombs.toUpperCase(),
+                  getDifficultyBombString(difficulty) +
+                      " " +
+                      AppLocalizations.of(context)!.bombs.toUpperCase(),
                   style: TextStyle(
                     fontSize: 25,
                     color: StyleConstant.listColors[index - 1].withAlpha(150),

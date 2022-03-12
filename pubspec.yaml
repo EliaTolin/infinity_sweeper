@@ -29,6 +29,7 @@ dependencies:
   intl: ^0.17.0
   purchases_flutter: ^3.9.4
   games_services: ^2.0.7
+  carousel_slider: ^4.0.0
   
 flutter_icons:
   ios: true
