@@ -208,8 +208,10 @@ class GameModelProvider extends ChangeNotifier {
             !cellGrid!.gridCells[j][k].isShowed) {
           if (cellGrid!.gridCells[j][k].isMine) {
             finishGame(GameState.lose);
+            notifyListeners();
+            return;
           }
-          showCell(cellGrid!.getCell(j, k));
+          _openEmptyCell(cellGrid!.getCell(j, k));
         }
       }
     }
