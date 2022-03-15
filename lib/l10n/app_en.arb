@@ -62,7 +62,7 @@
     
     "tutorial6DoubleClickTitle": "Speed Opening",
 
-    "tutorial6DoubleClickDescr": "Double click on an uncovered cell where you have already placed all flags around it to open all adjacent free cells!",
+    "tutorial6DoubleClickDescr": "Click on an uncovered cell where you have already placed all flags around it to open all adjacent free cells!",
 
     "next":"Next",
     

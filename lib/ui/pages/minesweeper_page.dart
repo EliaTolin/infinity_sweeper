@@ -209,18 +209,18 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
             );
           });
 
-      // await showDialog(
-      //     context: context,
-      //     barrierDismissible: false,
-      //     builder: (BuildContext context) {
-      //       return CustomDialogBox(
-      //         AppLocalizations.of(context)!.tutorial6DoubleClickTitle,
-      //         AppLocalizations.of(context)!.tutorial6DoubleClickDescr,
-      //         AppLocalizations.of(context)!.next,
-      //         "assets/icons_tutorial/flags_double_click.png",
-      //         () => Navigator.of(context).pop(),
-      //       );
-      //     });
+      await showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return CustomDialogBox(
+              AppLocalizations.of(context)!.tutorial6DoubleClickTitle,
+              AppLocalizations.of(context)!.tutorial6DoubleClickDescr,
+              AppLocalizations.of(context)!.next,
+              "assets/icons_tutorial/flags_double_click.png",
+              () => Navigator.of(context).pop(),
+            );
+          });
       await showDialog(
           context: context,
           barrierDismissible: false,
