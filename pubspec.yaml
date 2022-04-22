@@ -36,7 +36,7 @@ flutter_icons:
   android: true
   image_path: "assets/icons/icon.png"
   # optionally, as transparency is not allowed on app store
-  # remove_alpha_ios: true
+  remove_alpha_ios: true
 
 dev_dependencies:
   flutter_test:
