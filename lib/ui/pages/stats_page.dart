@@ -31,7 +31,7 @@ class _StatsPageState extends State<StatsPage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: TopBarBack(AppLocalizations.of(context)!.gameStatistics, size),
+      appBar: TopBarBack(AppLocalizations.of(context)!.statistics, size),
       backgroundColor: StyleConstant.mainColor,
       body: Center(
         child: Padding(
@@ -56,39 +56,52 @@ class _StatsPageState extends State<StatsPage> {
               Column(
                 children: [
                   ClayContainer(
+                    width: double.infinity,
                     borderRadius: 5,
                     curveType: CurveType.none,
                     surfaceColor: StyleConstant.mainColor,
                     parentColor: StyleConstant.mainColor,
                     color: StyleConstant.mainColor,
-                    child: getRecordElement(
-                        AppLocalizations.of(context)!.easy.toLowerCase(),
-                        gameData.recordTimeInSecond[DataConstant.recordEasy],
-                        StyleConstant.listColors[0]),
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: getRecordElement(
+                          AppLocalizations.of(context)!.easy.toLowerCase(),
+                          gameData.recordTimeInSecond[DataConstant.recordEasy],
+                          StyleConstant.listColors[0]),
+                    ),
                   ),
                   const SizedBox(height: 10),
                   ClayContainer(
                     borderRadius: 5,
+                    width: double.infinity,
                     curveType: CurveType.none,
                     surfaceColor: StyleConstant.mainColor,
                     parentColor: StyleConstant.mainColor,
                     color: StyleConstant.mainColor,
-                    child: getRecordElement(
-                        AppLocalizations.of(context)!.medium.toLowerCase(),
-                        gameData.recordTimeInSecond[DataConstant.recordMedium],
-                        StyleConstant.listColors[1]),
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: getRecordElement(
+                          AppLocalizations.of(context)!.medium.toLowerCase(),
+                          gameData
+                              .recordTimeInSecond[DataConstant.recordMedium],
+                          StyleConstant.listColors[1]),
+                    ),
                   ),
                   const SizedBox(height: 10),
                   ClayContainer(
                     borderRadius: 5,
+                    width: double.infinity,
                     curveType: CurveType.none,
                     surfaceColor: StyleConstant.mainColor,
                     parentColor: StyleConstant.mainColor,
                     color: StyleConstant.mainColor,
-                    child: getRecordElement(
-                        AppLocalizations.of(context)!.hard.toLowerCase(),
-                        gameData.recordTimeInSecond[DataConstant.recordHard],
-                        StyleConstant.listColors[2]),
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: getRecordElement(
+                          AppLocalizations.of(context)!.hard.toLowerCase(),
+                          gameData.recordTimeInSecond[DataConstant.recordHard],
+                          StyleConstant.listColors[2]),
+                    ),
                   ),
                   const SizedBox(height: 10),
                 ],
@@ -104,11 +117,12 @@ class _StatsPageState extends State<StatsPage> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              AutoSizeText(
+              Text(
                 AppLocalizations.of(context)!.yourRecord(difficulty),
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
