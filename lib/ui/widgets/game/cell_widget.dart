@@ -29,6 +29,7 @@ class _CellWidgetState extends State<CellWidget> {
       if (widget.cell.isMine) {
         return SvgPicture.asset(
           "assets/bomb.svg",
+          color: widget.cell.isLosedCell ? Colors.red : null,
         );
       }
       if (widget.cell.value == 0) return Container();

@@ -266,6 +266,7 @@ class GameModelProvider extends ChangeNotifier {
     }
     //Check if lose
     if (cell.isMine) {
+      cell.losed = true;
       finishGame(GameState.lose);
       notifyListeners();
       return;
