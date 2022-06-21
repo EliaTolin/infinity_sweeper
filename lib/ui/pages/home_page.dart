@@ -122,7 +122,7 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
                 AutoSizeText(
-                    AppLocalizations.of(context)!.developBy + " Aurora",
+                    AppLocalizations.of(context)!.developBy + " Aurora Digital",
                     style: const TextStyle(color: StyleConstant.textColor)),
               ],
             ),

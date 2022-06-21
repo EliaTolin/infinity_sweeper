@@ -3,12 +3,16 @@ import 'package:infinity_sweeper/constants/route_constant.dart';
 import 'package:infinity_sweeper/ui/pages/minesweeper_page.dart';
 import 'package:infinity_sweeper/ui/pages/home_page.dart';
 import 'package:infinity_sweeper/ui/pages/purchase_page.dart';
+import 'package:infinity_sweeper/ui/pages/splashscreen_aurora_page.dart';
 import 'package:infinity_sweeper/ui/pages/startgame_page.dart';
 import 'package:infinity_sweeper/ui/pages/stats_page.dart';
 import 'package:infinity_sweeper/ui/pages/splashscreen_page.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
+    case RouteConstant.auroraSplashRoute:
+      return MaterialPageRoute(
+          builder: (context) => const AuroraSplashScreen());
     case RouteConstant.splashRoute:
       return MaterialPageRoute(builder: (context) => const SplashScreen());
     case RouteConstant.homeRoute:

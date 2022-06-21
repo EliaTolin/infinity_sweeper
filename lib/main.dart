@@ -45,7 +45,7 @@ class InfinitySweeper extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'Futura Round'),
       onGenerateRoute: router.generateRoute,
-      initialRoute: RouteConstant.splashRoute,
+      initialRoute: RouteConstant.auroraSplashRoute,
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,

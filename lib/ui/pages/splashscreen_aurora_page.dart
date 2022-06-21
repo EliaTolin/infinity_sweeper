@@ -4,17 +4,18 @@ import 'package:infinity_sweeper/constants/style_constant.dart';
 import 'package:infinity_sweeper/helpers/games_service/gameservices_helper.dart';
 import 'package:infinity_sweeper/ui/pages/home_page.dart';
 import 'package:infinity_sweeper/providers/gamedata_provider.dart';
+import 'package:infinity_sweeper/ui/pages/splashscreen_page.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+class AuroraSplashScreen extends StatefulWidget {
+  const AuroraSplashScreen({Key? key}) : super(key: key);
 
   @override
   _SplashScreenPageState createState() => _SplashScreenPageState();
 }
 
-class _SplashScreenPageState extends State<SplashScreen> {
+class _SplashScreenPageState extends State<AuroraSplashScreen> {
   GamesServicesHelper gamesServicesHelper = GamesServicesHelper();
   @override
   void initState() {
@@ -26,20 +27,13 @@ class _SplashScreenPageState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     Provider.of<GameDataProvider>(context, listen: false).initializeData();
     return EasySplashScreen(
-      logo: Image.asset('assets/icons/icon_trasparent.png'),
+      logo: Image.asset('assets/icons/aurora_icon.png'),
       logoSize: 100,
-      title: const Text(
-        "Infinity MineSweeper",
-        style: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
       backgroundColor: StyleConstant.mainColor,
       showLoader: false,
       loadingText: Text(AppLocalizations.of(context)!.loading),
-      navigator: const HomePage(),
-      durationInSeconds: 3,
+      navigator: const SplashScreen(),
+      durationInSeconds: 2,
     );
   }
 }

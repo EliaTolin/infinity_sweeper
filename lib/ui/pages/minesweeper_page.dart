@@ -53,7 +53,7 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
     if (!isProVersionAds) {
       adInterstitialHelper.createInterstialAd();
     }
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<GameModelProvider>(context, listen: false).generateCellGrid();
     });
   }
@@ -108,7 +108,7 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
                                     gameModel.state == GameState.victory) {
                                   gameTerminate = true;
                                   interstitialAd();
-                                  WidgetsBinding.instance?.addPostFrameCallback(
+                                  WidgetsBinding.instance.addPostFrameCallback(
                                     (_) {
                                       computeWinGame(
                                           context, gameModel.difficulty);
@@ -119,7 +119,7 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
                                     gameModel.state == GameState.lose) {
                                   gameTerminate = true;
                                   interstitialAd();
-                                  WidgetsBinding.instance?.addPostFrameCallback(
+                                  WidgetsBinding.instance.addPostFrameCallback(
                                     (_) {
                                       computeLoseGame(context);
                                     },
